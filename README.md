@@ -1,2 +1,2 @@
 # lightweight-game-engine
-![alt text](/gantt.png "Roadmap")
+![alt text](/Documentation/gantt.png "Roadmap")
