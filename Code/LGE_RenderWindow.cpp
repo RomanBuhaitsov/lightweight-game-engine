@@ -5,7 +5,6 @@ bool LGE_RenderWindow::SDL_initialized = false;
 int LGE_RenderWindow::LGE_numInstances = 0;
 
 LGE_RenderWindow::LGE_RenderWindow(const char* title, int width, int height, bool fullscreen) : window(NULL), renderer(NULL), init(false) {
-	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN | SDL_WINDOW_SHOWN : SDL_WINDOW_SHOWN;
 	if (!SDL_initialized) {
 		if (SDL_Init(SDL_INIT_EVERYTHING)) {
 			LGE_logError << "Failed to initialize SDL, error: " << SDL_GetError() << "\n";
@@ -13,6 +12,7 @@ LGE_RenderWindow::LGE_RenderWindow(const char* title, int width, int height, boo
 		}
 		SDL_initialized = true;
 	}
+	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN | SDL_WINDOW_SHOWN : SDL_WINDOW_SHOWN;
 	if ((window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags)) == NULL) {
 		LGE_logError << "SDL_CreateWindow failed to initialize, error: " << SDL_GetError() << "\n";
 		return;
@@ -34,6 +34,7 @@ LGE_RenderWindow::~LGE_RenderWindow() {
 	}
 	if (SDL_initialized && LGE_numInstances == 0) {
 		SDL_Quit();
+		SDL_initialized = false;
 	}
 }
 
