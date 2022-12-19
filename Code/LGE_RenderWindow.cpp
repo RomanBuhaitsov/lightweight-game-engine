@@ -52,10 +52,21 @@ void LGE_RenderWindow::clear() {
 	SDL_RenderClear(renderer);
 }
 
-void LGE_RenderWindow::renderTexture(SDL_Texture* texture) {//todo: position, size
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
+void LGE_RenderWindow::renderTexture(SDL_Texture* texture, const SDL_Rect & src, const SDL_Rect & dst) {
+	SDL_RenderCopy(renderer, texture, &src, &dst);
+}
+
+void LGE_RenderWindow::renderTexture(SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dst,
+	const double & angle, 
+	const SDL_Point *center,
+	const SDL_RendererFlip & flip) {
+	SDL_RenderCopyEx(renderer, texture, &src, &dst, angle, center, flip);
 }
 
 void LGE_RenderWindow::present() {
 	SDL_RenderPresent(renderer);
+}
+
+void LGE_RenderWindow::getSize(int& width, int& height) {
+	SDL_GetWindowSize(window, &width, &height);
 }

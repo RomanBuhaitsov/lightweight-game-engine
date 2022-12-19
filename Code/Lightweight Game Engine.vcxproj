@@ -151,14 +151,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LGE_Components.cpp" />
+    <ClCompile Include="LGE_Entity.cpp" />
     <ClCompile Include="LGE_GameWindow.cpp" />
+    <ClCompile Include="LGE_PositionComponent.cpp" />
     <ClCompile Include="LGE_RenderWindow.cpp" />
+    <ClCompile Include="LGE_SpriteComponent.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LGE_Components.h" />
+    <ClInclude Include="LGE_Entity.h" />
     <ClInclude Include="LGE_GameWindow.h" />
+    <ClInclude Include="LGE_PositionComponent.h" />
     <ClInclude Include="LGE_RenderWindow.h" />
     <ClInclude Include="LGE_InputOutput.h" />
+    <ClInclude Include="LGE_SpriteComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
