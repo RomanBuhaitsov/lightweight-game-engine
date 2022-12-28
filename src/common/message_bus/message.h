@@ -1,11 +1,15 @@
 #pragma once
 #include <string>
 
+enum class MessageEvent {
+  // TODO: add events
+};
+
 class Message {
 private:
-  std::string messageEvent;
+  MessageEvent messageEvent;
 
 public:
-  Message(const std::string event);
-  std::string getEvent();
+  Message(const MessageEvent event);
+  MessageEvent getEvent();
 };

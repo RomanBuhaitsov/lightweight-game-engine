@@ -2,6 +2,6 @@
 
 #include <string>
 
-Message::Message(const std::string event) { messageEvent = event; }
+Message::Message(const MessageEvent event) { messageEvent = event; }
 
-std::string Message::getEvent() { return messageEvent; }
+MessageEvent Message::getEvent() { return messageEvent; }
