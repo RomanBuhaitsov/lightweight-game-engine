@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "cmake.configureSettings": {
+    "CMAKE_TOOLCHAIN_FILE": "$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  }
+}

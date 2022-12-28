@@ -1,0 +1,9 @@
+{
+  "name": "lightweight-game-engine",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "fmt",
+    "sdl2",
+    "sdl2-image"
+  ]
+}

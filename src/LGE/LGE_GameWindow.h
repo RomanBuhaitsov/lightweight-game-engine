@@ -4,6 +4,6 @@
 class LGE_GameWindow : public LGE_RenderWindow {
 private:
 public:
-	LGE_GameWindow(const char* title, int width, int height, bool fullscreen);
-	void gameLoop();
+  LGE_GameWindow(const char *title, int width, int height, bool fullscreen);
+  void gameLoop();
 };
