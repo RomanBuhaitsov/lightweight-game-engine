@@ -10,5 +10,6 @@ int main(int argc, char **argv)
   GameLoop *loop = new GameLoop(FRAMERATE, MAX_FRAMESKIP);
   loop->run();
 
+  delete loop;
   return 0;
 }
