@@ -7,7 +7,6 @@ private:
   int skip_ticks;
   int execution_start_time;
 
-  unsigned long long getTickCount();
   void handleEvents(){};
   void update(){};
   void render(){};
