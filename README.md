@@ -7,10 +7,12 @@
 
 ## Build
 Linux/Macos
+
+Build dependencies:
 ```
 cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
-From project root directory
+From project root directory, build project:
 ```
 cmake --build build
 ```
