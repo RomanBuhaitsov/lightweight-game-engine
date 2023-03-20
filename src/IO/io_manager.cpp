@@ -12,7 +12,14 @@ void IOManager::update()
 
 void IOManager::onNotify(Message message)
 {
-  std::cout << "Data: " << message.getData()["hello"] << std::endl;
+  switch (message.getEvent())
+  {
+  case MessageEvent::HELLO:
+    std::cout << "[IOManager] " << message.getData()["hello"] << std::endl;
+    break;
+  default:
+    break;
+  }
 }
 
 void DummyReceiverClass::update()
@@ -25,5 +32,12 @@ void DummyReceiverClass::update()
 
 void DummyReceiverClass::onNotify(Message message)
 {
-  std::cout << "Data: " << message.getData()["hello"] << std::endl;
+  switch (message.getEvent())
+  {
+  case MessageEvent::HELLO:
+    std::cout << "[DummyReceiverClass] " << message.getData()["hello"] << std::endl;
+    break;
+  default:
+    break;
+  }
 }
