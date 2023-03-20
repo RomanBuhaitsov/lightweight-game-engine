@@ -2,7 +2,7 @@
 #include "LGE_PositionComponent.h"
 #include "LGE_SpriteComponent.h"
 
-void LGE_PositionComponent::update(const Uint64& gameTime) {
+void LGE_PositionComponent::update(const Uint64 gameTime) {
 	//test
 	LGE_SpriteComponent* test = (LGE_SpriteComponent*)entity->getComponent(LGE_ComponentType::CT_SPRITE);
 	if (test == NULL) {

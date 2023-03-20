@@ -13,7 +13,7 @@ public:
 	static LGE_GameWindow* game; //fixme: messagebus?
 	LGE_Component(LGE_ComponentType type) : entity(NULL), type(type) {};
 	virtual void init() {};
-	virtual void update(const Uint64& gameTime) {};
+	virtual void update(const Uint64 gameTime) {};
 	virtual void draw() {};
 	virtual ~LGE_Component() {};
 };

@@ -17,11 +17,11 @@ public:
 
 	SDL_Texture* loadTexture(const char* filepath);
 	void clear();
-	void renderTexture(SDL_Texture* texture, const SDL_Rect & src, const SDL_Rect & dst);
-	void renderTexture(SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dst,
-		const double& angle,
+	void renderTexture(SDL_Texture* texture, const SDL_Rect src, const SDL_Rect dst);
+	void renderTexture(SDL_Texture* texture, const SDL_Rect src, const SDL_Rect dst,
+		const double angle,
 		const SDL_Point* center,
-		const SDL_RendererFlip& flip);
+		const SDL_RendererFlip flip);
 	void present();
 	void getSize(int & width, int & height);
 };

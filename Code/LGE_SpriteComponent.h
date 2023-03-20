@@ -14,10 +14,12 @@ private:
 	int numFrames;
 	int currentFrame;
 	Uint64 lastUpdate;
+	bool playing;
+	float angle;
 public:
 	LGE_SpriteComponent(SDL_Texture* texture, int spriteWidth, int spriteHeight, int frameWidth, int frameHeight, int numFrames, int animationSpeed);
-	void setRow(const int& row);
-	void update(const Uint64& gameTime);
+	void setRow(const int row);
+	void update(const Uint64 gameTime);
 	void draw();
 	void init();
 	void flipVertically();
@@ -25,4 +27,6 @@ public:
 	int getSpriteWidth();
 	int getSpriteHeight();
 	int getFlipped();
+	void startAnimation();
+	void stopAnimation();
 };

@@ -9,12 +9,12 @@ void LGE_Entity::addComponent(LGE_Component* component) {
 	components.insert(std::pair<LGE_ComponentType, LGE_Component*>(component->type, component));
 }
 
-LGE_Component* LGE_Entity::getComponent(const LGE_ComponentType& type) {
+LGE_Component* LGE_Entity::getComponent(const LGE_ComponentType type) {
 	auto component = components.find(type);
 	return component == components.end() ? NULL : component->second;
 }
 
-void LGE_Entity::update(const Uint64 & gameTime) {
+void LGE_Entity::update(const Uint64 gameTime) {
 	for (auto & c : components) {
 		c.second->update(gameTime);
 	}
