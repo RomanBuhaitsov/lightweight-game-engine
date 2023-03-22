@@ -48,6 +48,9 @@
     <ClCompile Include="LGE_DebugDraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LGE_EntityContact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LGE_RenderWindow.h">
@@ -73,6 +76,15 @@
     </ClInclude>
     <ClInclude Include="LGE_PhysicsComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LGE_EntityType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LGE_EntityContact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LGE_DebugDraw.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

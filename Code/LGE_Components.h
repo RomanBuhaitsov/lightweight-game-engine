@@ -15,5 +15,6 @@ public:
 	virtual void init() {};
 	virtual void update(const Uint64 gameTime) {};
 	virtual void draw() {};
+	//virtual void destroy() {}
 	virtual ~LGE_Component() {};
 };

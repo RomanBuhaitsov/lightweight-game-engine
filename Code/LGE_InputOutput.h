@@ -1,4 +1,5 @@
 #pragma once
 #include <iostream>
 
-#define LGE_logError std::cout //fixme: todo
+#define LGE_Log std::cout
+#define LGE_LogError std::cout //fixme: todo

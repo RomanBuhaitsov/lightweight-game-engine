@@ -33,8 +33,12 @@ void LGE_Entity::destroy() {
 	components.clear();
 }
 
-LGE_Entity::LGE_Entity() {
+LGE_Entity::LGE_Entity(LGE_EntityType entityType) : entityType(entityType) {
+	
+}
 
+const LGE_EntityType& LGE_Entity::getType() const {
+	return entityType;
 }
 
 LGE_Entity::~LGE_Entity() {

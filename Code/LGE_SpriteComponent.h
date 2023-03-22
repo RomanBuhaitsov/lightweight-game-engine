@@ -16,8 +16,10 @@ private:
 	Uint64 lastUpdate;
 	bool playing;
 	float angle;
+	int shift_x;
+	int shift_y;
 public:
-	LGE_SpriteComponent(SDL_Texture* texture, int spriteWidth, int spriteHeight, int frameWidth, int frameHeight, int numFrames, int animationSpeed);
+	LGE_SpriteComponent(SDL_Texture* texture, int spriteWidth, int spriteHeight, int frameWidth, int frameHeight, int numFrames, int animationSpeed, int shift_x = 0, int shift_y = 0);
 	void setRow(const int row);
 	void update(const Uint64 gameTime);
 	void draw();

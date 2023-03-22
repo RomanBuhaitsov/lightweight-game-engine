@@ -7,18 +7,18 @@ int LGE_RenderWindow::LGE_numInstances = 0;
 LGE_RenderWindow::LGE_RenderWindow(const char* title, int width, int height, bool fullscreen) : window(NULL), renderer(NULL), init(false) {
 	if (!SDL_initialized) {
 		if (SDL_Init(SDL_INIT_EVERYTHING)) {
-			LGE_logError << "Failed to initialize SDL, error: " << SDL_GetError() << "\n";
+			LGE_LogError << "Failed to initialize SDL, error: " << SDL_GetError() << "\n";
 			return;
 		}
 		SDL_initialized = true;
 	}
 	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN | SDL_WINDOW_SHOWN : SDL_WINDOW_SHOWN;
 	if ((window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags)) == NULL) {
-		LGE_logError << "SDL_CreateWindow failed to initialize, error: " << SDL_GetError() << "\n";
+		LGE_LogError << "SDL_CreateWindow failed to initialize, error: " << SDL_GetError() << "\n";
 		return;
 	}
 	if ((renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED)) == NULL) {
-		LGE_logError << "SDL_CreateRenderer failed to initialize, error: " << SDL_GetError() << "\n";
+		LGE_LogError << "SDL_CreateRenderer failed to initialize, error: " << SDL_GetError() << "\n";
 		SDL_DestroyWindow(window);
 		return;
 	}
@@ -43,7 +43,7 @@ bool LGE_RenderWindow::isInitialized() { return init; }
 SDL_Texture* LGE_RenderWindow::loadTexture(const char* filepath) {
 	SDL_Texture* texture = IMG_LoadTexture(renderer, filepath);
 	if (texture == NULL) {
-		LGE_logError << "IMG_LoadTexture failed, error: " << SDL_GetError() << "\n";
+		LGE_LogError << "IMG_LoadTexture failed, error: " << SDL_GetError() << "\n";
 	}
 	return texture;
 }

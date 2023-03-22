@@ -5,11 +5,11 @@
 LGE_SpriteComponent::LGE_SpriteComponent(SDL_Texture* texture,
 	int spriteWidth, int spriteHeight,
 	int frameWidth, int frameHeight,
-	int numFrames, int animationSpeed)
+	int numFrames, int animationSpeed, int shift_x, int shift_y)
 	: LGE_Component(LGE_ComponentType::CT_SPRITE), texture(texture),
 	src({ 0, 0, frameWidth, frameHeight }), dst({ 0, 0, spriteWidth, spriteHeight }), center({ frameWidth / 2, frameHeight / 2 }),
 	numFrames(numFrames), animationSpeed(animationSpeed),
-	currentFrame(0), lastUpdate(0), position(NULL), flip(SDL_FLIP_NONE), playing(false), angle(0.0) {
+	currentFrame(0), lastUpdate(0), position(NULL), flip(SDL_FLIP_NONE), playing(false), angle(0.0), shift_x(shift_x), shift_y(shift_y) {
 }
 
 void LGE_SpriteComponent::init() {
@@ -57,13 +57,12 @@ void LGE_SpriteComponent::update(const Uint64 gameTime) {
 	LGE_PhysicsComponent* p = (LGE_PhysicsComponent*)entity->getComponent(LGE_ComponentType::CT_PHYSICS);
 	if (p != nullptr) {
 		b2Vec2 position = p->position(), vel = p->velocity();
-		dst.x = position.x * LGE_PhysicsComponent::M2P;
-		dst.y = position.y * LGE_PhysicsComponent::M2P;
+		dst.x = position.x * LGE_PhysicsComponent::M2P + shift_x;
+		dst.y = position.y * LGE_PhysicsComponent::M2P + shift_y;
 		playing = vel.LengthSquared() > 0;
-		/*
-		if ((vel.x > 0 && flip & SDL_FLIP_HORIZONTAL) || (vel.x < 0 && !(flip & SDL_FLIP_HORIZONTAL))) {
+		if (numFrames && ((vel.x > 0.1f && (flip & SDL_FLIP_HORIZONTAL)) || (vel.x < -0.1f && !(flip & SDL_FLIP_HORIZONTAL)))) {
 			flip ^= SDL_FLIP_HORIZONTAL;
-		}*/
+		}
 		angle = p->getBody()->GetAngle() * LGE_PhysicsComponent::RAD2DEG;
 	}
 	//dst.x = position->getX();
