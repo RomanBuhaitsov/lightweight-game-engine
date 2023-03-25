@@ -1,43 +1,30 @@
+#include <iostream>
 #include <unordered_map>
+
+#include <SDL2/SDL.h>
+
+#include "../message_bus/message.h"
 
 #include "io_manager.h"
 
 void IOManager::update()
 {
-  std::unordered_map<std::string, std::string> data = std::unordered_map<std::string, std::string>();
-  data["hello"] = "world";
-  Message message = Message(MessageEvent::HELLO, data);
-  send(message);
+  SDL_Event event;
+  // SDL_PollEvent works only with initialized the video subsystem (e.g. game window displayed)
+  while (SDL_PollEvent(&event))
+  {
+    if (event.type != SDL_KEYDOWN)
+      continue;
+
+    MessageEvent keyboard_event = this->key_event_map.at(event.key.keysym.sym);
+    std::unordered_map<std::string, std::string> data = std::unordered_map<std::string, std::string>();
+    Message message = Message(keyboard_event, data);
+    send(message);
+  }
 }
 
 void IOManager::onNotify(Message message)
 {
-  switch (message.getEvent())
-  {
-  case MessageEvent::HELLO:
-    std::cout << "[IOManager] " << message.getData()["hello"] << std::endl;
-    break;
-  default:
-    break;
-  }
-}
-
-void DummyReceiverClass::update()
-{
-  std::unordered_map<std::string, std::string> data = std::unordered_map<std::string, std::string>();
-  data["hello"] = "world";
-  Message message = Message(MessageEvent::HELLO, data);
-  send(message);
-}
-
-void DummyReceiverClass::onNotify(Message message)
-{
-  switch (message.getEvent())
-  {
-  case MessageEvent::HELLO:
-    std::cout << "[DummyReceiverClass] " << message.getData()["hello"] << std::endl;
-    break;
-  default:
-    break;
-  }
+  std::cout << "[IOManager] "
+            << "received event" << std::endl;
 }

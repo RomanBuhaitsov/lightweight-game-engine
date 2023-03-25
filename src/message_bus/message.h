@@ -2,10 +2,7 @@
 #include <string>
 #include <unordered_map>
 
-enum class MessageEvent
-{
-  HELLO,
-};
+#include "message_event.h"
 
 class Message
 {

@@ -4,9 +4,13 @@
 
 #include "game_loop.h"
 #include "../IO/io_manager.h"
+#include "../LGE/LGE_RenderWindow.h"
 
-GameLoop::GameLoop(int framerate, int max_frameskip)
+// dependency injection
+GameLoop::GameLoop(IOManager *io, LGE_RenderWindow *window, int framerate, int max_frameskip)
 {
+  this->io = io;
+  this->window = window;
   this->framerate = framerate;
   this->max_frameskip = max_frameskip;
   this->skip_ticks = 1000 / this->framerate;
@@ -17,25 +21,21 @@ void GameLoop::run()
 {
   int loops;
   auto next_game_tick = SDL_GetTicks64();
-
-  // example of how to use the message bus
-  MessageBus *message_bus = new MessageBus();
-  IOManager *io_manager = new IOManager(message_bus);
-  DummyReceiverClass *dummy_receiver = new DummyReceiverClass(message_bus);
+  SDL_Texture *texture = this->window->loadTexture("src/LGE/textures/placeholder.png");
+  this->window->renderTexture(texture);
+  this->window->present();
 
   while (this->game_running)
   {
     loops = 0;
     while (SDL_GetTicks64() > next_game_tick && loops < this->max_frameskip)
     {
-      io_manager->update();
-      message_bus->notify();
+      this->io->update();
       this->handleEvents();
       this->update();
       next_game_tick += this->skip_ticks;
       loops++;
     }
-
-    this->render();
+    // rendering should happen here
   }
 }
