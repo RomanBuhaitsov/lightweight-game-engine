@@ -1,6 +1,6 @@
 # lightweight-game-engine
 
-## Requirements
+## Prerequisites
 - vcpkg
 - cmake
 - c++ compiler std 17
