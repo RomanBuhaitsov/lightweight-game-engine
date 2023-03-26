@@ -10,12 +10,12 @@ target_sources(GameLoop
   game_loop.h
 )
 
-target_link_libraries(GameLoop PRIVATE $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>)
 target_link_libraries(GameLoop
   PRIVATE
   $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
   $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 )
+target_link_libraries(GameLoop PRIVATE $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>)
 
 target_link_libraries(GameLoop PUBLIC IO)
 target_link_libraries(GameLoop PUBLIC MessageBus)

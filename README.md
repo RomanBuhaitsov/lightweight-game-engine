@@ -7,22 +7,41 @@
 
 ## Build
 Linux/Macos
+All commands should be executed from project root directory.
+Install dependencies:
 
+```
+cd src && vcpkg install && cd ..
+```
 Build dependencies:
 ```
-cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake -B build -S ./src -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
-From project root directory, build project:
+Build project:
 ```
 cmake --build build
 ```
 
+# Running project
+From project root directory, run:
+```
+./build/lightweight-game-engine
+```
+
+# Building with docker
+Create `.docker.env` with content listed out in `docker.env.example`
+
+Build docker image
+```
+docker build -t "lge" .
+```
+Run docker image
+```
+docker run -it --env-file ".docker.env" lge
+```
 
 ## Wiki
 The system wiki is available under [this](https://github.com/RomanBuhaitsov/lightweight-game-engine/wiki) url.
-
-## Gantt diagram
-![alt text](/Documentation/gantt.png "Roadmap")
 
 
 ## Log

@@ -1,5 +1,6 @@
 ﻿# environment variables
 .env
+.docker.env
 
 # Prerequisites
 *.d
@@ -432,4 +433,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # vcpkg
-vcpkg_installed/*
+*/vcpkg_installed/*
+
