@@ -7,7 +7,7 @@
 
 ## Build
 ### Linux/Macos 
-All commands should be executed from project root directory.
+All commands should be executed from project root directory.  
 Install dependencies:
 
 ```
