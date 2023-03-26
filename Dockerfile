@@ -7,8 +7,8 @@ RUN apt-get update
 # install git to pull vcpkg
 RUN apt install -y git-all
 
-# install basic tools
-RUN apt-get install -y curl wget zip unzip tar build-essential libssl-dev ninja-build
+# install necessary tools
+RUN apt-get install -y curl wget zip unzip tar build-essential libssl-dev ninja-build pkg-config
 
 # install cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.26.1/cmake-3.26.1.tar.gz
@@ -24,9 +24,6 @@ RUN ln -s /vcpkg/vcpkg /usr/local/bin/vcpkg
 
 WORKDIR /code
 COPY ./src /code
-
-
-RUN apt-get install -y pkg-config
 
 # install dependencies
 RUN vcpkg install
