@@ -51,6 +51,15 @@
     <ClCompile Include="LGE_EntityContact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LGE_TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LGE_SpritePhysicsHandler.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LGE_PlayerMovementHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LGE_RenderWindow.h">
@@ -85,6 +94,15 @@
     </ClInclude>
     <ClInclude Include="LGE_DebugDraw.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LGE_TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LGE_SpritePhysicsHandler.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LGE_ComponentType.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@ public:
 	bool isInitialized();
 
 	SDL_Texture* loadTexture(const char* filepath);
+	void destroyTexture(SDL_Texture* texture);
 	void clear();
 	void renderTexture(SDL_Texture* texture, const SDL_Rect src, const SDL_Rect dst);
 	void renderTexture(SDL_Texture* texture, const SDL_Rect src, const SDL_Rect dst,

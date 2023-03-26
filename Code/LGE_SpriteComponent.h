@@ -5,21 +5,28 @@
 class LGE_SpriteComponent : public LGE_Component {
 private:
 	SDL_Texture* texture;
-	LGE_PositionComponent* position;
 	SDL_Rect src;
 	SDL_Rect dst;
 	SDL_Point center;
-	int flip;
-	int animationSpeed;
-	int numFrames;
-	int currentFrame;
+	Uint16 flip;
+	Uint16 animationSpeed;
+	Uint16 nRows;
+	std::unique_ptr<Uint16*> frames;
+	Uint16 currentFrame;
+	Uint16 currentRow;
 	Uint64 lastUpdate;
 	bool playing;
 	float angle;
 	int shift_x;
 	int shift_y;
 public:
-	LGE_SpriteComponent(SDL_Texture* texture, int spriteWidth, int spriteHeight, int frameWidth, int frameHeight, int numFrames, int animationSpeed, int shift_x = 0, int shift_y = 0);
+	LGE_SpriteComponent(SDL_Texture* texture, int spriteWidth, int spriteHeight, 
+		int frameWidth, int frameHeight, 
+		const std::initializer_list<Uint16> & numFrames, Uint16 animationSpeed, 
+		int shift_x = 0, int shift_y = 0);
+	LGE_SpriteComponent(SDL_Texture* texture, int spriteWidth, int spriteHeight,
+		int frameWidth, int frameHeight,
+		int shift_x = 0, int shift_y = 0);
 	void setRow(const int row);
 	void update(const Uint64 gameTime);
 	void draw();
@@ -28,7 +35,9 @@ public:
 	void flipHorizontally();
 	int getSpriteWidth();
 	int getSpriteHeight();
-	int getFlipped();
+	Uint16 getFlipped();
 	void startAnimation();
 	void stopAnimation();
+	void setAngle(float angle);
+	void setPosition(int x, int y);
 };

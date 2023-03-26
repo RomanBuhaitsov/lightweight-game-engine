@@ -2,6 +2,7 @@
 
 void LGE_Entity::addComponent(LGE_Component* component) {
 	if (components.find(component->type) != components.end()) {
+		delete component;
 		return; //fixme: overwrite?
 	}
 	component->entity = this;

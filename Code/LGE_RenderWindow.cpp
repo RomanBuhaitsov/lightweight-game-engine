@@ -48,6 +48,11 @@ SDL_Texture* LGE_RenderWindow::loadTexture(const char* filepath) {
 	return texture;
 }
 
+void LGE_RenderWindow::destroyTexture(SDL_Texture* texture)
+{
+	SDL_DestroyTexture(texture);
+}
+
 void LGE_RenderWindow::clear() {
 	SDL_RenderClear(renderer);
 }
