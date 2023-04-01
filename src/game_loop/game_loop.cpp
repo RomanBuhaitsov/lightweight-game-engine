@@ -71,6 +71,7 @@ void GameLoop::run()
   std::list<Entity *> removeEntities;
   do
   {
+    Log << "hejo" << std::endl;
     while (SDL_PollEvent(&ev))
     {
       recentEvents.push_back(ev);

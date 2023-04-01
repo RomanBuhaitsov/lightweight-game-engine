@@ -1,6 +1,7 @@
-#include "LGE_InputOutput.h"
 #include "../entity/entity.h"
 #include "../physics/physics_component.h"
+#include "../log.h"
+
 #include "sprite_component.h"
 
 SpriteComponent::SpriteComponent(SDL_Texture *texture,
@@ -16,7 +17,7 @@ SpriteComponent::SpriteComponent(SDL_Texture *texture,
 {
   if (!nRows)
   {
-    LGE_LogError << "The spritesheet has 0 rows. Defaulting to 1.\n";
+    LogError << "The spritesheet has 0 rows. Defaulting to 1.\n";
     nRows = 1;
   }
   frames = std::make_unique<Uint16 *>(new Uint16[nRows]);

@@ -16,6 +16,3 @@ target_link_libraries(GameLoop
   $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 )
 target_link_libraries(GameLoop PRIVATE $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>)
-
-target_link_libraries(GameLoop PUBLIC IO)
-target_link_libraries(GameLoop PUBLIC MessageBus)

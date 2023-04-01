@@ -10,8 +10,9 @@ class PhysicsComponent : public Component
 {
 private:
   b2Body *body;
-  std::function<bool(Entity *)> touch; // return true => remove the entity
+
 public:
+  std::function<bool(Entity *)> touch; // return true => remove the entity
   // LGE_PhysicsComponent(int x, int y, int width, int height, float friction, b2BodyType bodyType);
   PhysicsComponent(b2Body *body, std::function<bool(Entity *)> touch);
   PhysicsComponent(b2Body *body);

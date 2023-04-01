@@ -2,6 +2,7 @@
 
 #include "../IO/io_manager.h"
 #include "../renderer/renderer.h"
+#include "../game_window/game_window.h"
 #include "../texture_manager/texture_manager.h"
 class GameLoop
 {

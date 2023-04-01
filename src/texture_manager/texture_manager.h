@@ -7,9 +7,9 @@
 class TextureManager
 {
 private:
-  std::map<std::string, SDL_Texture *> textureAssets;
+  std::map<std::string, SDL_Texture *> *textureAssets;
   void load(const std::filesystem::path &dir, bool ignoreDirs);
-  WindowRenderer *render;
+  WindowRenderer *renderer;
 
 public:
   TextureManager(WindowRenderer *game, const std::string &dir = "src/static/textures", bool ignoreDirs = false);

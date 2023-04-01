@@ -1,16 +1,27 @@
-#include "texture_manager.h"
+#include "../renderer/renderer.h"
 #include "../log.h"
 
-TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : render(render)
+#include "texture_manager.h"
+
+TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : renderer(render)
 {
+  // this->textureAssets = new std::map<std::string, SDL_Texture *>();
+  Log << "size " << textureAssets->size() << std::endl;
   std::filesystem::path p(dir);
   load(p, ignoreDirs);
 }
 
 SDL_Texture *TextureManager::operator[](const std::string &name) const
 {
-  auto tex = textureAssets.find(name);
-  if (tex == textureAssets.end())
+  Log << "hai" << std::endl;
+  Log << "size " << textureAssets << std::endl;
+  for (auto &it : *textureAssets)
+  {
+    Log << it.first << std::endl;
+  }
+  Log << "hai1" << std::endl;
+  auto tex = textureAssets->find(name);
+  if (tex == textureAssets->end())
   {
     return NULL;
   }
@@ -19,9 +30,9 @@ SDL_Texture *TextureManager::operator[](const std::string &name) const
 
 TextureManager::~TextureManager()
 {
-  for (auto &it : textureAssets)
+  for (auto &it : *textureAssets)
   {
-    render->destroyTexture(it.second);
+    renderer->destroyTexture(it.second);
   }
 }
 
@@ -37,11 +48,11 @@ void TextureManager::load(const std::filesystem::path &dir, bool ignoreDirs)
       }
       continue;
     }
-    SDL_Texture *tex = render->loadTexture(f.path().string().c_str());
+    SDL_Texture *tex = renderer->loadTexture(f.path().string().c_str());
     if (tex != NULL)
     {
       Log << "Loading texture " << f << '\n';
-      textureAssets.insert(std::make_pair(f.path().filename().string(), tex));
+      textureAssets->insert(std::make_pair(f.path().filename().string(), tex));
     }
     else
     {

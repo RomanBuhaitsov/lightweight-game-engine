@@ -6,6 +6,7 @@
 #include "../entity/entity_contact.h"
 #include "../physics/physics_component.h"
 #include "../position/position_component.h"
+#include "../renderer/renderer.h"
 #include "../sprite/sprite_component.h"
 #include "../sprite/sprite_physics.h"
 #include "../texture_manager/texture_manager.h"

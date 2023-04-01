@@ -6,7 +6,7 @@ class WindowRenderer
 {
 protected:
   static bool SDL_initialized;
-  static int LGE_numInstances;
+  static int num_instances;
 
 public:
   // TODO: this was protected before, moved for testing

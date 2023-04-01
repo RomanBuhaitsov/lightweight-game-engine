@@ -1,24 +1,58 @@
-#pragma once
-#include <map>
+#include "entity.h"
 
-#include "../component/component_type.h"
-#include "../component/component.h"
-
-#include "entity_type.h"
-
-class Entity
+void Entity::addComponent(Component *component)
 {
-private:
-  EntityType entityType;
-  std::map<ComponentType, Component *> components;
+  if (components.find(component->type) != components.end())
+  {
+    delete component;
+    return; // fixme: overwrite?
+  }
+  component->entity = this;
+  component->init();
+  components.insert(std::pair<ComponentType, Component *>(component->type, component));
+}
 
-public:
-  void addComponent(Component *component);
-  Component *getComponent(const ComponentType type);
-  void update(const Uint64 gameTime);
-  void draw();
-  void destroy();
-  const EntityType &getType() const;
-  Entity(EntityType entityType);
-  ~Entity();
-};
+Component *Entity::getComponent(const ComponentType type)
+{
+  auto component = components.find(type);
+  return component == components.end() ? NULL : component->second;
+}
+
+void Entity::update(const Uint64 gameTime)
+{
+  for (auto &c : components)
+  {
+    c.second->update(gameTime);
+  }
+}
+
+void Entity::draw()
+{
+  for (auto &c : components)
+  {
+    c.second->draw();
+  }
+}
+
+void Entity::destroy()
+{
+  for (auto &c : components)
+  {
+    delete c.second;
+  }
+  components.clear();
+}
+
+Entity::Entity(EntityType entityType) : entityType(entityType)
+{
+}
+
+const EntityType &Entity::getType() const
+{
+  return entityType;
+}
+
+Entity::~Entity()
+{
+  destroy();
+}
