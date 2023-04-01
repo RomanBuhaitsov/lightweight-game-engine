@@ -1,7 +1,7 @@
 
 #include "sprite_physics.h"
 #include "../entity/entity.h"
-#include "../errors.cpp"
+#include "../log.h"
 
 SpritePhysicsHandler::SpritePhysicsHandler(std::function<void(SpriteComponent *, PhysicsComponent *, const std::list<SDL_Event> &)> handler) : Component(ComponentType::CT_SPHANDLER), handler(handler), sprite(NULL), physics(NULL)
 {

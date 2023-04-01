@@ -1,5 +1,5 @@
 #include "texture_manager.h"
-#include "LGE_InputOutput.h"
+#include "../log.h"
 
 TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : render(render)
 {
@@ -40,12 +40,12 @@ void TextureManager::load(const std::filesystem::path &dir, bool ignoreDirs)
     SDL_Texture *tex = render->loadTexture(f.path().string().c_str());
     if (tex != NULL)
     {
-      LGE_Log << "Loading texture " << f << '\n';
+      Log << "Loading texture " << f << '\n';
       textureAssets.insert(std::make_pair(f.path().filename().string(), tex));
     }
     else
     {
-      LGE_LogError << "Couldn't load texture" << f << '\n';
+      LogError << "Couldn't load texture" << f << '\n';
     }
   }
 }

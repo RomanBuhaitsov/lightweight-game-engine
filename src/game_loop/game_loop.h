@@ -1,7 +1,8 @@
 #pragma once
 
 #include "../IO/io_manager.h"
-#include "../LGE/LGE_RenderWindow.h"
+#include "../renderer/renderer.h"
+#include "../texture_manager/texture_manager.h"
 class GameLoop
 {
 private:
@@ -10,7 +11,8 @@ private:
   int skip_ticks;
   int execution_start_time;
   IOManager *io;
-  LGE_RenderWindow *window;
+  GameWindow *window;
+  TextureManager *texture_manager;
 
   void handleEvents(){};
   void update(){};
@@ -19,7 +21,7 @@ protected:
   bool game_running; // TODO: consider moving this field to a more global scope
 
 public:
-  GameLoop(IOManager *io, LGE_RenderWindow *window, int framerate, int max_frameskip);
+  GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_manager, int framerate, int max_frameskip);
   GameLoop(){};
   ~GameLoop(){};
 

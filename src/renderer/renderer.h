@@ -8,11 +8,11 @@ protected:
   static bool SDL_initialized;
   static int LGE_numInstances;
 
+public:
+  // TODO: this was protected before, moved for testing
   SDL_Window *window;
   SDL_Renderer *renderer;
   bool init;
-
-public:
   WindowRenderer(const char *title, int width, int height, bool fullscreen);
   ~WindowRenderer();
   bool isInitialized();

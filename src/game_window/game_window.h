@@ -11,12 +11,14 @@ class GameWindow : public WindowRenderer
 {
 private:
   int frameDelay;
+
+public:
+  // TODO: this were private before, moved for testing
   std::unique_ptr<b2World> world;
   std::list<Entity *> removeEntities;
   TextureManager textMgr;
   std::list<SDL_Event> recentEvents;
 
-public:
   GameWindow(const char *title, int width, int height, bool fullscreen, int fps);
   void gameLoop();
   b2World *getWorld();

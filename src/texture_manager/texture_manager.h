@@ -12,7 +12,7 @@ private:
   WindowRenderer *render;
 
 public:
-  TextureManager(WindowRenderer *game, const std::string &dir = "./textures/", bool ignoreDirs = false);
+  TextureManager(WindowRenderer *game, const std::string &dir = "src/static/textures", bool ignoreDirs = false);
   SDL_Texture *operator[](const std::string &name) const;
   ~TextureManager();
 };

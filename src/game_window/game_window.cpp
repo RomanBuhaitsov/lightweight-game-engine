@@ -10,7 +10,7 @@
 #include "../sprite/sprite_physics.h"
 #include "../texture_manager/texture_manager.h"
 
-#include "../errors.cpp"
+#include "../log.h"
 #include "game_window.h"
 
 GameWindow::GameWindow(const char *title, int width, int height, bool fullscreen, int fps) : WindowRenderer(title, width, height, fullscreen), frameDelay(fps), textMgr(this)
