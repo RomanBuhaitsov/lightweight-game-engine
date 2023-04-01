@@ -4,6 +4,7 @@
   "dependencies": [
     "fmt",
     "sdl2",
-    "sdl2-image"
+    "sdl2-image",
+    "box2d"
   ]
 }
