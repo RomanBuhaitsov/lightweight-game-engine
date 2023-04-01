@@ -5,7 +5,7 @@
 
 TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : renderer(render)
 {
-  // this->textureAssets = new std::map<std::string, SDL_Texture *>();
+  this->textureAssets = new std::map<std::string, SDL_Texture *>();
   Log << "size " << textureAssets->size() << std::endl;
   std::filesystem::path p(dir);
   load(p, ignoreDirs);
@@ -34,10 +34,15 @@ TextureManager::~TextureManager()
   {
     renderer->destroyTexture(it.second);
   }
+  delete textureAssets;
 }
 
 void TextureManager::load(const std::filesystem::path &dir, bool ignoreDirs)
 {
+  if (!std::filesystem::exists(dir)) {
+    LogError << "Couldn't find directory " << dir << ". textureManager has not been loaded.\n";
+    return;
+  }
   for (const auto &f : std::filesystem::directory_iterator(dir))
   {
     if (f.is_directory())

@@ -28,6 +28,8 @@ GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_ma
   this->max_frameskip = max_frameskip;
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
+  this->texture_manager = texture_manager;
+  this->execution_start_time = SDL_GetTicks64(); //fixme?
 }
 
 void GameLoop::run()
@@ -126,9 +128,9 @@ void GameLoop::run()
     // world->DebugDraw();
     this->window->present();
     frameTime = SDL_GetTicks64() - frameStart;
-    if (this->framerate > frameTime)
+    if (this->skip_ticks > frameTime)
     {
-      SDL_Delay(this->framerate - frameTime);
+      SDL_Delay(this->skip_ticks - frameTime);
     }
   } while (this->game_running);
   for (Entity *gent : entities)
