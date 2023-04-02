@@ -1,4 +1,11 @@
 #include <stdlib.h>
 
-const int FRAMERATE = atoi(getenv("FRAMERATE"));
-const int MAX_FRAMESKIP = atoi(getenv("MAX_FRAMESKIP"));
+int atoi_default(const char* s, int default_value) {
+	if (s == NULL) {
+		return default_value;
+	}
+	return atoi(s);
+}
+
+const int FRAMERATE = atoi_default(getenv("FRAMERATE"), 60);
+const int MAX_FRAMESKIP = atoi_default(getenv("MAX_FRAMESKIP"), 10);

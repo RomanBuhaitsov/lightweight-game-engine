@@ -15,6 +15,7 @@ GameLoop::GameLoop(IOManager *io, LGE_RenderWindow *window, int framerate, int m
   this->max_frameskip = max_frameskip;
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
+  this->execution_start_time = SDL_GetTicks64();
 }
 
 void GameLoop::run()
