@@ -9,7 +9,6 @@ EntityContactListener::EntityContactListener(GameWindow *game) : m_game(game) {}
 
 void EntityContactListener::BeginContact(b2Contact *contact)
 {
-  // Log << __FUNCTION__ << " has been called\n";
   Entity *entityA = (Entity *)contact->GetFixtureA()->GetBody()->GetUserData().pointer,
          *entityB = (Entity *)contact->GetFixtureB()->GetBody()->GetUserData().pointer;
   if (entityA && entityB)

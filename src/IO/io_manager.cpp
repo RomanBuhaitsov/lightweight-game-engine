@@ -16,9 +16,9 @@ void IOManager::update()
     if (event.type != SDL_KEYDOWN)
       continue;
 
-    MessageEvent keyboard_event = this->key_event_map.at(event.key.keysym.sym);
+    MessageEvent key_event = this->key_event_map.at(event.key.keysym.sym);
     std::unordered_map<std::string, std::string> data = std::unordered_map<std::string, std::string>();
-    Message message = Message(keyboard_event, data);
+    Message message = Message(key_event, data);
     send(message);
   }
 }

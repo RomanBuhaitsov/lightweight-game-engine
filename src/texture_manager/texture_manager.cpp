@@ -6,20 +6,12 @@
 TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : renderer(render)
 {
   this->textureAssets = new std::map<std::string, SDL_Texture *>();
-  Log << "size " << textureAssets->size() << std::endl;
   std::filesystem::path p(dir);
   load(p, ignoreDirs);
 }
 
 SDL_Texture *TextureManager::operator[](const std::string &name) const
 {
-  Log << "hai" << std::endl;
-  Log << "size " << textureAssets << std::endl;
-  for (auto &it : *textureAssets)
-  {
-    Log << it.first << std::endl;
-  }
-  Log << "hai1" << std::endl;
   auto tex = textureAssets->find(name);
   if (tex == textureAssets->end())
   {
@@ -39,7 +31,8 @@ TextureManager::~TextureManager()
 
 void TextureManager::load(const std::filesystem::path &dir, bool ignoreDirs)
 {
-  if (!std::filesystem::exists(dir)) {
+  if (!std::filesystem::exists(dir))
+  {
     LogError << "Couldn't find directory " << dir << ". textureManager has not been loaded.\n";
     return;
   }

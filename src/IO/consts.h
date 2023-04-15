@@ -72,4 +72,7 @@ const std::unordered_map<int, MessageEvent> KEY_EVENT_MAP = {
     {SDLK_w, MessageEvent::w_PRESSED},
     {SDLK_x, MessageEvent::x_PRESSED},
     {SDLK_y, MessageEvent::y_PRESSED},
-    {SDLK_z, MessageEvent::z_PRESSED}};
+    {SDLK_z, MessageEvent::z_PRESSED},
+    {SDL_BUTTON_LEFT, MessageEvent::LMB_PRESSED},
+    {SDL_BUTTON_RIGHT, MessageEvent::RMB_PRESSED},
+};
