@@ -20,7 +20,8 @@
 #include "game_loop.h"
 
 // dependency injection
-GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_manager, int framerate, int max_frameskip)
+GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_manager, AudioManager* audio_manager,
+    int framerate, int max_frameskip)
 {
   this->io = io;
   this->window = window;
@@ -29,6 +30,7 @@ GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_ma
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
   this->texture_manager = texture_manager;
+  this->audio_manager = audio_manager;
   this->execution_start_time = SDL_GetTicks64(); //fixme?
 }
 
