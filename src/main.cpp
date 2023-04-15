@@ -11,11 +11,12 @@
 
 int main(int argc, char **argv)
 {
+  Config *config = new Config();
   MessageBus *message_bus = new MessageBus();
   IOManager *io = new IOManager(message_bus);
-  GameWindow *window = new GameWindow("LGE", 1920, 1080, false, FRAMERATE);
+  GameWindow *window = new GameWindow("LGE", 1920, 1080, false, config->getFramerate());
   TextureManager *texture_manager = new TextureManager(window, "src/static/textures");
-  GameLoop *loop = new GameLoop(io, window, texture_manager, FRAMERATE, MAX_FRAMESKIP);
+  GameLoop *loop = new GameLoop(io, window, texture_manager, config->getFramerate(), config->getMaxFrameSkip());
   loop->run();
 
   delete loop;
