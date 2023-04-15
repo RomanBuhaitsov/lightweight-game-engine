@@ -12,6 +12,7 @@ private:
   IOManager *io;
   GameWindow *window;
   TextureManager *texture_manager;
+  AudioManager *audio_manager;
 
   void handleEvents(){};
   void update(){};
@@ -20,7 +21,13 @@ protected:
   bool game_running; // TODO: consider moving this field to a more global scope
 
 public:
-  GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_manager, int framerate, int max_frameskip);
+  GameLoop(
+	  IOManager *io, 
+	  GameWindow *window,
+	  TextureManager *texture_manager, 
+	  AudioManager *audio_manager, 
+	  int framerate, 
+	  int max_frameskip);
   GameLoop(){};
   ~GameLoop(){};
 

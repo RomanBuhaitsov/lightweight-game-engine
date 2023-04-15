@@ -20,6 +20,8 @@ add_subdirectory(physics)
 add_subdirectory(renderer)
 add_subdirectory(position)
 add_subdirectory(sprite)
+add_subdirectory(audio)
+add_subdirectory(audio_manager)
 add_subdirectory(texture_manager)
 
 add_executable(lightweight-game-engine)
