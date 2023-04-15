@@ -12,12 +12,9 @@
 
 #include "game_loop.h"
 
-GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
-                   GameWindow *window, TextureManager *texture_manager,
-                   int framerate, int max_frameskip)
-    : BusNode(message_bus) {
-  this->levels = levels;
-  this->message_bus = message_bus;
+// dependency injection
+GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_manager, int framerate, int max_frameskip)
+{
   this->io = io;
   this->window = window;
   this->framerate = framerate;
@@ -25,7 +22,7 @@ GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
   this->texture_manager = texture_manager;
-  this->audio_manager = audio_manager;
+  this->execution_start_time = SDL_GetTicks64(); //fixme?
 }
 
 void GameLoop::onNotify(Message message) {

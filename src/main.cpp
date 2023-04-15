@@ -10,6 +10,8 @@
 #include "level/levels.h"
 #include "level/manager.h"
 #include "texture_manager/texture_manager.h"
+#include "audio_manager/audio_manager.h"
+#include "IO/io_manager.h"
 
 #include "config.cpp"
 #include "log.h"
