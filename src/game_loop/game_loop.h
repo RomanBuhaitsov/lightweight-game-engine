@@ -16,6 +16,7 @@ private:
   IOManager *io;
   GameWindow *window;
   TextureManager *texture_manager;
+  AudioManager *audio_manager;
 
 protected:
   bool game_running; // TODO: consider moving this field to a more global scope
