@@ -3,11 +3,11 @@
 #include "../entity/entity.h"
 #include "../log.h"
 
-SpritePhysicsHandler::SpritePhysicsHandler(std::function<void(SpriteComponent *, PhysicsComponent *, const std::list<SDL_Event> &)> handler) : Component(ComponentType::CT_SPHANDLER), handler(handler), sprite(NULL), physics(NULL)
+SpritePhysicsHandler::SpritePhysicsHandler(MessageBus *message_bus, std::function<void(SpriteComponent *, PhysicsComponent *, const std::list<SDL_Event> &)> handler) : Component(ComponentType::CT_SPHANDLER, message_bus), handler(handler), sprite(NULL), physics(NULL)
 {
 }
 
-SpritePhysicsHandler::SpritePhysicsHandler() : SpritePhysicsHandler(GenericSpritePhysicsHandler)
+SpritePhysicsHandler::SpritePhysicsHandler(MessageBus *message_bus) : SpritePhysicsHandler(message_bus, GenericSpritePhysicsHandler)
 {
 }
 
@@ -31,7 +31,7 @@ void SpritePhysicsHandler::update(const Uint64 gameTime)
   {
     return;
   }
-  handler(sprite, physics, game->getRecentEvents());
+  handler(sprite, physics, GAME->getRecentEvents());
 }
 
 void GenericSpritePhysicsHandler(SpriteComponent *sprite, PhysicsComponent *physics, const std::list<SDL_Event> &recentEvents)

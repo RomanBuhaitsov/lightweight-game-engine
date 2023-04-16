@@ -1,4 +1,5 @@
 #pragma once
+
 enum class ComponentType
 {
   CT_NONE = 0,

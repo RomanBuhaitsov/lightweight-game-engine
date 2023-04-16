@@ -1,6 +1,8 @@
 #include <fmt/format.h>
 #include <iostream>
 
+#include "component/component.h"
+#include "entity/entity_contact.h"
 #include "game_loop/game_loop.h"
 #include "game_window/game_window.h"
 #include "texture_manager/texture_manager.h"
@@ -22,10 +24,19 @@ int main(int argc, char **argv)
                                       6,
                                       3,
                                       message_bus);
+  Component::GAME = window;
+  EntityContactListener *contact_listener = new EntityContactListener(message_bus);
+  window->getWorld()->SetContactListener(contact_listener);
   TextureManager *texture_manager = new TextureManager(window, "src/static/textures");
   GameLoop *loop = new GameLoop(io, window, texture_manager, config->getFramerate(), config->getMaxFrameSkip());
   loop->run();
 
+  delete config;
+  delete message_bus;
+  delete io;
+  delete window;
+  delete contact_listener;
+  delete texture_manager;
   delete loop;
   return 0;
 }

@@ -2,6 +2,8 @@
 #include <set>
 #include <string>
 
+#include <SDL2/SDL.h>
+
 #include "../component/component.h"
 #include "../debug_draw/debug_draw.h"
 #include "../entity/entity.h"
@@ -16,9 +18,10 @@
 
 #include "../log.h"
 #include "../config.cpp"
+
 #include "game_window.h"
 
-Entity *makeEntityFromIndex(int index, int pos_x, int pos_y, const std::optional<SDL_Event> &ev, const TextureManager &texture_manager)
+Entity *makeEntityFromIndex(int index, int pos_x, int pos_y, const std::optional<SDL_Event> &ev, const TextureManager &texture_manager, MessageBus *message_bus)
 {
   if (index == 0)
   {
@@ -27,9 +30,9 @@ Entity *makeEntityFromIndex(int index, int pos_x, int pos_y, const std::optional
       return NULL;
     }
     Entity *newTile = new Entity(EntityType::ET_GENERIC);
-    newTile->addComponent(new PhysicsComponent(PhysicsComponent::TileBody(ev.value().button.x / 32 * 32 - 1, ev.value().button.y / 32 * 32, 32, 32, 0.8f)));
-    newTile->addComponent(new SpriteComponent(texture_manager["grasstile.png"], 32, 32, 64, 64));
-    newTile->addComponent(new SpritePhysicsHandler());
+    newTile->addComponent(new PhysicsComponent(PhysicsComponent::TileBody(ev.value().button.x / 32 * 32 - 1, ev.value().button.y / 32 * 32, 32, 32, 0.8f), message_bus));
+    newTile->addComponent(new SpriteComponent(message_bus, texture_manager["grasstile.png"], 32, 32, 64, 64));
+    newTile->addComponent(new SpritePhysicsHandler(message_bus));
     return newTile;
   }
   else if (index == 1)
@@ -44,9 +47,10 @@ Entity *makeEntityFromIndex(int index, int pos_x, int pos_y, const std::optional
         PhysicsComponent::RightTriangleTileBody(
             ev.value().button.x / 32 * 32 - 1,
             ev.value().button.y / 32 * 32,
-            32, 32, 0.8f)));
-    newSlopeTile->addComponent(new SpriteComponent(texture_manager["grass_slope_b.png"], 32, 32, 64, 64, 0, -16));
-    newSlopeTile->addComponent(new SpritePhysicsHandler());
+            32, 32, 0.8f),
+        message_bus));
+    newSlopeTile->addComponent(new SpriteComponent(message_bus, texture_manager["grass_slope_b.png"], 32, 32, 64, 64, 0, -16));
+    newSlopeTile->addComponent(new SpritePhysicsHandler(message_bus));
     return newSlopeTile;
   }
   else if (index == 2)
@@ -57,11 +61,12 @@ Entity *makeEntityFromIndex(int index, int pos_x, int pos_y, const std::optional
     }
     Entity *dynamicBox = new Entity(EntityType::ET_GENERIC);
     dynamicBox->addComponent(new PhysicsComponent(PhysicsComponent::TileBody(
-        ev.value().button.x / 32 * 32 - 1,
-        ev.value().button.y / 32 * 32,
-        32, 32, 0.8f, 0.1f, true)));
-    dynamicBox->addComponent(new SpriteComponent(texture_manager["wooden_box.png"], 32, 32, 32, 32, 0, 0));
-    dynamicBox->addComponent(new SpritePhysicsHandler());
+                                                      ev.value().button.x / 32 * 32 - 1,
+                                                      ev.value().button.y / 32 * 32,
+                                                      32, 32, 0.8f, 0.1f, true),
+                                                  message_bus));
+    dynamicBox->addComponent(new SpriteComponent(message_bus, texture_manager["wooden_box.png"], 32, 32, 32, 32, 0, 0));
+    dynamicBox->addComponent(new SpritePhysicsHandler(message_bus));
     return dynamicBox;
   }
   else if (index == 3)
@@ -71,36 +76,38 @@ Entity *makeEntityFromIndex(int index, int pos_x, int pos_y, const std::optional
       return NULL;
     }
     Entity *coinEntity = new Entity(EntityType::ET_COLLECTIBLE);
-    coinEntity->addComponent(new PhysicsComponent(PhysicsComponent::CharacterBody(
-                                                      ev.value().button.x / 32 * 32 - 1,
-                                                      ev.value().button.y / 32 * 32,
-                                                      32 / 2, 32 / 2, 0.1f),
-                                                  [](Entity *other) -> bool
-                                                  {
-                                                    if (other->getType() == EntityType::ET_PLAYER)
-                                                    {
-                                                      return true;
-                                                    }
-                                                    return false;
-                                                  }));
-    coinEntity->addComponent(new SpriteComponent(texture_manager["coin.png"], 32 / 2, 32 / 2, 32, 32, {4}, 100, 32 / 4, 0));
-    coinEntity->addComponent(new SpritePhysicsHandler());
+    coinEntity->addComponent(new PhysicsComponent(
+        PhysicsComponent::CharacterBody(
+            ev.value().button.x / 32 * 32 - 1,
+            ev.value().button.y / 32 * 32,
+            32 / 2, 32 / 2, 0.1f),
+        [](Entity *other) -> bool
+        {
+          if (other->getType() == EntityType::ET_PLAYER)
+          {
+            return true;
+          }
+          return false;
+        },
+        message_bus));
+    coinEntity->addComponent(new SpriteComponent(message_bus, texture_manager["coin.png"], 32 / 2, 32 / 2, 32, 32, {4}, 100, 32 / 4, 0));
+    coinEntity->addComponent(new SpritePhysicsHandler(message_bus));
     return coinEntity;
   }
   else if (index == 4)
   {
     Entity *player = new Entity(EntityType::ET_PLAYER);
-    player->addComponent(new PhysicsComponent(PhysicsComponent::CharacterBody(0, 0, 24, 24, 0.1f)));
-    player->addComponent(new SpriteComponent(texture_manager["crudewalk.png"], 24, 28, 24, 28, {6, 6}, 100, 4));
-    player->addComponent(new SpritePhysicsHandler(PlayerMovementHandler));
+    player->addComponent(new PhysicsComponent(PhysicsComponent::CharacterBody(0, 0, 24, 24, 0.1f), message_bus));
+    player->addComponent(new SpriteComponent(message_bus, texture_manager["crudewalk.png"], 24, 28, 24, 28, {6, 6}, 100, 4));
+    player->addComponent(new SpritePhysicsHandler(message_bus, PlayerMovementHandler));
     return player;
   }
   else if (index == 5)
   {
     Entity *tile = new Entity(EntityType::ET_GENERIC);
-    tile->addComponent(new PhysicsComponent(PhysicsComponent::TileBody(pos_x, pos_y, 32, 32, 0.8f)));
-    tile->addComponent(new SpriteComponent(texture_manager["grasstile.png"], 32, 32, 64, 64, 0, 0));
-    tile->addComponent(new SpritePhysicsHandler());
+    tile->addComponent(new PhysicsComponent(PhysicsComponent::TileBody(pos_x, pos_y, 32, 32, 0.8f), message_bus));
+    tile->addComponent(new SpriteComponent(message_bus, texture_manager["grasstile.png"], 32, 32, 64, 64, 0, 0));
+    tile->addComponent(new SpritePhysicsHandler(message_bus));
     return tile;
   }
   return nullptr;
@@ -222,7 +229,7 @@ void GameWindow::onNotify(Message message)
   {
   case MessageEvent::LMB_PRESSED:
   {
-    Entity *gent = makeEntityFromIndex(2, -1, -1, std::nullopt, this->texture_manager);
+    Entity *gent = makeEntityFromIndex(2, -1, -1, std::nullopt, this->texture_manager, this->message_bus);
     this->entities.insert(gent);
     break;
   }
@@ -243,8 +250,6 @@ void GameWindow::init()
 {
   SDL_Texture *background = this->texture_manager["background.png"];
   this->setBackgroundTexture(background);
-  Component::game = this;
-  bool gameLoop = true;
   SDL_Event ev;
   const Uint64 desiredFrameTime = 1000 / framerate;
   Uint64 frameStart, frameTime;
@@ -255,16 +260,14 @@ void GameWindow::init()
   debugDraw.SetFlags(b2Draw::e_shapeBit);
   world->SetDebugDraw(&debugDraw);
   int tileIndex = 0;
-  this->entities.insert(makeEntityFromIndex(4, -1, -1, std::nullopt, this->texture_manager));
+  this->entities.insert(makeEntityFromIndex(4, -1, -1, std::nullopt, this->texture_manager, this->message_bus));
 
   for (int i = 0; i < 16; ++i)
   {
     int pos_x = i * 32 - 1;
     int pos_y = 448;
-    this->entities.insert(makeEntityFromIndex(5, pos_x, pos_y, std::nullopt, this->texture_manager));
+    this->entities.insert(makeEntityFromIndex(5, pos_x, pos_y, std::nullopt, this->texture_manager, this->message_bus));
   }
-  EntityContactListener contact(this);
-  world->SetContactListener(&contact);
 }
 
 b2World *GameWindow::getWorld()

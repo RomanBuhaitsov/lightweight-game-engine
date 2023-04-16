@@ -1,11 +1,11 @@
 #include <functional>
 
+#include "../message_bus/message.h"
 #include "../physics/physics_component.h"
+
 #include "../log.h"
 
 #include "entity_contact.h"
-
-EntityContactListener::EntityContactListener(GameWindow *game) : m_game(game) {}
 
 void EntityContactListener::BeginContact(b2Contact *contact)
 {
@@ -15,11 +15,16 @@ void EntityContactListener::BeginContact(b2Contact *contact)
   {
     PhysicsComponent *a = (PhysicsComponent *)entityA->getComponent(ComponentType::CT_PHYSICS),
                      *b = (PhysicsComponent *)entityB->getComponent(ComponentType::CT_PHYSICS);
+
+    Message message(MessageEvent::ENTITY_CONTACT);
     if (a->touch)
     {
+
       if (a->touch(entityB))
       {
-        m_game->removeEntity(entityA);
+        message.getData()["first_entity"] = entityA;
+        message.getData()["second_entity"] = entityB;
+        this->send(message);
         return;
       }
     }
@@ -27,7 +32,9 @@ void EntityContactListener::BeginContact(b2Contact *contact)
     {
       if (b->touch(entityA))
       {
-        m_game->removeEntity(entityB);
+        message.getData()["first_entity"] = entityB;
+        message.getData()["second_entity"] = entityA;
+        this->send(message);
       }
     }
 
@@ -45,5 +52,13 @@ void EntityContactListener::BeginContact(b2Contact *contact)
 }
 
 void EntityContactListener::EndContact(b2Contact *contact)
+{
+}
+
+void EntityContactListener::update()
+{
+}
+
+void EntityContactListener::onNotify(Message message)
 {
 }

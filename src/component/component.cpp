@@ -1,3 +1,11 @@
 #include "component.h"
 
-GameWindow *Component::game = NULL;
+GameWindow *Component::GAME = NULL;
+
+void Component::update()
+{
+}
+
+void Component::onNotify(Message message)
+{
+}

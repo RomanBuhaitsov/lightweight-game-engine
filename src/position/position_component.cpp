@@ -13,7 +13,7 @@ void PositionComponent::update(const Uint64 gameTime)
     return;
   }
   int width, height;
-  game->getSize(width, height);
+  GAME->getSize(width, height);
   x = test->getFlipped() & SDL_FLIP_HORIZONTAL ? x - 1 : x + 1;
   y = test->getFlipped() & SDL_FLIP_VERTICAL ? y - 1 : y + 1;
   if (x + test->getSpriteWidth() > width || x < 0)

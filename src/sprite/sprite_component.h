@@ -1,5 +1,7 @@
 #pragma once
+
 #include "../component/component.h"
+#include "../message_bus/bus.h"
 #include "../position/position_component.h"
 
 class SpriteComponent : public Component
@@ -22,11 +24,11 @@ private:
   int shift_y;
 
 public:
-  SpriteComponent(SDL_Texture *texture, int spriteWidth, int spriteHeight,
+  SpriteComponent(MessageBus *message_bus, SDL_Texture *texture, int spriteWidth, int spriteHeight,
                   int frameWidth, int frameHeight,
                   const std::initializer_list<Uint16> &numFrames, Uint16 animationSpeed,
                   int shift_x = 0, int shift_y = 0);
-  SpriteComponent(SDL_Texture *texture, int spriteWidth, int spriteHeight,
+  SpriteComponent(MessageBus *message_bus, SDL_Texture *texture, int spriteWidth, int spriteHeight,
                   int frameWidth, int frameHeight,
                   int shift_x = 0, int shift_y = 0);
   void setRow(const int row);

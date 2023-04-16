@@ -1,4 +1,5 @@
 #include <optional>
+#include <SDL2/SDL.h>
 
 #include "../physics/physics_component.h"
 #include "../sprite/sprite_component.h"

@@ -1,3 +1,4 @@
+#include <any>
 #include <iostream>
 #include <unordered_map>
 
@@ -17,9 +18,8 @@ void IOManager::update()
       continue;
 
     MessageEvent key_event = this->key_event_map.at(event.key.keysym.sym);
-    std::unordered_map<std::string, std::string> data = std::unordered_map<std::string, std::string>();
-    Message message = Message(key_event, data);
-    send(message);
+    Message message = Message(key_event);
+    this->send(message);
   }
 }
 

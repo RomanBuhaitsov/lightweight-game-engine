@@ -1,4 +1,6 @@
 #pragma once
+
+#include <any>
 #include <string>
 #include <unordered_map>
 
@@ -8,10 +10,10 @@ class Message
 {
 private:
   MessageEvent messageEvent;
-  std::unordered_map<std::string, std::string> messageData;
+  std::unordered_map<std::string, std::any> messageData;
 
 public:
-  Message(const MessageEvent event, const std::unordered_map<std::string, std::string> data);
+  Message(const MessageEvent event);
   MessageEvent getEvent();
-  std::unordered_map<std::string, std::string> getData();
+  std::unordered_map<std::string, std::any> getData();
 };

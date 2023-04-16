@@ -1,4 +1,7 @@
+#include "../message_bus/node.h"
+
 #include "physics_component.h"
+#include "../log.h"
 
 const float PhysicsComponent::RAD2DEG = 180.0 / M_PI;
 const float PhysicsComponent::M2P = 16.0;
@@ -6,18 +9,18 @@ const float PhysicsComponent::P2M = 1.0 / M2P;
 
 PhysicsComponent::~PhysicsComponent()
 {
-  if (body != nullptr && game->getWorld() != nullptr)
+  if (body != nullptr && GAME->getWorld() != nullptr)
   {
-    game->getWorld()->DestroyBody(body);
+    GAME->getWorld()->DestroyBody(body);
     body = nullptr;
   }
 }
 
-PhysicsComponent::PhysicsComponent(b2Body *body, std::function<bool(Entity *)> touch) : Component(ComponentType::CT_PHYSICS), body(body), touch(touch)
+PhysicsComponent::PhysicsComponent(b2Body *body, std::function<bool(Entity *)> touch, MessageBus *message_bus) : Component(ComponentType::CT_PHYSICS, message_bus), body(body), touch(touch)
 {
 }
 
-PhysicsComponent::PhysicsComponent(b2Body *body) : PhysicsComponent(body, nullptr)
+PhysicsComponent::PhysicsComponent(b2Body *body, MessageBus *message_bus) : PhysicsComponent(body, nullptr, message_bus)
 {
 }
 
@@ -41,7 +44,7 @@ b2Body *PhysicsComponent::CharacterBody(int x, int y, int width, int height, flo
   bodyDef.type = b2_dynamicBody;
   bodyDef.position.Set(x * P2M, y * P2M);
   bodyDef.fixedRotation = true;
-  body = game->getWorld()->CreateBody(&bodyDef);
+  body = GAME->getWorld()->CreateBody(&bodyDef);
   b2CircleShape circle;
   circle.m_radius = P2M * (width + height) / 4.0f;
   // b2PolygonShape dynamicBox;
@@ -69,7 +72,7 @@ b2Body *PhysicsComponent::TileBody(int x, int y, int width, int height, float fr
     bodyDef.fixedRotation = true;
   }
   bodyDef.position.Set(x * P2M, y * P2M);
-  body = game->getWorld()->CreateBody(&bodyDef);
+  body = GAME->getWorld()->CreateBody(&bodyDef);
   b2PolygonShape dynamicBox;
   dynamicBox.SetAsBox(P2M * width / 2.0f, P2M * height / 2.0f);
   b2FixtureDef fixtureDef;
@@ -104,7 +107,7 @@ b2Body *PhysicsComponent::RightTriangleTileBody(int x, int y, int a, int b, floa
   y += b / 2;
   triangleBodyDef.position.Set(x * P2M, y * P2M);
   // triangleBodyDef.fixedRotation = true;
-  body = game->getWorld()->CreateBody(&triangleBodyDef);
+  body = GAME->getWorld()->CreateBody(&triangleBodyDef);
 
   b2FixtureDef triangleFixtureDef;
   triangleFixtureDef.shape = &triangleShape;
@@ -126,7 +129,7 @@ b2Body *PhysicsComponent::TestFixtureBody(int x, int y, float friction)
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x * P2M, y * P2M);
 	bodyDef.fixedRotation = true;
-	body = game->getWorld()->CreateBody(&bodyDef);
+	body = game->getGAME->getWorld()()->CreateBody(&bodyDef);
 	b2CircleShape circle;
 	circle.m_radius = P2M * (width + height) / 4.0f;
 	b2PolygonShape dynamicBox;
@@ -147,7 +150,7 @@ b2Body *PhysicsComponent::TestFixtureBody(int x, int y, float friction)
   b2BodyDef myBodyDef;
   myBodyDef.type = b2_dynamicBody;
   myBodyDef.position.Set(0, 20); // middle
-  b2Body *dynamicBody = game->getWorld()->CreateBody(&myBodyDef);
+  b2Body *dynamicBody = GAME->getWorld()->CreateBody(&myBodyDef);
 
   // prepare a shape definition
   b2PolygonShape polygonShape;

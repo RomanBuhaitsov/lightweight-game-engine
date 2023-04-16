@@ -1,4 +1,7 @@
 #pragma once
+
+#include "SDL2/SDL.h"
+
 #include "../component/component.h"
 #include "../component/component_type.h"
 
@@ -9,7 +12,7 @@ private:
   int y;
 
 public:
-  PositionComponent() : Component(ComponentType::CT_POSITION), x(0), y(0){};
+  PositionComponent(MessageBus *message_bus) : Component(ComponentType::CT_POSITION, message_bus), x(0), y(0){};
   int getX() { return x; };
   int getY() { return y; };
   void update(const Uint64 gameTime);

@@ -1,7 +1,9 @@
 #pragma once
 #include <functional>
+#include <list>
 
 #include "../component/component.h"
+#include "../message_bus/bus.h"
 #include "../physics/physics_component.h"
 #include "../sprite/sprite_component.h"
 
@@ -16,8 +18,8 @@ private:
   std::function<void(SpriteComponent *, PhysicsComponent *, const std::list<SDL_Event> &)> handler;
 
 public:
-  SpritePhysicsHandler(std::function<void(SpriteComponent *, PhysicsComponent *, const std::list<SDL_Event> &)> handler);
-  SpritePhysicsHandler();
+  SpritePhysicsHandler(MessageBus *message_bus, std::function<void(SpriteComponent *, PhysicsComponent *, const std::list<SDL_Event> &)> handler);
+  SpritePhysicsHandler(MessageBus *message_bus);
   void init() override;
   void update(const Uint64 gameTime) override;
 };

@@ -4,12 +4,12 @@
 
 #include "sprite_component.h"
 
-SpriteComponent::SpriteComponent(SDL_Texture *texture,
+SpriteComponent::SpriteComponent(MessageBus *message_bus, SDL_Texture *texture,
                                  int spriteWidth, int spriteHeight,
                                  int frameWidth, int frameHeight,
                                  const std::initializer_list<Uint16> &numFrames,
                                  Uint16 animationSpeed, int shift_x, int shift_y)
-    : Component(ComponentType::CT_SPRITE), texture(texture),
+    : Component(ComponentType::CT_SPRITE, message_bus), texture(texture),
       src({0, 0, frameWidth, frameHeight}), dst({0, 0, spriteWidth, spriteHeight}), center({frameWidth / 2, frameHeight / 2}),
       animationSpeed(animationSpeed),
       currentFrame(0), currentRow(0), lastUpdate(0), nRows(numFrames.size()),
@@ -24,10 +24,10 @@ SpriteComponent::SpriteComponent(SDL_Texture *texture,
   std::copy(numFrames.begin(), numFrames.end(), *frames);
 }
 
-SpriteComponent::SpriteComponent(SDL_Texture *texture,
+SpriteComponent::SpriteComponent(MessageBus *message_bus, SDL_Texture *texture,
                                  int spriteWidth, int spriteHeight,
                                  int frameWidth, int frameHeight,
-                                 int shift_x, int shift_y) : SpriteComponent(texture, spriteWidth, spriteHeight, frameWidth, frameHeight, {1}, 0, shift_x, shift_y)
+                                 int shift_x, int shift_y) : SpriteComponent(message_bus, texture, spriteWidth, spriteHeight, frameWidth, frameHeight, {1}, 0, shift_x, shift_y)
 {
 }
 
@@ -118,5 +118,5 @@ void SpriteComponent::update(const Uint64 gameTime)
 
 void SpriteComponent::draw()
 {
-  game->renderTexture(texture, src, dst, angle, &center, (SDL_RendererFlip)flip);
+  GAME->renderTexture(texture, src, dst, angle, &center, (SDL_RendererFlip)flip);
 }

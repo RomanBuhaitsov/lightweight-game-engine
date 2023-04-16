@@ -6,9 +6,9 @@
 
 #include "box2d/box2d.h"
 
+#include "../message_bus/node.h"
 #include "../renderer/renderer.h"
 #include "../texture_manager/texture_manager.h"
-#include "../message_bus/node.h"
 #include "../config.cpp"
 
 class Entity;
@@ -34,7 +34,7 @@ protected:
   virtual void onNotify(Message message);
 
 public:
-  // TODO: this were private before, moved for testing
+  // TODO: these were private before, moved for testing
   std::unique_ptr<b2World> world;
   std::list<Entity *> entities_to_remove;
   TextureManager texture_manager;

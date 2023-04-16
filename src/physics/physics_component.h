@@ -3,8 +3,10 @@
 #include <functional>
 
 #include "box2d/box2d.h"
+#include <SDL2/SDL.h>
 
 #include "../component/component.h"
+#include "../message_bus/node.h"
 
 class PhysicsComponent : public Component
 {
@@ -14,8 +16,8 @@ private:
 public:
   std::function<bool(Entity *)> touch; // return true => remove the entity
   // LGE_PhysicsComponent(int x, int y, int width, int height, float friction, b2BodyType bodyType);
-  PhysicsComponent(b2Body *body, std::function<bool(Entity *)> touch);
-  PhysicsComponent(b2Body *body);
+  PhysicsComponent(b2Body *body, std::function<bool(Entity *)> touch, MessageBus *message_bus);
+  PhysicsComponent(b2Body *body, MessageBus *message_bus);
   void draw() override{};
   void init() override;
   b2Body *getBody();
