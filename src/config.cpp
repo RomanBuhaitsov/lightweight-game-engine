@@ -4,11 +4,18 @@
 class Config
 {
 private:
-  int framerate = atoi(getenv("FRAMERATE"));
-  int max_frameskip = atoi(getenv("MAX_FRAMESKIP"));
-  bool fullscreen = atoi(getenv("FULLSCREEN"));
-  int window_width = atoi(getenv("WINDOW_WIDTH"));
-  int window_height = atoi(getenv("WINDOW_HEIGHT"));
+  int framerate = atoiDefault(getenv("FRAMERATE"), 60);
+  int max_frameskip = atoiDefault(getenv("MAX_FRAMESKIP"), 10);
+  bool fullscreen = atoiDefault(getenv("FULLSCREEN"), 0);
+  int window_width = atoiDefault(getenv("WINDOW_WIDTH"), 1280);
+  int window_height = atoiDefault(getenv("WINDOW_HEIGHT"), 720);
+
+  static int atoiDefault(const char* s, int default_value) {
+      if (s == NULL) {
+          return default_value;
+      }
+      return atoi(s);
+  }
 
 public:
   void setFramerate(int framerate)

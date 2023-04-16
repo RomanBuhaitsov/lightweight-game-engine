@@ -48,10 +48,12 @@ void GameLoop::run()
       this->io->update();
       /* this->handleEvents(); */
       /* this->update(); */
+      this->window->update();
       next_game_tick += this->skip_ticks;
       loops++;
     }
     // rendering should happen here
-    this->window->update();
+    this->window->present();
+    //this->window->getWorld()->DebugDraw(); //uncomment this to debug draw box2d shapes
   }
 }

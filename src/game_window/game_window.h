@@ -12,6 +12,7 @@
 #include "../config.cpp"
 
 class Entity;
+class SDLDebugDraw;
 
 class GameWindow : public WindowRenderer, public BusNode
 {
@@ -27,6 +28,7 @@ private:
   SDL_Rect bg_src;
   SDL_Rect bg_dest;
   SDL_Texture *bg_texture;
+  std::unique_ptr<SDLDebugDraw> debugDraw;
 
   MessageBus *message_bus;
 

@@ -5,7 +5,6 @@
 #include <SDL2/SDL.h>
 
 #include "../component/component.h"
-#include "../debug_draw/debug_draw.h"
 #include "../entity/entity.h"
 #include "../entity/entity_contact.h"
 #include "../entity/builder.cpp"
@@ -15,6 +14,7 @@
 #include "../sprite/sprite_component.h"
 #include "../sprite/sprite_physics.h"
 #include "../texture_manager/texture_manager.h"
+#include "../debug_draw/debug_draw.h"
 
 #include "../log.h"
 #include "../config.cpp"
@@ -122,7 +122,8 @@ GameWindow::GameWindow(const char *title,
                        int position_iterations,
                        MessageBus *message_bus) : WindowRenderer(title, width, height, fullscreen),
                                                   BusNode(message_bus),
-                                                  texture_manager(this)
+                                                  texture_manager(this),
+                                                  debugDraw(new SDLDebugDraw(renderer))
 {
   this->framerate = fps;
   this->fullscreen = fullscreen;
@@ -215,12 +216,12 @@ void GameWindow::update()
   {
     if (gent != nullptr)
     {
-      gent->update(3);
+      gent->update(SDL_GetTicks64());
       gent->draw();
     }
   }
   recent_events.clear();
-  present();
+  //present(); //TEMP FIX
 }
 
 void GameWindow::onNotify(Message message)
@@ -256,9 +257,8 @@ void GameWindow::init()
   const float timeStep = 1.0f / (float)framerate;
   const int32 velocityIterations = 8, positionIterations = 3;
 
-  SDLDebugDraw debugDraw(renderer);
-  debugDraw.SetFlags(b2Draw::e_shapeBit);
-  world->SetDebugDraw(&debugDraw);
+  debugDraw->SetFlags(b2Draw::e_shapeBit);
+  world->SetDebugDraw(debugDraw.get());
   int tileIndex = 0;
   this->entities.insert(makeEntityFromIndex(4, -1, -1, std::nullopt, this->texture_manager, this->message_bus));
 
