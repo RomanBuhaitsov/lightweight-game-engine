@@ -1,15 +1,14 @@
 #include "debug_draw.h"
 
-SDLDebugDraw::SDLDebugDraw(SDL_Renderer *renderer)
+SDLDebugDraw::SDLDebugDraw(SDL_Renderer *renderer, const float & M2P) : m_renderer(renderer), M2P(M2P)
 {
-  m_renderer = renderer;
+
 }
 
 void SDLDebugDraw::DrawPolygon(const b2Vec2 *vertices, int32 vertexCount, const b2Color &color)
 {
   // Set the renderer color to the Box2D color
   SDL_SetRenderDrawColor(m_renderer, color.r * 255, color.g * 255, color.b * 255, SDL_ALPHA_OPAQUE);
-  float M2P = PhysicsComponent::M2P;
   // Draw the polygon
   for (int i = 0; i < vertexCount - 1; i++)
   {
@@ -33,7 +32,6 @@ void SDLDebugDraw::DrawSolidPolygon(const b2Vec2 *vertices, int32 vertexCount, c
   // Set the renderer color to the Box2D color
   SDL_SetRenderDrawColor(m_renderer, color.r * 255, color.g * 255, color.b * 255, SDL_ALPHA_OPAQUE);
   int SCREEN_HEIGHT = 720;
-  float M2P = PhysicsComponent::M2P;
   // Draw the polygon
   for (int i = 0; i < vertexCount - 1; i++)
   {

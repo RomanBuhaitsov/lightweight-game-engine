@@ -14,7 +14,6 @@
 #include "../sprite/sprite_component.h"
 #include "../sprite/sprite_physics.h"
 #include "../texture_manager/texture_manager.h"
-#include "../debug_draw/debug_draw.h"
 
 #include "../log.h"
 #include "../config.cpp"
@@ -123,7 +122,7 @@ GameWindow::GameWindow(const char *title,
                        MessageBus *message_bus) : WindowRenderer(title, width, height, fullscreen),
                                                   BusNode(message_bus),
                                                   texture_manager(this),
-                                                  debugDraw(new SDLDebugDraw(renderer))
+                                                  debugDraw(new SDLDebugDraw(renderer, PhysicsComponent::M2P))
 {
   this->framerate = fps;
   this->fullscreen = fullscreen;

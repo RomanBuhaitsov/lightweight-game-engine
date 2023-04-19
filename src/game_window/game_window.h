@@ -10,10 +10,9 @@
 #include "../renderer/renderer.h"
 #include "../texture_manager/texture_manager.h"
 #include "../config.cpp"
+#include "../debug_draw/debug_draw.h"
 
 class Entity;
-class SDLDebugDraw;
-
 class GameWindow : public WindowRenderer, public BusNode
 {
 private:

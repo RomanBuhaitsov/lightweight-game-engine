@@ -1,13 +1,13 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <Box2D/Box2D.h>
-#include "../physics/physics_component.h"
 
 class SDLDebugDraw : public b2Draw
 {
 public:
   SDL_Renderer *m_renderer;
-  SDLDebugDraw(SDL_Renderer *renderer);
+  const float & M2P;
+  SDLDebugDraw(SDL_Renderer *renderer, const float & M2P);
   void DrawPolygon(const b2Vec2 *vertices, int32 vertexCount, const b2Color &color) override;
   void DrawSolidPolygon(const b2Vec2 *vertices, int32 vertexCount, const b2Color &color) override;
   void DrawCircle(const b2Vec2 &center, float radius, const b2Color &color) override;
