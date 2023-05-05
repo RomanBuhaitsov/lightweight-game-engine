@@ -20,12 +20,9 @@
 
 #include "game_loop.h"
 
-GameLoop::GameLoop(IOManager *io,
-                   GameWindow *window,
-                   TextureManager *texture_manager,
-                   int framerate,
-                   int max_frameskip)
-{
+GameLoop::GameLoop(IOManager *io, GameWindow *window,
+                   TextureManager *texture_manager, int framerate,
+                   int max_frameskip) {
   this->io = io;
   this->window = window;
   this->framerate = framerate;
@@ -35,25 +32,24 @@ GameLoop::GameLoop(IOManager *io,
   this->texture_manager = texture_manager;
 }
 
-void GameLoop::run()
-{
+void GameLoop::run() {
   this->window->init();
   int loops;
   auto next_game_tick = SDL_GetTicks64();
-  while (this->game_running)
-  {
+  while (this->game_running) {
     loops = 0;
-    while (SDL_GetTicks64() > next_game_tick && loops < this->max_frameskip)
-    {
+    while (SDL_GetTicks64() > next_game_tick && loops < this->max_frameskip) {
       this->io->update();
       /* this->handleEvents(); */
       /* this->update(); */
       this->window->update();
+      this->window->present();
       next_game_tick += this->skip_ticks;
       loops++;
     }
     // rendering should happen here
-    this->window->present();
-    //this->window->getWorld()->DebugDraw(); //uncomment this to debug draw box2d shapes
+    // this->window->present();
+    /* this->window->getWorld() */
+    /*     ->DebugDraw(); // uncomment this to debug draw box2d shapes */
   }
 }

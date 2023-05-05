@@ -5,9 +5,11 @@ find_package(SDL2_image CONFIG REQUIRED)
 
 target_sources(Entity
   PRIVATE
+  builder.cpp
   entity.cpp
   entity_contact.cpp
   PUBLIC
+  builder.h
   entity.h
   entity_contact.h
   entity_type.h
