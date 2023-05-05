@@ -13,24 +13,27 @@ EntityBuilder::EntityBuilder(EntityType entityType) {
 
 EntityBuilder::~EntityBuilder() { delete entity; }
 
-Entity EntityBuilder::reset() {
+EntityBuilder EntityBuilder::reset() {
   EntityType type = this->entity->getType();
   delete this->entity;
   this->entity = new Entity(type);
-  return *this->entity;
+  return *this;
 }
 
-Entity EntityBuilder::addPhysics(PhysicsComponent *physicsComponent) {
+EntityBuilder EntityBuilder::addPhysics(PhysicsComponent *physicsComponent) {
   this->entity->addComponent(physicsComponent);
-  return *this->entity;
+  return *this;
 }
 
-Entity EntityBuilder::addSprite(SpriteComponent *spriteComponent) {
+EntityBuilder EntityBuilder::addSprite(SpriteComponent *spriteComponent) {
   this->entity->addComponent(spriteComponent);
-  return *this->entity;
+  return *this;
 }
 
-Entity EntityBuilder::addSpritePhysics(SpritePhysicsHandler *spritePhysics) {
+EntityBuilder
+EntityBuilder::addSpritePhysics(SpritePhysicsHandler *spritePhysics) {
   this->entity->addComponent(spritePhysics);
-  return *this->entity;
+  return *this;
 }
+
+Entity *EntityBuilder::getEntity() { return this->entity; }
