@@ -3,6 +3,7 @@
 #include "../IO/io_manager.h"
 #include "../game_window/game_window.h"
 #include "../texture_manager/texture_manager.h"
+
 class GameLoop
 {
 private:
@@ -12,7 +13,7 @@ private:
   IOManager *io;
   GameWindow *window;
   TextureManager *texture_manager;
-
+  
   void handleEvents(){};
   void update(){};
 

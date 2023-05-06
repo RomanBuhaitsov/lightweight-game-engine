@@ -4,6 +4,14 @@
 
 #include "sprite_component.h"
 
+int SpriteComponent::global_shift_x = 0;
+int SpriteComponent::global_shift_y = 0;
+
+void SpriteComponent::setGlobalShift(int x, int y) {
+    global_shift_x = x;
+    global_shift_y = y;
+}
+
 SpriteComponent::SpriteComponent(MessageBus *message_bus, SDL_Texture *texture,
                                  int spriteWidth, int spriteHeight,
                                  int frameWidth, int frameHeight,
@@ -78,8 +86,8 @@ void SpriteComponent::setAngle(float angle)
 
 void SpriteComponent::setPosition(int x, int y)
 {
-  dst.x = x + shift_x;
-  dst.y = y + shift_y;
+  dst.x = x + shift_x - global_shift_x;
+  dst.y = y + shift_y - global_shift_y;
 }
 
 void SpriteComponent::setRow(const int row)

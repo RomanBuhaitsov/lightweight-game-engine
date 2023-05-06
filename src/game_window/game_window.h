@@ -11,6 +11,7 @@
 #include "../texture_manager/texture_manager.h"
 #include "../config.cpp"
 #include "../debug_draw/debug_draw.h"
+#include "../level/level.h"
 
 class Entity;
 class GameWindow : public WindowRenderer, public BusNode
@@ -30,7 +31,7 @@ private:
   std::unique_ptr<SDLDebugDraw> debugDraw;
 
   MessageBus *message_bus;
-
+  std::unique_ptr<Camera> camera;
 protected:
   virtual void onNotify(Message message);
 

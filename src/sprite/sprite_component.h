@@ -22,7 +22,8 @@ private:
   float angle;
   int shift_x;
   int shift_y;
-
+  static int global_shift_x;
+  static int global_shift_y;
 public:
   SpriteComponent(MessageBus *message_bus, SDL_Texture *texture, int spriteWidth, int spriteHeight,
                   int frameWidth, int frameHeight,
@@ -44,4 +45,5 @@ public:
   void stopAnimation();
   void setAngle(float angle);
   void setPosition(int x, int y);
+  static void setGlobalShift(int x, int y);
 };

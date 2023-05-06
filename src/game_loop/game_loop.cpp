@@ -39,7 +39,7 @@ void GameLoop::run() {
   while (this->game_running) {
     loops = 0;
     while (SDL_GetTicks64() > next_game_tick && loops < this->max_frameskip) {
-      this->io->update();
+      //this->io->update(); //fixme: uncomment this once IO manager is fully functional
       /* this->handleEvents(); */
       /* this->update(); */
       this->window->update();

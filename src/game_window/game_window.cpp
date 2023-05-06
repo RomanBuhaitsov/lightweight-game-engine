@@ -122,7 +122,8 @@ GameWindow::GameWindow(const char *title,
                        MessageBus *message_bus) : WindowRenderer(title, width, height, fullscreen),
                                                   BusNode(message_bus),
                                                   texture_manager(this),
-                                                  debugDraw(new SDLDebugDraw(renderer, PhysicsComponent::M2P))
+                                                  debugDraw(new SDLDebugDraw(renderer, PhysicsComponent::M2P)),
+                                                  camera(new Camera(4096, 2048, width, height, 0, 10, 10))
 {
   this->framerate = fps;
   this->fullscreen = fullscreen;
@@ -203,6 +204,8 @@ void GameWindow::update()
   this->clear();
   this->renderTexture(this->bg_texture, bg_src, bg_dest);
   world->Step(1.0f / (float)this->framerate, this->velocity_iterations, this->position_iterations);
+  this->camera->update(SDL_GetTicks64());
+  SpriteComponent::setGlobalShift(this->camera->getX(), this->camera->getY());
   for (Entity *gent : this->entities_to_remove)
   {
     gent->destroy();
@@ -210,7 +213,12 @@ void GameWindow::update()
     delete gent;
   }
   this->entities_to_remove.clear();
-
+  //tmp - fixme: remove this once IO manager is fully functional
+  SDL_Event ev;
+  while (SDL_PollEvent(&ev)) {
+      recent_events.push_back(ev);
+  }
+  //end tmp
   for (Entity *gent : this->entities)
   {
     if (gent != nullptr)
@@ -259,13 +267,20 @@ void GameWindow::init()
   debugDraw->SetFlags(b2Draw::e_shapeBit);
   world->SetDebugDraw(debugDraw.get());
   int tileIndex = 0;
-  this->entities.insert(makeEntityFromIndex(4, -1, -1, std::nullopt, this->texture_manager, this->message_bus));
+  Entity* player = makeEntityFromIndex(4, -1, -1, std::nullopt, this->texture_manager, this->message_bus);
+  this->entities.insert(player);
+  this->camera->followEntity(player, true); //make the camera follow the player
 
-  for (int i = 0; i < 16; ++i)
+  for (int i = 0; i < 28; ++i)
   {
     int pos_x = i * 32 - 1;
     int pos_y = 448;
     this->entities.insert(makeEntityFromIndex(5, pos_x, pos_y, std::nullopt, this->texture_manager, this->message_bus));
+  }
+  for (int i = 0; i < 28; ++i) {
+      int pos_x = (i + 28) * 32 - 1;
+      int pos_y = 448 + i * 32;
+      this->entities.insert(makeEntityFromIndex(5, pos_x, pos_y, std::nullopt, this->texture_manager, this->message_bus));
   }
 }
 
