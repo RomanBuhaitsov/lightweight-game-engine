@@ -25,6 +25,7 @@ GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
   this->texture_manager = texture_manager;
+  this->audio_manager = audio_manager;
 }
 
 void GameLoop::onNotify(Message message) {

@@ -40,6 +40,7 @@ int main(int argc, char **argv) {
   delete window;
   delete contact_listener;
   delete texture_manager;
+  delete audio_manager;
   delete loop;
   return 0;
 }
