@@ -1,3 +1,4 @@
+#include <iostream>
 #include <optional>
 
 #include "../physics/physics_component.h"
@@ -13,27 +14,27 @@ EntityBuilder::EntityBuilder(EntityType entityType) {
 
 EntityBuilder::~EntityBuilder() { delete entity; }
 
-EntityBuilder EntityBuilder::reset() {
+EntityBuilder *EntityBuilder::reset() {
   EntityType type = this->entity->getType();
   delete this->entity;
   this->entity = new Entity(type);
-  return *this;
+  return this;
 }
 
-EntityBuilder EntityBuilder::addPhysics(PhysicsComponent *physicsComponent) {
+EntityBuilder *EntityBuilder::addPhysics(PhysicsComponent *physicsComponent) {
   this->entity->addComponent(physicsComponent);
-  return *this;
+  return this;
 }
 
-EntityBuilder EntityBuilder::addSprite(SpriteComponent *spriteComponent) {
+EntityBuilder *EntityBuilder::addSprite(SpriteComponent *spriteComponent) {
   this->entity->addComponent(spriteComponent);
-  return *this;
+  return this;
 }
 
-EntityBuilder
+EntityBuilder *
 EntityBuilder::addSpritePhysics(SpritePhysicsHandler *spritePhysics) {
   this->entity->addComponent(spritePhysics);
-  return *this;
+  return this;
 }
 
 Entity *EntityBuilder::getEntity() { return this->entity; }

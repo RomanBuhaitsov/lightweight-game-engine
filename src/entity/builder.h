@@ -13,9 +13,9 @@ private:
 public:
   EntityBuilder(EntityType entityType);
   ~EntityBuilder();
-  EntityBuilder reset();
-  EntityBuilder addPhysics(PhysicsComponent *physicsComponent);
-  EntityBuilder addSprite(SpriteComponent *spriteComponent);
-  EntityBuilder addSpritePhysics(SpritePhysicsHandler *spritePhysics);
+  EntityBuilder *reset();
+  EntityBuilder *addPhysics(PhysicsComponent *physicsComponent);
+  EntityBuilder *addSprite(SpriteComponent *spriteComponent);
+  EntityBuilder *addSpritePhysics(SpritePhysicsHandler *spritePhysics);
   Entity *getEntity();
 };
