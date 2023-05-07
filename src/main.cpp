@@ -6,6 +6,7 @@
 #include "game_loop/game_loop.h"
 #include "game_window/game_window.h"
 #include "texture_manager/texture_manager.h"
+#include "audio_manager/audio_manager.h"
 #include "IO/io_manager.h"
 #include "audio_manager/audio_manager.h"
 
