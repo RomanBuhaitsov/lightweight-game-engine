@@ -1,7 +1,10 @@
 #pragma once
-enum class MessageEvent
-{
+enum class MessageEvent {
   // KEYBOARD_KEYS
+  UP_PRESSED,
+  DOWN_PRESSED,
+  LEFT_PRESSED,
+  RIGHT_PRESSED,
   RETURN_PRESSED,
   ESCAPE_PRESSED,
   BACKSPACE_PRESSED,
@@ -75,6 +78,15 @@ enum class MessageEvent
   PIPE_PRESSED,
   RIGHT_BRACKET_PRESSED,
   TILDE_PRESSED,
-  DEL_PRESSED
+  DEL_PRESSED,
   // !KEYBOARD_KEYS
+  LMB_PRESSED,
+  RMB_PRESSED,
+
+  // CONTACT
+  ENTITY_CONTACT,
+  // !CONTACT
+
+  QUIT,
+  NEXT_LEVEL
 };

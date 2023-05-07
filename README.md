@@ -6,8 +6,8 @@
 - c++ compiler std 17
 
 ## Build
-Linux/Macos
-All commands should be executed from project root directory.
+### Linux/Macos 
+All commands should be executed from project root directory.  
 Install dependencies:
 
 ```

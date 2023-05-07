@@ -4,6 +4,10 @@
 #include <SDL2/SDL.h>
 
 const std::unordered_map<int, MessageEvent> KEY_EVENT_MAP = {
+    {SDLK_UP, MessageEvent::UP_PRESSED},
+    {SDLK_DOWN, MessageEvent::DOWN_PRESSED},
+    {SDLK_LEFT, MessageEvent::LEFT_PRESSED},
+    {SDLK_RIGHT, MessageEvent::RIGHT_PRESSED},
     {SDLK_RETURN, MessageEvent::RETURN_PRESSED},
     {SDLK_ESCAPE, MessageEvent::ESCAPE_PRESSED},
     {SDLK_BACKSPACE, MessageEvent::BACKSPACE_PRESSED},
@@ -72,4 +76,7 @@ const std::unordered_map<int, MessageEvent> KEY_EVENT_MAP = {
     {SDLK_w, MessageEvent::w_PRESSED},
     {SDLK_x, MessageEvent::x_PRESSED},
     {SDLK_y, MessageEvent::y_PRESSED},
-    {SDLK_z, MessageEvent::z_PRESSED}};
+    {SDLK_z, MessageEvent::z_PRESSED},
+    {SDL_BUTTON_LEFT, MessageEvent::LMB_PRESSED},
+    {SDL_BUTTON_RIGHT, MessageEvent::RMB_PRESSED},
+};

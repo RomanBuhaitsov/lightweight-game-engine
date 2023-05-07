@@ -1,10 +1,13 @@
 #pragma once
+
+#include <functional>
+#include <unordered_map>
+
 #include "bus.h"
 #include "message.h"
 
-#include <functional>
-
-class BusNode {
+class BusNode
+{
 public:
   BusNode(MessageBus *messageBus);
 
@@ -17,7 +20,8 @@ protected:
 
   void send(Message message);
 
-  virtual void onNotify(Message message) {
+  virtual void onNotify(Message message)
+  {
     // TODO: implement some basic action if needed
   }
 };

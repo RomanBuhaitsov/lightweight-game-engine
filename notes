@@ -1,0 +1,3 @@
+- entity builder - Builder design pattern
+- lack of singletons - dependency injection - easier to test
+- observer pattern - event driven programming
