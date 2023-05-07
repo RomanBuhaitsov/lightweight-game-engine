@@ -21,7 +21,7 @@
 #include "game_loop.h"
 
 GameLoop::GameLoop(IOManager *io, GameWindow *window,
-                   TextureManager *texture_manager, int framerate,
+                   TextureManager *texture_manager, AudioManager* audio_manager, int framerate,
                    int max_frameskip) {
   this->io = io;
   this->window = window;
@@ -30,6 +30,7 @@ GameLoop::GameLoop(IOManager *io, GameWindow *window,
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
   this->texture_manager = texture_manager;
+  this->audio_manager = audio_manager;
 }
 
 void GameLoop::run() {

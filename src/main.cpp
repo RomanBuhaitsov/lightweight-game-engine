@@ -7,6 +7,7 @@
 #include "game_window/game_window.h"
 #include "texture_manager/texture_manager.h"
 #include "IO/io_manager.h"
+#include "audio_manager/audio_manager.h"
 
 #include "log.h"
 #include "config.cpp"
@@ -28,7 +29,8 @@ int main(int argc, char **argv)
   EntityContactListener *contact_listener = new EntityContactListener(message_bus);
   window->getWorld()->SetContactListener(contact_listener);
   TextureManager *texture_manager = new TextureManager(window, "src/static/textures");
-  GameLoop *loop = new GameLoop(io, window, texture_manager, config->getFramerate(), config->getMaxFrameSkip());
+  AudioManager *audio_manager = new AudioManager(window, "src/static/sound");
+  GameLoop *loop = new GameLoop(io, window, texture_manager, audio_manager, config->getFramerate(), config->getMaxFrameSkip());
   loop->run();
 
   delete config;
@@ -37,6 +39,7 @@ int main(int argc, char **argv)
   delete window;
   delete contact_listener;
   delete texture_manager;
+  delete audio_manager;
   delete loop;
   return 0;
 }
