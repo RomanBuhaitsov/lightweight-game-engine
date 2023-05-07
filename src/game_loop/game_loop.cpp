@@ -20,9 +20,14 @@
 
 #include "game_loop.h"
 
-GameLoop::GameLoop(IOManager *io, GameWindow *window,
-                   TextureManager *texture_manager, AudioManager* audio_manager, int framerate,
-                   int max_frameskip) {
+GameLoop::GameLoop(
+    IOManager *io,
+    GameWindow *window,
+    TextureManager *texture_manager, 
+    AudioManager* audio_manager, 
+    int framerate,
+    int max_frameskip
+){
   this->io = io;
   this->window = window;
   this->framerate = framerate;
