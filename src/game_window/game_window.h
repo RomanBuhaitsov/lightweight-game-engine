@@ -6,16 +6,15 @@
 
 #include "box2d/box2d.h"
 
-#include "../message_bus/node.h"
-#include "../renderer/renderer.h"
-#include "../texture_manager/texture_manager.h"
 #include "../config.cpp"
 #include "../debug_draw/debug_draw.h"
 #include "../level/level.h"
+#include "../message_bus/node.h"
+#include "../renderer/renderer.h"
+#include "../texture_manager/texture_manager.h"
 
 class Entity;
-class GameWindow : public WindowRenderer, public BusNode
-{
+class GameWindow : public WindowRenderer, public BusNode {
 private:
   std::string title;
   int framerate;
@@ -32,6 +31,7 @@ private:
 
   MessageBus *message_bus;
   std::unique_ptr<Camera> camera;
+
 protected:
   virtual void onNotify(Message message);
 
@@ -40,7 +40,6 @@ public:
   std::unique_ptr<b2World> world;
   std::list<Entity *> entities_to_remove;
   TextureManager texture_manager;
-  std::list<SDL_Event> recent_events;
   std::set<Entity *> entities;
 
   void setWidth(int width);
@@ -50,11 +49,13 @@ public:
   void setBackgroundTexture(SDL_Texture *bg_texture);
   SDL_Texture *getBackgroundTexture();
 
-  GameWindow(const char *title, int width, int height, bool fullscreen, int fps, int velocity_iterations, int position_iterations, MessageBus *message_bus);
+  GameWindow(const char *title, int width, int height, bool fullscreen, int fps,
+             int velocity_iterations, int position_iterations,
+             MessageBus *message_bus);
   ~GameWindow();
-  void init(); // this function will need to be extended e.g. take parameters specifying size of the window, entities list
+  void init(); // this function will need to be extended e.g. take parameters
+               // specifying size of the window, entities list
   b2World *getWorld();
   void removeEntity(Entity *ent);
-  const std::list<SDL_Event> &getRecentEvents() const;
   virtual void update();
 };
