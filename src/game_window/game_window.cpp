@@ -72,6 +72,8 @@ void GameWindow::setBackgroundTexture(SDL_Texture *bg_texture) {
 
 SDL_Texture *GameWindow::getBackgroundTexture() { return bg_texture; }
 
+void GameWindow::addEntity(Entity *entity) { this->entities.insert(entity); }
+
 void GameWindow::removeEntity(Entity *ent) {
   this->entities_to_remove.push_back(ent);
 }
