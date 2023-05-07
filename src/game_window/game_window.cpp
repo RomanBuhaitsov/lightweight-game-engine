@@ -26,7 +26,8 @@ GameWindow::GameWindow(const char *title, int width, int height,
                        int position_iterations, MessageBus *message_bus)
     : WindowRenderer(title, width, height, fullscreen), BusNode(message_bus),
       texture_manager(this),
-      debugDraw(new SDLDebugDraw(renderer, PhysicsComponent::M2P)) {
+      debugDraw(new SDLDebugDraw(renderer, PhysicsComponent::M2P)),
+      camera(new Camera(4096, 2048, width, height, 0, 10, 10)) {
   this->framerate = fps;
   this->fullscreen = fullscreen;
   this->title = title;
@@ -66,6 +67,12 @@ void GameWindow::setHeight(int height) { this->height = height; }
 
 int GameWindow::getHeight() { return height; }
 
+Camera *GameWindow::getCamera() { return camera.get(); }
+
+SDLDebugDraw *GameWindow::getDebugDraw() { return debugDraw.get(); }
+
+MessageBus *GameWindow::getMessageBus() { return message_bus; }
+
 void GameWindow::setBackgroundTexture(SDL_Texture *bg_texture) {
   this->bg_texture = bg_texture;
 }
@@ -78,56 +85,29 @@ void GameWindow::removeEntity(Entity *ent) {
   this->entities_to_remove.push_back(ent);
 }
 
-const std::list<SDL_Event> &GameWindow::getRecentEvents() const {
-  return recent_events;
-}
-
 void GameWindow::update() {
   this->clear();
   this->renderTexture(this->bg_texture, bg_src, bg_dest);
   world->Step(1.0f / (float)this->framerate, this->velocity_iterations,
               this->position_iterations);
+  this->camera->update(SDL_GetTicks64());
+  SpriteComponent::setGlobalShift(this->camera->getX(), this->camera->getY());
   for (Entity *gent : this->entities_to_remove) {
     gent->destroy();
     this->entities.erase(gent);
     delete gent;
   }
   this->entities_to_remove.clear();
-
   for (Entity *gent : this->entities) {
     if (gent != nullptr) {
       gent->update(SDL_GetTicks64());
       gent->draw();
     }
   }
-  recent_events.clear();
-  // present(); //TEMP FIX
 }
 
 void GameWindow::onNotify(Message message) {}
 
-void GameWindow::init() {
-  SDL_Texture *background = this->texture_manager["background.png"];
-  this->setBackgroundTexture(background);
-  SDL_Event ev;
-  const Uint64 desiredFrameTime = 1000 / framerate;
-  Uint64 frameStart, frameTime;
-  const float timeStep = 1.0f / (float)framerate;
-  const int32 velocityIterations = 8, positionIterations = 3;
-
-  debugDraw->SetFlags(b2Draw::e_shapeBit);
-  world->SetDebugDraw(debugDraw.get());
-  int tileIndex = 0;
-  this->entities.insert(EntityFactory::createPlayer(
-      0, 0, this->texture_manager["crudewalk.png"], this->message_bus));
-
-  for (int i = 0; i < 16; ++i) {
-    int pos_x = i * 32 - 1;
-    int pos_y = 448;
-    this->entities.insert(EntityFactory::createTile(
-        pos_x, pos_y, this->texture_manager["grasstile.png"],
-        this->message_bus));
-  }
-}
+void GameWindow::init() {}
 
 b2World *GameWindow::getWorld() { return world.get(); }

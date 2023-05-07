@@ -1,6 +1,5 @@
 #pragma once
-enum class MessageEvent
-{
+enum class MessageEvent {
   // KEYBOARD_KEYS
   UP_PRESSED,
   DOWN_PRESSED,
@@ -86,4 +85,8 @@ enum class MessageEvent
 
   // CONTACT
   ENTITY_CONTACT,
+  // !CONTACT
+
+  QUIT,
+  NEXT_LEVEL
 };

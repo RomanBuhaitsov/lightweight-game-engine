@@ -6,6 +6,7 @@
 
 #include "box2d/box2d.h"
 
+#include "../camera/camera.h"
 #include "../config.cpp"
 #include "../debug_draw/debug_draw.h"
 #include "../message_bus/node.h"
@@ -29,6 +30,7 @@ private:
   std::unique_ptr<SDLDebugDraw> debugDraw;
 
   MessageBus *message_bus;
+  std::unique_ptr<Camera> camera;
 
 protected:
   virtual void onNotify(Message message);
@@ -38,7 +40,6 @@ public:
   std::unique_ptr<b2World> world;
   std::list<Entity *> entities_to_remove;
   TextureManager texture_manager;
-  std::list<SDL_Event> recent_events;
   std::set<Entity *> entities;
 
   void setWidth(int width);
@@ -55,8 +56,10 @@ public:
   void init(); // this function will need to be extended e.g. take parameters
                // specifying size of the window, entities list
   b2World *getWorld();
+  Camera *getCamera();
+  SDLDebugDraw *getDebugDraw();
+  MessageBus *getMessageBus();
   void addEntity(Entity *entity);
   void removeEntity(Entity *ent);
-  const std::list<SDL_Event> &getRecentEvents() const;
   virtual void update();
 };
