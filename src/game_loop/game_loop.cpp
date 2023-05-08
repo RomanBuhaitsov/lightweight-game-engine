@@ -7,15 +7,19 @@
 #include "../IO/io_manager.h"
 #include "../game_window/game_window.cpp"
 #include "../texture_manager/texture_manager.h"
+#include "../audio_manager/audio_manager.h"
 
 #include "../log.h"
 
 #include "game_loop.h"
 
 // dependency injection
-GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_manager, AudioManager* audio_manager,
-    int framerate, int max_frameskip)
+GameLoop::GameLoop(LevelManager* levels, MessageBus* message_bus, IOManager* io,
+    GameWindow* window, TextureManager* texture_manager, AudioManager* audio_manager,
+    int framerate, int max_frameskip) : BusNode(message_bus)
 {
+  this->levels = levels;
+  this->message_bus = message_bus;
   this->io = io;
   this->window = window;
   this->framerate = framerate;
@@ -24,7 +28,6 @@ GameLoop::GameLoop(IOManager *io, GameWindow *window, TextureManager *texture_ma
   this->game_running = true;
   this->texture_manager = texture_manager;
   this->audio_manager = audio_manager;
-  this->execution_start_time = SDL_GetTicks64(); //fixme?
 }
 
 void GameLoop::onNotify(Message message) {

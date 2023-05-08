@@ -1,4 +1,4 @@
-#include "SDLInit.h"
+//#include <SDLInit.h>
 #include <SDL_mixer.h>
 #include <SDL.h>
 #include "../log.h"

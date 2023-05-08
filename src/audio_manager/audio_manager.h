@@ -7,8 +7,8 @@
 
 class AudioManager {
 private:
-	std::map<std::string name, std::string path> sound_effects;
-	std::map<std::string name, std::string path> music;
+	std::map<std::string, std::string> sound_effects;
+	std::map<std::string, std::string> music;
     bool music_playing, music_paused;
 public:
     AudioManager(const std::string& dir = "src/static/sound");

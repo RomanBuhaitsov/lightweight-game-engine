@@ -5,6 +5,7 @@
 #include "../level/manager.h"
 #include "../message_bus/bus.h"
 #include "../texture_manager/texture_manager.h"
+#include "../audio_manager/audio_manager.h"
 
 class GameLoop : public BusNode {
 private:
@@ -24,8 +25,8 @@ protected:
 
 public:
   GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
-           GameWindow *window, TextureManager *texture_manager, int framerate,
-           int max_frameskip);
+           GameWindow *window, TextureManager* texture_manager, AudioManager* audio_manager, 
+           int framerate, int max_frameskip);
   ~GameLoop(){};
   virtual void update(){};
 
