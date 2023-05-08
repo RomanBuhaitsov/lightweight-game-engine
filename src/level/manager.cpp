@@ -6,6 +6,13 @@ LevelManager::LevelManager(Level *current_level, MessageBus *message_bus)
 
 LevelManager::~LevelManager() { delete this->current_level; }
 
+void LevelManager::prev() {
+  this->current_level = this->current_level->previous();
+  if (this->current_level != nullptr) {
+    this->send(Message(MessageEvent::QUIT));
+  }
+}
+
 void LevelManager::next() {
   this->current_level = this->current_level->next();
   if (this->current_level != nullptr) {
