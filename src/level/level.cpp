@@ -7,6 +7,12 @@ Level::~Level() { this->reset(); }
 
 GameWindow *Level::getGameWindow() { return this->game_window; }
 
+void setNextLevel(Level *next_level) { this->next_level = next_level; }
+
+void setPreviousLevel(Level *previous_level) {
+  this->previous_level = previous_level;
+}
+
 Level *Level::next() {
   this->reset();
   if (this->next_level != nullptr) {

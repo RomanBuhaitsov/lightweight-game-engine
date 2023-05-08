@@ -8,6 +8,7 @@ private:
   std::string name;
   GameWindow *game_window;
   Level *next_level = nullptr;
+  Level *previous_level = nullptr;
 
 public:
   Level(std::string name, GameWindow *game_window, MessageBus *message_bus);
@@ -15,6 +16,8 @@ public:
 
   Level *next();
   GameWindow *getGameWindow();
+  void setNextLevel(Level *next_level);
+  void setPreviousLevel(Level *next_level);
   virtual void init(){};
   virtual void reset(){};
   virtual void update(){};
