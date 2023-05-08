@@ -15,6 +15,7 @@ public:
 
   void start();
   void next();
+  void prev();
 
   virtual void update(){};
 };
