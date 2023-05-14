@@ -5,7 +5,7 @@
 
 TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : renderer(render)
 {
-  this->textureAssets = new std::map<std::string, SDL_Texture *>();
+  this->textureAssets = new std::unordered_map<std::string, SDL_Texture *>();
   std::filesystem::path p(dir);
   load(p, ignoreDirs);
 }

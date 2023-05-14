@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
 #include <filesystem>
-#include <map>
+#include <unordered_map>
 #include "../renderer/renderer.h"
 
 class TextureManager
 {
 private:
-  std::map<std::string, SDL_Texture *> *textureAssets;
+  std::unordered_map<std::string, SDL_Texture *> *textureAssets;
   void load(const std::filesystem::path &dir, bool ignoreDirs);
   WindowRenderer *renderer;
 

@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../game_window/game_window.h"
+#include "../entity/factory.h"
 #include <string>
+
 
 class Level : public BusNode {
 private:
@@ -15,6 +17,7 @@ public:
   ~Level();
 
   Level *next();
+  Level* prev();
   GameWindow *getGameWindow();
   void setNextLevel(Level *next_level);
   void setPreviousLevel(Level *next_level);
