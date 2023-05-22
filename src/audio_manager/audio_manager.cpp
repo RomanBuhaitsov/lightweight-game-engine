@@ -1,10 +1,18 @@
 //#include <SDLInit.h>
-#include <SDL_mixer.h>
-#include <SDL.h>
+#include "audio_manager.h"
 #include "../log.h"
+
+void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs){
+    // TODO: add option to load music based on config (either to load all 
+    // music in /music directory or every track in music config file)
+}
 
 AudioManager::AudioManager(const std::string& dir){
     //TODO: init AM
+    int audio_rate = 22050;
+    Uint16 audio_format = AUDIO_S16SYS;
+    int audio_channels = 2;
+    int audio_buffers = 4096;
     music_playing = false;
     music_paused = false;
     SDL_Init(SDL_INIT_AUDIO);
@@ -12,40 +20,27 @@ AudioManager::AudioManager(const std::string& dir){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot initialize audio: %s", Mix_GetError());
         return;
     }
-    loadSound(dir+"/music");
-    loadSound(dir+"/sound_effects");
+    // loadMusic(dir+"/music");
+    // loadSound(dir+"/sound_effects");
 }
-
-
-void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs)
-{
-    if (!std::filesystem::exists(dir)) {
-        LogError << "Cannot find directory " << dir << ". AudioManager has not been loaded.\n";
-        return;
-    }
-    for (const auto &f : std::filesystem::directory_iterator(dir))
-    {
-        if (f.is_directory()){
-            if (!ignoreDirs){
-                load(f.path(), false);
-            }
-            continue;
-        }
-//        TODO: load music
-        addMusicTrack(f.filename().c_str(), f.path().string().c_str());
-    }
-}
-
 
 AudioManager::~AudioManager(){
     //TODO: clean all sfx and music tracks
+    for(std::map<std::string, Mix_Chunk*>::iterator itr = sound_effects.begin(); itr != sound_effects.end(); itr++)
+    {
+        delete itr->second;
+    }
+    for(std::map<std::string, Mix_Music*>::iterator itr = music.begin(); itr != music.end(); itr++)
+    {
+        delete itr->second;
+    }
     SDL_Quit();
 }
 
-AudioManager::addSoundEffect(const std::string sfxTitle, const std::filesystem::path &dir){
-    Mix_Music* track = Mix_LoadMUS(path);
-    if (track != nullptr) {
-        music.insert({ trackTitle, path });
+void AudioManager::addSoundEffect(const std::string sfxTitle, const char* path){
+    Mix_Chunk* chunk = Mix_LoadWAV(path);
+    if (chunk != nullptr) {
+        sound_effects.insert({ sfxTitle, chunk });
         std::cout << "Sound effect ready at : " << path << '\n';
     }
     else {
@@ -53,18 +48,10 @@ AudioManager::addSoundEffect(const std::string sfxTitle, const std::filesystem::
     }
 }
 
-AudioManager::playSoundEffect(const std::string sfxTitle){
-    if (music.count(trackTitle) == 0) {
-        return;
-    }
-
-    Mix_PlayMusic(music.find(trackTitle), -1);
-}
-
-AudioManager::addMusicTrack(const std::string trackTitle, const std::filesystem::path & path){
-    Mix_Chunk* chunk = Mix_LoadMUS(path);
-    if (chunk != nullptr){
-        sound_effects.insert({ trackTitle, path });
+void AudioManager::addMusicTrack(const std::string trackTitle,  const char* path){
+    Mix_Music* track = Mix_LoadMUS(path);
+    if (track != nullptr){
+        music.insert({ trackTitle, track });
         std::cout <<"Music track ready at : " << path << '\n';
     }
     else{
@@ -72,16 +59,27 @@ AudioManager::addMusicTrack(const std::string trackTitle, const std::filesystem:
     }
 }
 
-AudioManager::playMusicTrack(const std::string trackTitle){
+void AudioManager::playSoundEffect(const std::string sfxTitle){
+    if (music.count(sfxTitle) == 0) {
+        LogError << "Cannot find sound effect '" << sfxTitle << "'.\n";
+        return;
+    }
+    Mix_Chunk* sfx = sound_effects.find(sfxTitle)->second;
+    Mix_PlayChannel(-1, sfx, 0);
+}
+
+void AudioManager::playMusicTrack(const std::string trackTitle){
     if (music.count(trackTitle) == 0) {
+        LogError << "Cannot find music track '" << trackTitle << "'.\n";
         return;
     }
 
-    Mix_PlayMusic(music.find(trackTitle), -1);
+    Mix_Music* track = music.find(trackTitle)->second;
+    Mix_PlayMusic(track, -1);
     music_playing = true;
 }
 
-AudioManager::pauseTrack(){
+void AudioManager::pauseTrack(){
     if (music_playing && !music_paused){
         Mix_PauseMusic();
         music_paused = true;
@@ -94,6 +92,3 @@ AudioManager::pauseTrack(){
         return;
     }
 }
-
-
-

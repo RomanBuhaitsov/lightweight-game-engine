@@ -28,12 +28,13 @@ int main(int argc, char **argv) {
   EntityContactListener *contact_listener =
       new EntityContactListener(message_bus);
   window->getWorld()->SetContactListener(contact_listener);
-  TextureManager *texture_manager =
+  TextureManager* texture_manager =
       new TextureManager(window, "src/static/textures");
+  AudioManager* audio_manager = new AudioManager( "src/static/sound");
   Level *first_level = new Level1(window, message_bus);
   LevelManager *levels = new LevelManager(first_level, message_bus);
   GameLoop *loop =
-      new GameLoop(levels, message_bus, io, window, texture_manager,
+      new GameLoop(levels, message_bus, io, window, texture_manager, audio_manager,
                    config->getFramerate(), config->getMaxFrameSkip());
   loop->run();
 

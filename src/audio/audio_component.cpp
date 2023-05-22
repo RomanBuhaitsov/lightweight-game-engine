@@ -5,18 +5,16 @@
 //	this->audio_manager = audio_manager;
 //}
 
-AudioComponent::AudioComponent(const AudioManager& audio_manager, MessageBus message_bus)
-{
-	this->audio_manager = audio_manager;
-	this
-}
+AudioComponent::AudioComponent(AudioManager* audio_manager, MessageBus *message_bus): 
+	Component(ComponentType::CT_AUDIO, message_bus), audio_manager(audio_manager) {}
+
 
 void AudioComponent::addSoundEffect(const std::string trackTitle, const std::string path)
 {
 	sound_effects_paths.insert({ trackTitle, path });
 }
 
-void AudioComponent::playSoundEffect(const std::string id)
+const void AudioComponent::playSoundEffect(const std::string id)
 {
-	audio_manager.playSoundEffect(id);
+	audio_manager->playSoundEffect(id);
 }
