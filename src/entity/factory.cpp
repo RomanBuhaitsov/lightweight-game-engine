@@ -26,5 +26,6 @@ Entity *EntityFactory::createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
                                       {6, 6}, 100, 4))
       ->addSpritePhysics(
           new SpritePhysicsHandler(message_bus, PlayerMovementHandler))
+      ->addAudio(new AudioComponent(message_bus))
       ->getEntity();
 }

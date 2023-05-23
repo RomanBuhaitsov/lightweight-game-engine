@@ -31,6 +31,8 @@ target_sources(lightweight-game-engine PRIVATE main.cpp)
 
 target_include_directories(lightweight-game-engine PRIVATE .)
 
+target_link_libraries(lightweight-game-engine PRIVATE AudioManager)
+target_link_libraries(lightweight-game-engine PRIVATE AudioComponent)
 target_link_libraries(lightweight-game-engine PRIVATE Component)
 target_link_libraries(lightweight-game-engine PRIVATE Camera)
 target_link_libraries(lightweight-game-engine PRIVATE DebugDraw)

@@ -1,12 +1,8 @@
 #include "audio_component.h"
 
 
-//AudioComponent::AudioComponent(AudioManager& audio_manager) {
-//	this->audio_manager = audio_manager;
-//}
-
-AudioComponent::AudioComponent(AudioManager* audio_manager, MessageBus *message_bus): 
-	Component(ComponentType::CT_AUDIO, message_bus), audio_manager(audio_manager) {}
+AudioComponent::AudioComponent(MessageBus *message_bus): 
+	Component(ComponentType::CT_AUDIO, message_bus) {}
 
 
 void AudioComponent::addSoundEffect(const std::string trackTitle, const std::string path)
@@ -16,5 +12,6 @@ void AudioComponent::addSoundEffect(const std::string trackTitle, const std::str
 
 const void AudioComponent::playSoundEffect(const std::string id)
 {
-	audio_manager->playSoundEffect(id);
+	// audio_manager->playSoundEffect(id);
+	// TODO: use Message bus
 }
