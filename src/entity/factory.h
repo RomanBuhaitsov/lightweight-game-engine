@@ -9,6 +9,7 @@ public:
   enum EntityFactoryType {
       ENTITYFACTORY_PLAYER = 0,
       ENTITYFACTORY_TILE,
+      ENTITYFACTORY_COIN,
       ENTITYFACTORY_MAX
   };
   
@@ -19,8 +20,8 @@ public:
   static Entity *createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
                               MessageBus *message_bus);
 
-  template <typename ...Args>
-  static Entity* createEntityFromEnum(EntityFactoryType type, Args&& ...args);
+  static Entity* createCoin(int pos_x, int pos_y, SDL_Texture* texture, MessageBus* message_bus);
+
 private:
     static const std::string enumString[ENTITYFACTORY_MAX + 1];
 };

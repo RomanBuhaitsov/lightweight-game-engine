@@ -19,7 +19,7 @@ private:
 
 protected:
   bool game_running; // TODO: consider moving this field to a more global scope
-  virtual void onNotify(Message message);
+  virtual void onNotify(const Message & message) override;
 
 public:
   GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,

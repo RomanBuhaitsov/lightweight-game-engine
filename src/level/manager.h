@@ -7,7 +7,7 @@ private:
   Level *current_level;
 
 protected:
-  virtual void onNotify(Message message);
+  virtual void onNotify(const Message & message);
 
 public:
   LevelManager(Level *current_level, MessageBus *message_bus);

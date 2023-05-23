@@ -14,6 +14,7 @@ private:
 
 public:
   Message(const MessageEvent event);
-  MessageEvent getEvent();
-  std::unordered_map<std::string, std::any> getData();
+  MessageEvent getEvent() const;
+  std::unordered_map<std::string, std::any> & getData();
+  std::any operator[](const std::string& key) const;
 };

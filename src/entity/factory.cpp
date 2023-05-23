@@ -11,6 +11,7 @@
 const std::string EntityFactory::enumString[ENTITYFACTORY_MAX + 1] = {
     ENUM2STRING(ENTITYFACTORY_PLAYER),
     ENUM2STRING(ENTITYFACTORY_TILE),
+    ENUM2STRING(ENTITYFACTORY_COIN),
     "Invalid ENTITYFACTORY type"
 };
 
@@ -44,14 +45,23 @@ Entity *EntityFactory::createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
       ->getEntity();
 }
 
-template <typename ...Args>
-Entity* EntityFactory::createEntityFromEnum(EntityFactoryType type, Args&& ...args) {
-    switch (type) {
-    case ENTITYFACTORY_PLAYER:
-        return createPlayer(std::forward<Args>(args)...);
-    case ENTITYFACTORY_TILE:
-        return createTile(std::forward<Args>(args)...);
-    default:
-        return NULL;
-    }
+Entity* EntityFactory::createCoin(int pos_x, int pos_y, SDL_Texture* texture,
+    MessageBus* message_bus) {
+    return (new EntityBuilder(EntityType::ET_COLLECTIBLE))
+        ->addPhysics(new PhysicsComponent(
+            PhysicsComponent::TileBody(pos_x, pos_y, 16, 16, 0.1f),
+            //custom touch function
+            [](Entity* self, Entity* other, MessageBus* message_bus) {
+                if (other->getType() == EntityType::ET_PLAYER) {
+                    Message message(MessageEvent::ENTITY_REMOVE);
+                    message.getData()["entity"] = self;
+                    message_bus->sendMessage(message);
+                }
+            },
+            //custom can_collide
+            [](Entity* other) {
+                return (other->getType() != EntityType::ET_PLAYER); //player won't briefly get stuck on a coin before the touch function destroys the latter
+            },
+            message_bus))->addSprite(new SpriteComponent(message_bus, texture, 16, 16, 32, 32, { 4 }, 100, 8))->addSpritePhysics(new SpritePhysicsHandler(message_bus))
+        ->getEntity();
 }

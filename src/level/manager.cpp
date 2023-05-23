@@ -20,7 +20,7 @@ void LevelManager::next() {
   }
 }
 
-void LevelManager::onNotify(Message message) {
+void LevelManager::onNotify(const Message & message) {
   switch (message.getEvent()) {
   case MessageEvent::NEXT_LEVEL:
     this->next();

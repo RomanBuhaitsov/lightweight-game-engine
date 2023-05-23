@@ -8,8 +8,6 @@
 #include "../game_window/game_window.cpp"
 #include "../texture_manager/texture_manager.h"
 
-#include "../log.h"
-
 #include "game_loop.h"
 
 GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
@@ -27,7 +25,7 @@ GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
   //this->texture_manager = texture_manager;
 }
 
-void GameLoop::onNotify(Message message) {
+void GameLoop::onNotify(const Message & message) {
   switch (message.getEvent()) {
   case MessageEvent::ESCAPE_PRESSED:
   case MessageEvent::QUIT:

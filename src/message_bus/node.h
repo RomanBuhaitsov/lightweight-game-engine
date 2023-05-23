@@ -13,14 +13,16 @@ public:
 
   virtual void update(){};
 
+  void operator()(const Message& message);
+
+  ~BusNode();
+
 protected:
   MessageBus *messageBus;
 
-  std::function<void(Message)> getNotifyFunc();
+  void send(const Message & message);
 
-  void send(Message message);
-
-  virtual void onNotify(Message message)
+  virtual void onNotify(const Message & message)
   {
     // TODO: implement some basic action if needed
   }

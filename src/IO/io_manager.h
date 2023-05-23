@@ -15,5 +15,5 @@ public:
   virtual void update();
 
 protected:
-  virtual void onNotify(Message message);
+  virtual void onNotify(const Message & message);
 };

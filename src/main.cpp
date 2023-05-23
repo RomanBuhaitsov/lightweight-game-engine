@@ -35,11 +35,11 @@ int main(int argc, char **argv) {
   loop->run();
 
   delete config;
-  delete message_bus;
   delete io;
   delete window;
   delete contact_listener;
   //delete texture_manager;
   delete loop;
+  delete message_bus; //MessageBus must be deleted last
   return 0;
 }

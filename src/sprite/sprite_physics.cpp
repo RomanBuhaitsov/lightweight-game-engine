@@ -5,7 +5,7 @@
 
 SpritePhysicsHandler::SpritePhysicsHandler(
     MessageBus *message_bus,
-    std::function<void(SpriteComponent *, PhysicsComponent *, Message *)>
+    std::function<void(SpriteComponent *, PhysicsComponent *, const Message *)>
         handler)
     : Component(ComponentType::CT_SPHANDLER, message_bus), handler(handler),
       sprite(NULL), physics(NULL) {}
@@ -31,7 +31,7 @@ void SpritePhysicsHandler::update(const Uint64 gameTime) {
   handler(sprite, physics, NULL);
 }
 
-void SpritePhysicsHandler::onNotify(Message message) {
+void SpritePhysicsHandler::onNotify(const Message & message) {
   if (sprite == NULL || physics == NULL) {
     return;
   }
@@ -39,7 +39,7 @@ void SpritePhysicsHandler::onNotify(Message message) {
 }
 
 void GenericSpritePhysicsHandler(SpriteComponent *sprite,
-                                 PhysicsComponent *physics, Message *message) {
+                                 PhysicsComponent *physics, const Message *message) {
   b2Body *body = physics->getBody();
   b2Vec2 position = body->GetPosition();
   sprite->setPosition(position.x * PhysicsComponent::M2P,
@@ -48,7 +48,7 @@ void GenericSpritePhysicsHandler(SpriteComponent *sprite,
 }
 
 void PlayerMovementHandler(SpriteComponent *sprite, PhysicsComponent *physics,
-                           Message *message) {
+                           const Message *message) {
   b2Body *body = physics->getBody();
   b2Vec2 position = body->GetPosition(), vel = body->GetLinearVelocity(),
          desiredVel(0.0f, 0.0f);

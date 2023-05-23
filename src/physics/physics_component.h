@@ -13,10 +13,11 @@ private:
   b2Body *body;
 
 public:
-  std::function<bool(Entity *)> touch; // return true => remove the entity
+  std::function<void(Entity *, Entity*, MessageBus*)> touch;
+  std::function<bool(Entity*)> can_collide;
   // LGE_PhysicsComponent(int x, int y, int width, int height, float friction,
   // b2BodyType bodyType);
-  PhysicsComponent(b2Body *body, std::function<bool(Entity *)> touch,
+  PhysicsComponent(b2Body *body, std::function<void(Entity *, Entity *, MessageBus*)> touch, std::function<bool(Entity*)> can_collide,
                    MessageBus *message_bus);
   PhysicsComponent(b2Body *body, MessageBus *message_bus);
   void draw() override{};
@@ -35,5 +36,4 @@ public:
                                        float friction);
   static b2Body *TestFixtureBody(int x, int y, float friction);
 
-  friend class LGE_ContactListener;
 };

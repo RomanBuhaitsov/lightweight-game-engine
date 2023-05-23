@@ -8,25 +8,25 @@
 #include "../sprite/sprite_component.h"
 
 void GenericSpritePhysicsHandler(SpriteComponent *sprite,
-                                 PhysicsComponent *physics, Message *message);
+                                 PhysicsComponent *physics, const Message *message);
 void PlayerMovementHandler(SpriteComponent *sprite, PhysicsComponent *physics,
-                           Message *message);
+                           const Message *message);
 
 class SpritePhysicsHandler : public Component {
 private:
   SpriteComponent *sprite;
   PhysicsComponent *physics;
-  std::function<void(SpriteComponent *, PhysicsComponent *, Message *)> handler;
+  std::function<void(SpriteComponent *, PhysicsComponent *, const Message*)> handler;
 
 public:
   SpritePhysicsHandler(
       MessageBus *message_bus,
-      std::function<void(SpriteComponent *, PhysicsComponent *, Message *)>
+      std::function<void(SpriteComponent *, PhysicsComponent *, const Message*)>
           handler);
   SpritePhysicsHandler(MessageBus *message_bus);
   void init() override;
   void update(const Uint64 gameTime) override;
 
 protected:
-  void onNotify(Message message) override;
+  virtual void onNotify(const Message & message);
 };

@@ -86,6 +86,7 @@ enum class MessageEvent {
   // CONTACT
   ENTITY_CONTACT,
   // !CONTACT
+  ENTITY_REMOVE,
 
   QUIT,
   NEXT_LEVEL

@@ -46,4 +46,4 @@ void IOManager::update() {
   }
 }
 
-void IOManager::onNotify(Message message) {}
+void IOManager::onNotify(const Message & message) {}
