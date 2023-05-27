@@ -6,9 +6,12 @@
 class AudioComponent : public Component {
 public:
 	AudioComponent(MessageBus *message_bus);
-	void addSoundEffect(const std::string name, const std::string path);
-	const void playSoundEffect(const std::string id);
+	void addSoundEffect(const std::string title);
+	void addMusicTrack(const std::string title);
+	const void playSoundEffect(const std::string title);
+	const void playMusicTrack(const std::string title);
 private:
-	std::unordered_map<std::string, std::string> sound_effects_paths = std::unordered_map<std::string, std::string>();
+	std::set<std::string> sound_effects;
+	std::set<std::string> music_tracks;
 };
 	

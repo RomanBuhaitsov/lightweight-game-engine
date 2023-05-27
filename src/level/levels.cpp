@@ -20,6 +20,12 @@ void Level1::init() {
   this->getGameWindow()->getCamera()->followEntity(
       player, true); // make the camera follow the player
 
+  Entity *campfire = EntityFactory::createAnimation(
+    160, 480, this->getGameWindow()->texture_manager["fire.png"],
+    this->getGameWindow()->getMessageBus(), 50, {3,1});
+  this->getGameWindow()->entities.insert(campfire);
+  
+
   for (int i = 0; i < 32; ++i) {
     int pos_x = i * 32 - 1;
     int pos_y = 448;

@@ -6,8 +6,12 @@ find_package(SDL2_mixer CONFIG REQUIRED)
 target_sources(AudioManager
   PRIVATE
   audio_manager.cpp
+  music_player.cpp
+  sfx_player.cpp
   PUBLIC
   audio_manager.h
+  music_player.h
+  sfx_player.h
 )
 
 target_link_libraries(AudioManager
