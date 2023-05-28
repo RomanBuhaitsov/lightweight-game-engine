@@ -29,7 +29,6 @@ GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
 }
 
 void GameLoop::onNotify(const Message & message) {
-  std::cout << "GameLoop\n";
   switch (message.getEvent()) {
   case MessageEvent::ESCAPE_PRESSED:
   case MessageEvent::QUIT:

@@ -107,7 +107,6 @@ void GameWindow::update() {
 }
 
 void GameWindow::onNotify(const Message & message) {
-    std::cout << "GameWindow\n";
   switch (message.getEvent()) {
     case MessageEvent::ENTITY_REMOVE:
     {

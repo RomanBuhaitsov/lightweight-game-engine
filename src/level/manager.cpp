@@ -21,7 +21,6 @@ void LevelManager::next() {
 }
 
 void LevelManager::onNotify(const Message & message) {
-  std::cout << "LevelManager::onNotify\n";
   switch (message.getEvent()) {
   case MessageEvent::NEXT_LEVEL:
     this->next();

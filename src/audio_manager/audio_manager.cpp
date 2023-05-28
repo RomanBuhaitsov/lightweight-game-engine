@@ -18,30 +18,16 @@ void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs){
 }
 
 AudioManager::~AudioManager(){
-    music_player.~MusicPlayer();
-    sfx_player.~SfxPlayer();
+
 }
 
 void AudioManager::onNotify(const Message & message) {
-  std::string key("audio");
-  std::cout << "AudioManager1\n";
-// std::cout << whichEvent(message.getEvent(0)) << "\n";
-  if(!message.dataExists(key))
-    return;
-
-  std::cout << "AudioManager2\n";
-  
-  std::string title = convertAudioData(message.getData(key));
-  if(title.empty())
-    return;
-
-  std::cout << "AudioManager3\n";
   switch (message.getEvent()) {
   case MessageEvent::PLAY_SOUND_EFFECT:
-    sfx_player.playSoundEffect(title);
+    sfx_player.playSoundEffect(convertAudioData(message["audio"]));
     break;
   case MessageEvent::PLAY_MUSIC_TRACK:
-    music_player.playMusicTrack(title);
+    music_player.playMusicTrack(convertAudioData(message["audio"]));
     break;
   default:
     break;
@@ -51,8 +37,8 @@ void AudioManager::onNotify(const Message & message) {
 
 
 std::string AudioManager::convertAudioData(std::any title){
-    if(title.type()!=typeid(std::string)){
-        LogError << "Title has to be a string. Instead, got " << title.type().raw_name() << "\n";
+    if (title.type() != typeid(std::string)) {
+        LogError << "Title has to be a string. Instead, got " << title.type().name() << "\n";
         return std::string();
     }
     return std::any_cast<std::string>(title);

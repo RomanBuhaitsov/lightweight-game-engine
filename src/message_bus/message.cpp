@@ -15,10 +15,7 @@ MessageEvent Message::getEvent() const { return messageEvent; }
 
 std::unordered_map<std::string, std::any> & Message::getData() { return messageData; }
 
-std::any Message::getData(std::string key) const
-{
-  return messageData.find(key)->second;
-}
+std::unordered_map<std::string, std::any> Message::getData() const { return messageData; }
 
 std::any Message::operator[](const std::string& key) const {
 	return messageData.at(key);
