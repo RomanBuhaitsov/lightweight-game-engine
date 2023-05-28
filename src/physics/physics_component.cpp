@@ -7,8 +7,7 @@ const float PhysicsComponent::RAD2DEG = 180.0 / M_PI;
 const float PhysicsComponent::M2P = 16.0;
 const float PhysicsComponent::P2M = 1.0 / M2P;
 
-PhysicsComponent::~PhysicsComponent()
-{
+PhysicsComponent::~PhysicsComponent(){
   if (body != nullptr && GAME->getWorld() != nullptr)
   {
     GAME->getWorld()->DestroyBody(body);
@@ -16,24 +15,20 @@ PhysicsComponent::~PhysicsComponent()
   }
 }
 
-PhysicsComponent::PhysicsComponent(b2Body *body, std::function<void(Entity *, Entity*, MessageBus*)> touch, std::function<bool(Entity*)> can_collide, MessageBus *message_bus) : Component(ComponentType::CT_PHYSICS, message_bus), body(body), touch(touch), can_collide(can_collide)
-{
-}
+PhysicsComponent::PhysicsComponent(b2Body *body, std::function<void(Entity *, Entity*, MessageBus*)> touch, 
+  std::function<bool(Entity*)> can_collide, MessageBus *message_bus) : 
+    Component(ComponentType::CT_PHYSICS, message_bus), body(body), touch(touch), can_collide(can_collide){}
 
-PhysicsComponent::PhysicsComponent(b2Body *body, MessageBus *message_bus) : PhysicsComponent(body, nullptr, nullptr, message_bus)
-{
-}
+PhysicsComponent::PhysicsComponent(b2Body *body, MessageBus *message_bus) : 
+PhysicsComponent(body, nullptr, nullptr, message_bus){}
 
-void PhysicsComponent::init()
-{
-  if (body != nullptr)
-  {
+void PhysicsComponent::init(){
+  if (body != nullptr)  {
     body->GetUserData().pointer = (uintptr_t)this->entity;
   }
 }
 
-b2Body *PhysicsComponent::getBody()
-{
+b2Body *PhysicsComponent::getBody(){
   return body;
 }
 
@@ -83,8 +78,7 @@ b2Body *PhysicsComponent::TileBody(int x, int y, int width, int height, float fr
   return body;
 }
 
-b2Body *PhysicsComponent::RightTriangleTileBody(int x, int y, int a, int b, float friction)
-{
+b2Body *PhysicsComponent::RightTriangleTileBody(int x, int y, int a, int b, float friction){
   b2Body *body = nullptr;
 
   float slope_width_meters = a * P2M;

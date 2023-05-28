@@ -23,7 +23,7 @@ public:
                               MessageBus *message_bus);
   static Entity *createAnimation(int pos_x, int pos_y, SDL_Texture *texture,
                 MessageBus *message_bus, int animation_speed, 
-                const std::initializer_list<Uint16> &numFrames);
+                const std::initializer_list<Uint16> &numFrames, std::string track_title);
   static Entity* createCoin(int pos_x, int pos_y, SDL_Texture* texture, MessageBus* message_bus);
 
 private:

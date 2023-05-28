@@ -32,6 +32,9 @@ void SpritePhysicsHandler::update(const Uint64 gameTime) {
 }
 
 void SpritePhysicsHandler::onNotify(const Message & message) {
+  std::cout << "SpritePhysicsHandler\n";
+  if(!message.dataExists("entity"))
+    return;
   if (sprite == NULL || physics == NULL) {
     return;
   }

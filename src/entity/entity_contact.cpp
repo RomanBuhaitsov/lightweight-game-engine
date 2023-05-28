@@ -46,14 +46,8 @@ void EntityContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldMa
     }
 }
 
-void EntityContactListener::EndContact(b2Contact *contact)
-{
-}
+void EntityContactListener::EndContact(b2Contact *contact){}
 
-void EntityContactListener::update()
-{
-}
+void EntityContactListener::update(){}
 
-void EntityContactListener::onNotify(const Message & message)
-{
-}
+void EntityContactListener::onNotify(const Message & message){}

@@ -1,16 +1,14 @@
 #include "audio_component.h"
 #include "../log.h"
 
-AudioComponent::AudioComponent(MessageBus *message_bus): 
-	Component(ComponentType::CT_AUDIO, message_bus) {}
+AudioComponent::AudioComponent(MessageBus *message_bus, std::function<void(Entity *, Entity *, MessageBus*)> touch): 
+	Component(ComponentType::CT_AUDIO, message_bus), touch(touch) {}
 
-void AudioComponent::addSoundEffect(const std::string sfxTitle)
-{
+void AudioComponent::addSoundEffect(const std::string sfxTitle){
 	sound_effects.insert(sfxTitle);
 }
 
-void AudioComponent::addMusicTrack(const std::string title)
-{
+void AudioComponent::addMusicTrack(const std::string title){
 	music_tracks.insert(title);
 }
 
@@ -20,7 +18,7 @@ const void AudioComponent::playSoundEffect(const std::string sfxTitle){
 		return;
 	}
 	Message message(MessageEvent::PLAY_SOUND_EFFECT);
-	message.getData()["music"] = sfxTitle;
+	message.getData()["audio"] = sfxTitle;
 	this->send(message);
 }
 
@@ -31,6 +29,6 @@ const void AudioComponent::playMusicTrack(const std::string trackTitle)
 		return;
 	}
 	Message message(MessageEvent::PLAY_MUSIC_TRACK);
-	message.getData()["music"] = trackTitle;
+	message.getData()["audio"] = trackTitle;
 	this->send(message);
 }

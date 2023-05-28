@@ -23,15 +23,16 @@ void Level1::init() {
  
   Entity *campfire = EntityFactory::createAnimation(
     320, 416, this->getGameWindow()->texture_manager["fire.png"],
-    this->getGameWindow()->getMessageBus(), 100, {3,1});
+    this->getGameWindow()->getMessageBus(), 100, {3,1}, std::string("fire.png"));
   this->getGameWindow()->entities.insert(campfire);
-  AudioComponent ac = AudioComponent(this->getGameWindow()->getMessageBus());
-  ac.addMusicTrack("campfire.wav");
   // campfire->addComponent();
   // AudioComponent *campfire->getComponent(ComponentType::CT_AUDIO);
   
 
-  this->getGameWindow()->entities.insert(EntityFactory::createCoin(128, 384, this->getGameWindow()->texture_manager["coin.png"], this->getGameWindow()->getMessageBus()));
+  this->getGameWindow()->entities.insert(EntityFactory::createCoin(
+    128, 384, 
+    this->getGameWindow()->texture_manager["coin.png"], 
+    this->getGameWindow()->getMessageBus()));
 
   for (int i = 0; i < 32; ++i) {
     int pos_x = i * 32 - 1;

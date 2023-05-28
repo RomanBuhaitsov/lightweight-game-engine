@@ -7,10 +7,9 @@ AudioManager::AudioManager(MessageBus *message_bus) : BusNode(message_bus){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot initialize audio: %s", Mix_GetError());
         return;
     }  
-    music_player.addMusicTrack("farewell","src/static/sound/music/farewell.mp3");
-    music_player.addMusicTrack("farewell","src/static/sound/music/campfire.mp3");
+    music_player.addMusicTrack("farewell","src/static/sound/music/campfire.wav");
     sfx_player.addSoundEffect("ui_click","src/static/sound/sound_effects/ui_click.wav");
-    sfx_player.addSoundEffect("jump","src/static/sound/sound_effects/cartoon_jump.mp3");
+    sfx_player.addSoundEffect("coin","src/static/sound/sound_effects/coin.wav");
 }
 
 void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs){
@@ -23,14 +22,20 @@ AudioManager::~AudioManager(){
     sfx_player.~SfxPlayer();
 }
 
-void AudioManager::onNotify(Message message) {
-  if(message.getData().count("audio") == 0)
+void AudioManager::onNotify(const Message & message) {
+  std::string key("audio");
+  std::cout << "AudioManager1\n";
+// std::cout << whichEvent(message.getEvent(0)) << "\n";
+  if(!message.dataExists(key))
     return;
 
-  std::string title = convertAudioData(message.getData().find("music_track")->second);
+  std::cout << "AudioManager2\n";
+  
+  std::string title = convertAudioData(message.getData(key));
   if(title.empty())
     return;
 
+  std::cout << "AudioManager3\n";
   switch (message.getEvent()) {
   case MessageEvent::PLAY_SOUND_EFFECT:
     sfx_player.playSoundEffect(title);
@@ -43,6 +48,8 @@ void AudioManager::onNotify(Message message) {
   }
 }
 
+
+
 std::string AudioManager::convertAudioData(std::any title){
     if(title.type()!=typeid(std::string)){
         LogError << "Title has to be a string. Instead, got " << title.type().raw_name() << "\n";
@@ -50,5 +57,3 @@ std::string AudioManager::convertAudioData(std::any title){
     }
     return std::any_cast<std::string>(title);
 }
-
-

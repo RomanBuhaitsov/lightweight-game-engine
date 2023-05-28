@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   Level *first_level = new Level1(window, message_bus);
   LevelManager *levels = new LevelManager(first_level, message_bus);
   GameLoop *loop =
-      new GameLoop(levels, message_bus, io, window, texture_manager, audio_manager,
+      new GameLoop(levels, message_bus, io, window, /*texture_manager,*/ audio_manager,
                    config->getFramerate(), config->getMaxFrameSkip());
   loop->run();
 
