@@ -7,48 +7,40 @@ AudioManager::AudioManager(MessageBus *message_bus) : BusNode(message_bus){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot initialize audio: %s", Mix_GetError());
         return;
     }  
-    music_player.addMusicTrack("farewell","src/static/sound/music/farewell.mp3");
-    music_player.addMusicTrack("farewell","src/static/sound/music/campfire.mp3");
+    music_player.addMusicTrack("campfire","src/static/sound/music/campfire.wav");
     sfx_player.addSoundEffect("ui_click","src/static/sound/sound_effects/ui_click.wav");
-    sfx_player.addSoundEffect("jump","src/static/sound/sound_effects/cartoon_jump.mp3");
+    sfx_player.addSoundEffect("coin","src/static/sound/sound_effects/coin.wav");
 }
 
 void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs){
+  "src/static/sound/music/";
     // TODO: add option to load music based on config (either to load all 
     // music in /music directory or every track in music config file)
 }
 
-AudioManager::~AudioManager(){
-    music_player.~MusicPlayer();
-    sfx_player.~SfxPlayer();
-}
 
-void AudioManager::onNotify(Message message) {
-  if(message.getData().count("audio") == 0)
-    return;
-
-  std::string title = convertAudioData(message.getData().find("music_track")->second);
-  if(title.empty())
-    return;
-
+void AudioManager::onNotify(const Message & message) {
   switch (message.getEvent()) {
   case MessageEvent::PLAY_SOUND_EFFECT:
-    sfx_player.playSoundEffect(title);
+    sfx_player.playSoundEffect(convertAudioData(message["audio"]));
     break;
   case MessageEvent::PLAY_MUSIC_TRACK:
-    music_player.playMusicTrack(title);
+    music_player.playMusicTrack(convertAudioData(message["audio"]));
+    break;
+  case MessageEvent::PAUSE_MUSIC_TRACK:
+    music_player.pauseTrack();
     break;
   default:
     break;
   }
 }
 
+
+
 std::string AudioManager::convertAudioData(std::any title){
-    if(title.type()!=typeid(std::string)){
-        LogError << "Title has to be a string. Instead, got " << title.type().raw_name() << "\n";
+    if (title.type() != typeid(std::string)) {
+        LogError << "Title has to be a string. Instead, got " << title.type().name() << "\n";
         return std::string();
     }
     return std::any_cast<std::string>(title);
 }
-
-

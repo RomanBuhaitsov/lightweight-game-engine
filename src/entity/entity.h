@@ -6,8 +6,7 @@
 
 #include "entity_type.h"
 
-class Entity
-{
+class Entity{
 private:
   EntityType entityType;
   std::map<ComponentType, Component *> components;

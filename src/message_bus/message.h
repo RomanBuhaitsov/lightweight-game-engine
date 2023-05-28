@@ -16,5 +16,8 @@ public:
   Message(const MessageEvent event);
   MessageEvent getEvent() const;
   std::unordered_map<std::string, std::any> & getData();
+  std::unordered_map<std::string, std::any> getData() const;
   std::any operator[](const std::string& key) const;
+  bool dataExists(std::string dataName) const;
+  void printData() const;
 };
