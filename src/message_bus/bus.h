@@ -5,18 +5,22 @@
 #include <queue>
 #include <vector>
 
+class BusNode;
+
 class MessageBus {
 private:
-  std::vector<std::function<void(Message)>> receivers;
+  std::vector<BusNode*> receivers;
   std::queue<Message> messages;
 
 public:
   MessageBus(){};
   ~MessageBus(){};
 
-  void addReceiver(std::function<void(Message)> messageReceiver);
+  void addReceiver(BusNode *receiver);
 
-  void sendMessage(Message message);
+  void sendMessage(const Message & message);
 
   void notify();
+
+  void removeReceiver(BusNode* receiver);
 };

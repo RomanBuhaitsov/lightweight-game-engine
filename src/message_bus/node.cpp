@@ -1,25 +1,23 @@
 #include "node.h"
 #include "bus.h"
 #include "message.h"
-
 #include <functional>
 
 BusNode::BusNode(MessageBus *messageBus)
 {
   this->messageBus = messageBus;
-  this->messageBus->addReceiver(this->getNotifyFunc());
+  this->messageBus->addReceiver(this);
 }
 
-void BusNode::send(Message message)
+void BusNode::send(const Message & message)
 {
   messageBus->sendMessage(message);
 }
 
-std::function<void(Message)> BusNode::getNotifyFunc()
-{
-  auto messageListener = [=](Message message) -> void
-  {
-    this->onNotify(message);
-  };
-  return messageListener;
+void BusNode::operator()(const Message& message) {
+	this->onNotify(message);
+}
+
+BusNode::~BusNode() {
+	messageBus->removeReceiver(this);
 }

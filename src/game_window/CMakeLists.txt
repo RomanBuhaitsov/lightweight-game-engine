@@ -10,3 +10,4 @@ target_sources(GameWindow
 )
 
 target_link_libraries(GameWindow PRIVATE box2d::box2d)
+target_link_libraries(GameWindow PUBLIC MessageBus)

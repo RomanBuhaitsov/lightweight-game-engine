@@ -6,6 +6,6 @@ void Component::update()
 {
 }
 
-void Component::onNotify(Message message)
+void Component::onNotify(const Message & message)
 {
 }

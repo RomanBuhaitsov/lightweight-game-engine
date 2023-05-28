@@ -33,7 +33,7 @@ private:
   std::unique_ptr<Camera> camera;
 
 protected:
-  virtual void onNotify(Message message);
+  virtual void onNotify(const Message & message);
 
 public:
   // TODO: these were private before, moved for testing

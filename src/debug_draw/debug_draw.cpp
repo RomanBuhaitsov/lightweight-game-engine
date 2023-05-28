@@ -31,7 +31,6 @@ void SDLDebugDraw::DrawSolidPolygon(const b2Vec2 *vertices, int32 vertexCount, c
 {
   // Set the renderer color to the Box2D color
   SDL_SetRenderDrawColor(m_renderer, color.r * 255, color.g * 255, color.b * 255, SDL_ALPHA_OPAQUE);
-  int SCREEN_HEIGHT = 720;
   // Draw the polygon
   for (int i = 0; i < vertexCount - 1; i++)
   {

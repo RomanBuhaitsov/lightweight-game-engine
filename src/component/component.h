@@ -6,7 +6,7 @@
 #include "../game_window/game_window.h"
 
 #include "component_type.h"
-
+#include <iostream>
 class Entity;
 
 class Component : public BusNode
@@ -16,7 +16,7 @@ class Component : public BusNode
 protected:
   Entity *entity;
   ComponentType type;
-  virtual void onNotify(Message message);
+  virtual void onNotify(const Message & message);
 
 public:
   static GameWindow *GAME;
@@ -26,5 +26,5 @@ public:
   virtual void update();
   virtual void draw(){};
   // virtual void destroy() {}
-  virtual ~Component(){};
+  virtual ~Component() {};
 };

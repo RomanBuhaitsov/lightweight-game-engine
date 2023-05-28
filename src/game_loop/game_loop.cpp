@@ -9,15 +9,13 @@
 #include "../texture_manager/texture_manager.h"
 #include "../audio_manager/audio_manager.h"
 
-#include "../log.h"
-
 #include "game_loop.h"
 
-// dependency injection
-GameLoop::GameLoop(LevelManager* levels, MessageBus* message_bus, IOManager* io,
-    GameWindow* window, TextureManager* texture_manager, AudioManager* audio_manager,
-    int framerate, int max_frameskip) : BusNode(message_bus)
-{
+
+GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
+                   GameWindow *window, /*TextureManager* texture_manager,*/AudioManager* audio_manager,
+                   int framerate, int max_frameskip)
+    : BusNode(message_bus) {
   this->levels = levels;
   this->message_bus = message_bus;
   this->io = io;
@@ -26,11 +24,11 @@ GameLoop::GameLoop(LevelManager* levels, MessageBus* message_bus, IOManager* io,
   this->max_frameskip = max_frameskip;
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
-  this->texture_manager = texture_manager;
+  //this->texture_manager = texture_manager;
   this->audio_manager = audio_manager;
 }
 
-void GameLoop::onNotify(Message message) {
+void GameLoop::onNotify(const Message & message) {
   switch (message.getEvent()) {
   case MessageEvent::ESCAPE_PRESSED:
   case MessageEvent::QUIT:
@@ -55,6 +53,6 @@ void GameLoop::run() {
       next_game_tick += this->skip_ticks;
       loops++;
     }
-    /*     ->DebugDraw(); // uncomment this to debug draw box2d shapes */
+    /*window->getWorld()->DebugDraw(); // uncomment this to debug draw box2d shapes */
   }
 }

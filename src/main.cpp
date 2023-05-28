@@ -25,8 +25,8 @@ int main(int argc, char **argv) {
   EntityContactListener *contact_listener =
       new EntityContactListener(message_bus);
   window->getWorld()->SetContactListener(contact_listener);
-  TextureManager* texture_manager =
-      new TextureManager(window, "src/static/textures");
+  //TextureManager* texture_manager =
+  //    new TextureManager(window, "src/static/textures");
   AudioManager* audio_manager = new AudioManager(message_bus);
   Level *first_level = new Level1(window, message_bus);
   LevelManager *levels = new LevelManager(first_level, message_bus);
@@ -36,12 +36,12 @@ int main(int argc, char **argv) {
   loop->run();
 
   delete config;
-  delete message_bus;
   delete io;
   delete window;
   delete contact_listener;
-  delete texture_manager;
+  //delete texture_manager;
   delete audio_manager;
   delete loop;
+  delete message_bus; //MessageBus must be deleted last
   return 0;
 }

@@ -31,6 +31,8 @@ void Level1::init() {
   // AudioComponent *campfire->getComponent(ComponentType::CT_AUDIO);
   
 
+  this->getGameWindow()->entities.insert(EntityFactory::createCoin(128, 384, this->getGameWindow()->texture_manager["coin.png"], this->getGameWindow()->getMessageBus()));
+
   for (int i = 0; i < 32; ++i) {
     int pos_x = i * 32 - 1;
     int pos_y = 448;
@@ -57,6 +59,6 @@ void Level1::reset() {
 
 void Level1::update() {}
 
-void Level1::onNotify(Message message) {}
+void Level1::onNotify(const Message & message) {}
 
 Level1::~Level1() { this->reset(); }
