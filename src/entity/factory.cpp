@@ -76,9 +76,8 @@ Entity* EntityFactory::createCoin(int pos_x, int pos_y, SDL_Texture* texture,
                     remove_coin.getData()["entity"] = self;
                     message_bus->sendMessage(remove_coin);
                     Message play_sound(MessageEvent::PLAY_SOUND_EFFECT);
-                    remove_coin.getData()["entity"] = "coin";
-                    message_bus->sendMessage(remove_coin);
-                    std::cout << "message send\n";
+                    play_sound.getData()["audio"] = std::string("coin");
+                    message_bus->sendMessage(play_sound);
                 }
             },
             //custom can_collide
