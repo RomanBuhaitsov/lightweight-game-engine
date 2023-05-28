@@ -1,6 +1,7 @@
 #include "../entity/factory.h"
 
 #include "levels.h"
+#include "../audio/audio_component.h"
 
 Level1::Level1(GameWindow *game_window, MessageBus *message_bus)
     : Level("Level One", game_window, message_bus) {}
@@ -19,11 +20,15 @@ void Level1::init() {
   this->getGameWindow()->entities.insert(player);
   this->getGameWindow()->getCamera()->followEntity(
       player, true); // make the camera follow the player
-
+ 
   Entity *campfire = EntityFactory::createAnimation(
-    160, 480, this->getGameWindow()->texture_manager["fire.png"],
-    this->getGameWindow()->getMessageBus(), 50, {3,1});
+    320, 416, this->getGameWindow()->texture_manager["fire.png"],
+    this->getGameWindow()->getMessageBus(), 100, {3,1});
   this->getGameWindow()->entities.insert(campfire);
+  AudioComponent ac = AudioComponent(this->getGameWindow()->getMessageBus());
+  ac.addMusicTrack("campfire.wav");
+  // campfire->addComponent();
+  // AudioComponent *campfire->getComponent(ComponentType::CT_AUDIO);
   
 
   for (int i = 0; i < 32; ++i) {

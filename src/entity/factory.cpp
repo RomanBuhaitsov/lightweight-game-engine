@@ -38,7 +38,6 @@ Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *textur
           PhysicsComponent::TileBody(pos_x, pos_y, 32, 32, 0.8f), message_bus))
       ->addSprite(new SpriteComponent(message_bus, texture, 24, 28, 24, 28,
                                       numFrames, animation_speed, 4))
-      ->addSpritePhysics(new SpritePhysicsHandler(message_bus, PlayerMovementHandler))
       ->addAudio(new AudioComponent(message_bus))
       ->getEntity();
 }
