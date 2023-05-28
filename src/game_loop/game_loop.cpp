@@ -7,11 +7,13 @@
 #include "../IO/io_manager.h"
 #include "../game_window/game_window.cpp"
 #include "../texture_manager/texture_manager.h"
+#include "../audio_manager/audio_manager.h"
 
 #include "game_loop.h"
 
+
 GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
-                   GameWindow *window, /*TextureManager* texture_manager,*/
+                   GameWindow *window, /*TextureManager* texture_manager,*/AudioManager* audio_manager,
                    int framerate, int max_frameskip)
     : BusNode(message_bus) {
   this->levels = levels;
@@ -23,6 +25,7 @@ GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
   //this->texture_manager = texture_manager;
+  this->audio_manager = audio_manager;
 }
 
 void GameLoop::onNotify(const Message & message) {

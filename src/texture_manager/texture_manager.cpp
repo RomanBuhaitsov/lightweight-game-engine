@@ -3,7 +3,7 @@
 
 #include "texture_manager.h"
 
-TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) : renderer(render)
+TextureManager::TextureManager(WindowRenderer *render, const std::string &dir, bool ignoreDirs) :renderer(render)
 {
   this->textureAssets = new std::unordered_map<std::string, SDL_Texture *>();
   std::filesystem::path p(dir);

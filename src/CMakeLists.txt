@@ -8,6 +8,7 @@ project(lightweight-game-engine CXX)
 
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
+find_package(SDL2_mixer CONFIG REQUIRED)
 
 add_subdirectory(component)
 add_subdirectory(camera)
@@ -22,6 +23,8 @@ add_subdirectory(physics)
 add_subdirectory(renderer)
 add_subdirectory(position)
 add_subdirectory(sprite)
+add_subdirectory(audio)
+add_subdirectory(audio_manager)
 add_subdirectory(texture_manager)
 
 add_executable(lightweight-game-engine)
@@ -29,6 +32,8 @@ target_sources(lightweight-game-engine PRIVATE main.cpp)
 
 target_include_directories(lightweight-game-engine PRIVATE .)
 
+target_link_libraries(lightweight-game-engine PRIVATE AudioManager)
+target_link_libraries(lightweight-game-engine PRIVATE AudioComponent)
 target_link_libraries(lightweight-game-engine PRIVATE Component)
 target_link_libraries(lightweight-game-engine PRIVATE Camera)
 target_link_libraries(lightweight-game-engine PRIVATE DebugDraw)
@@ -52,4 +57,11 @@ target_link_libraries(lightweight-game-engine
   $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
   $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 )
-target_link_libraries(lightweight-game-engine PRIVATE $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>)
+target_link_libraries(lightweight-game-engine 
+  PRIVATE 
+  $<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
+)
+target_link_libraries(lightweight-game-engine 
+  PRIVATE 
+  $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
+)

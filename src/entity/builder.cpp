@@ -37,4 +37,9 @@ EntityBuilder::addSpritePhysics(SpritePhysicsHandler *spritePhysics) {
   return this;
 }
 
+EntityBuilder *EntityBuilder::addAudio(AudioComponent *audioComponent) {
+  this->entity->addComponent(audioComponent);
+  return this;
+}
+
 Entity *EntityBuilder::getEntity() { return this->entity; }

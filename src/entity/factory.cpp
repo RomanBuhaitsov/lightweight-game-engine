@@ -42,6 +42,19 @@ Entity *EntityFactory::createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
                                       {6, 6}, 100, 4))
       ->addSpritePhysics(
           new SpritePhysicsHandler(message_bus, PlayerMovementHandler))
+      ->addAudio(new AudioComponent(message_bus))
+      ->getEntity();
+}
+
+Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *texture,
+                                    MessageBus *message_bus, int animation_speed, 
+                                    const std::initializer_list<Uint16> &numFrames) {
+  return (new EntityBuilder(EntityType::ET_GENERIC))
+      ->addPhysics(new PhysicsComponent(
+          PhysicsComponent::TileBody(pos_x, pos_y, 32, 32, 0.8f), message_bus))
+      ->addSprite(new SpriteComponent(message_bus, texture, 24, 28, 24, 28,
+                                      numFrames, animation_speed, 4))
+      ->addAudio(new AudioComponent(message_bus))
       ->getEntity();
 }
 

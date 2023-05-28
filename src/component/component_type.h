@@ -6,5 +6,6 @@ enum class ComponentType
   CT_POSITION,
   CT_SPRITE,
   CT_PHYSICS,
-  CT_SPHANDLER
+  CT_SPHANDLER,
+  CT_AUDIO
 };
