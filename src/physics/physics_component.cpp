@@ -15,12 +15,16 @@ PhysicsComponent::~PhysicsComponent(){
   }
 }
 
-PhysicsComponent::PhysicsComponent(b2Body *body, std::function<void(Entity *, Entity*, MessageBus*)> touch, 
-  std::function<bool(Entity*)> can_collide, MessageBus *message_bus) : 
-    Component(ComponentType::CT_PHYSICS, message_bus), body(body), touch(touch), can_collide(can_collide){}
+PhysicsComponent::PhysicsComponent(
+  b2Body *body, 
+  std::function<void(Entity *, Entity*, MessageBus*)> touch, 
+  std::function<void(Entity *, Entity*, MessageBus*)> detach, 
+  std::function<bool(Entity*)> can_collide, 
+  MessageBus *message_bus
+  ) : Component(ComponentType::CT_PHYSICS, message_bus), body(body), touch(touch), detach(detach), can_collide(can_collide){}
 
 PhysicsComponent::PhysicsComponent(b2Body *body, MessageBus *message_bus) : 
-PhysicsComponent(body, nullptr, nullptr, message_bus){}
+  PhysicsComponent(body, nullptr, nullptr, nullptr, message_bus){}
 
 void PhysicsComponent::init(){
   if (body != nullptr)  {

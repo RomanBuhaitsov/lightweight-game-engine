@@ -22,17 +22,19 @@ void Level1::init() {
       player, true); // make the camera follow the player
  
   Entity *campfire = EntityFactory::createAnimation(
-    320, 416, this->getGameWindow()->texture_manager["fire.png"],
-    this->getGameWindow()->getMessageBus(), 100, {3,1}, std::string("fire.png"));
+    640, 416, this->getGameWindow()->texture_manager["fire.png"],
+    this->getGameWindow()->getMessageBus(), 100, {3,1}, std::string("campfire"));
   this->getGameWindow()->entities.insert(campfire);
-  // campfire->addComponent();
-  // AudioComponent *campfire->getComponent(ComponentType::CT_AUDIO);
   
-
-  this->getGameWindow()->entities.insert(EntityFactory::createCoin(
-    128, 384, 
+  for (size_t i = 0; i < 5; i++)
+  {
+    this->getGameWindow()->entities.insert(EntityFactory::createCoin(
+    128+i*64, 384, 
     this->getGameWindow()->texture_manager["coin.png"], 
     this->getGameWindow()->getMessageBus()));
+  }
+  
+  
 
   for (int i = 0; i < 32; ++i) {
     int pos_x = i * 32 - 1;

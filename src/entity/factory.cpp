@@ -47,18 +47,35 @@ Entity *EntityFactory::createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
 
 Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *texture,
                                     MessageBus *message_bus, int animation_speed, 
-                                    const std::initializer_list<Uint16> &numFrames, std::string track_title) {
+                                    const std::initializer_list<Uint16> &numFrames, 
+                                    std::string track_title) {
   return (new EntityBuilder(EntityType::ET_GENERIC))
       ->addPhysics(new PhysicsComponent(
-          PhysicsComponent::TileBody(pos_x, pos_y, 32, 32, 0.8f), message_bus))
-      ->addSprite(new SpriteComponent(message_bus, texture, 24, 28, 24, 28,
-                                      numFrames, animation_speed, 4))
-      ->addAudio(new AudioComponent(message_bus,
-            [track_title](Entity* self, Entity* other, MessageBus* message_bus) {
+          PhysicsComponent::TileBody(pos_x, pos_y, 96, 96, 0.8f),
+           [track_title](Entity* self, Entity* other, MessageBus* message_bus) {
                 if (other->getType() == EntityType::ET_PLAYER) {
                     Message message(MessageEvent::PLAY_MUSIC_TRACK);
                     message.getData()["audio"] = track_title;
                     message_bus->sendMessage(message);
+                    std::cout << "PLAY_MUSIC_TRACK sent\n";
+                }
+            },
+            [](Entity* self, Entity* other, MessageBus* message_bus) {
+                if (other->getType() == EntityType::ET_PLAYER) {
+                    Message message(MessageEvent::PAUSE_MUSIC_TRACK);
+                    message_bus->sendMessage(message);
+                }
+            },
+            [](Entity* other) {
+                return (other->getType() != EntityType::ET_PLAYER); //player won't briefly get stuck on a coin before the touch function destroys the latter
+            }, message_bus))
+      ->addSprite(new SpriteComponent(message_bus, texture, 24, 28, 24, 28,
+                                      numFrames, animation_speed, 4))
+      ->addSpritePhysics(new SpritePhysicsHandler(message_bus))
+      ->addAudio(new AudioComponent(message_bus,
+            [track_title](Entity* self, Entity* other, MessageBus* message_bus) {
+                if (other->getType() == EntityType::ET_PLAYER) {
+                    
                 }
             }))
       ->getEntity();
@@ -80,6 +97,7 @@ Entity* EntityFactory::createCoin(int pos_x, int pos_y, SDL_Texture* texture,
                     message_bus->sendMessage(play_sound);
                 }
             },
+            [](Entity* self, Entity* other, MessageBus* message_bus){}, //no need for detach function
             //custom can_collide
             [](Entity* other) {
                 return (other->getType() != EntityType::ET_PLAYER); //player won't briefly get stuck on a coin before the touch function destroys the latter

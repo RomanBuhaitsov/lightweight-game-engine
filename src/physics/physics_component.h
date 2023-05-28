@@ -14,10 +14,14 @@ private:
 
 public:
   std::function<void(Entity *, Entity*, MessageBus*)> touch;
+  std::function<void(Entity *, Entity*, MessageBus*)> detach;
   std::function<bool(Entity*)> can_collide;
   // LGE_PhysicsComponent(int x, int y, int width, int height, float friction,
   // b2BodyType bodyType);
-  PhysicsComponent(b2Body *body, std::function<void(Entity *, Entity *, MessageBus*)> touch, std::function<bool(Entity*)> can_collide,
+  PhysicsComponent(b2Body *body, 
+                  std::function<void(Entity *, Entity *, MessageBus*)> touch, 
+                  std::function<void(Entity *, Entity*, MessageBus*)> detach, 
+                  std::function<bool(Entity*)> can_collide,
                    MessageBus *message_bus);
   PhysicsComponent(b2Body *body, MessageBus *message_bus);
   void draw() override{};

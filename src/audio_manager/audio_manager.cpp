@@ -7,19 +7,17 @@ AudioManager::AudioManager(MessageBus *message_bus) : BusNode(message_bus){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot initialize audio: %s", Mix_GetError());
         return;
     }  
-    music_player.addMusicTrack("farewell","src/static/sound/music/campfire.wav");
+    music_player.addMusicTrack("campfire","src/static/sound/music/campfire.wav");
     sfx_player.addSoundEffect("ui_click","src/static/sound/sound_effects/ui_click.wav");
     sfx_player.addSoundEffect("coin","src/static/sound/sound_effects/coin.wav");
 }
 
 void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs){
+  "src/static/sound/music/";
     // TODO: add option to load music based on config (either to load all 
     // music in /music directory or every track in music config file)
 }
 
-AudioManager::~AudioManager(){
-
-}
 
 void AudioManager::onNotify(const Message & message) {
   switch (message.getEvent()) {
@@ -28,6 +26,9 @@ void AudioManager::onNotify(const Message & message) {
     break;
   case MessageEvent::PLAY_MUSIC_TRACK:
     music_player.playMusicTrack(convertAudioData(message["audio"]));
+    break;
+  case MessageEvent::PAUSE_MUSIC_TRACK:
+    music_player.pauseTrack();
     break;
   default:
     break;

@@ -20,7 +20,6 @@ void EntityContactListener::BeginContact(b2Contact *contact)
     if (b->touch) {
         b->touch(entityB, entityA, messageBus);
     }
-
   }
 }
 
@@ -46,7 +45,21 @@ void EntityContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldMa
     }
 }
 
-void EntityContactListener::EndContact(b2Contact *contact){}
+void EntityContactListener::EndContact(b2Contact *contact){
+    Entity *entityA = (Entity *)contact->GetFixtureA()->GetBody()->GetUserData().pointer,
+         *entityB = (Entity *)contact->GetFixtureB()->GetBody()->GetUserData().pointer;
+    if (entityA && entityB){
+        PhysicsComponent *a = (PhysicsComponent *)entityA->getComponent(ComponentType::CT_PHYSICS),
+                        *b = (PhysicsComponent *)entityB->getComponent(ComponentType::CT_PHYSICS);
+
+        if (a->detach) {
+            a->detach(entityA, entityB, messageBus);
+        }
+        if (b->detach) {
+            b->detach(entityB, entityA, messageBus);
+        }
+    }
+}
 
 void EntityContactListener::update(){}
 

@@ -14,7 +14,6 @@ private:
     std::string convertAudioData(std::any title);
 public:
     AudioManager(MessageBus *message_bus);
-    ~AudioManager();
 protected:
     virtual void onNotify(const Message & message);
 
