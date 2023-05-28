@@ -19,4 +19,5 @@ public:
   std::any getData(std::string key) const;
   std::any operator[](const std::string& key) const;
   bool dataExists(std::string dataName) const;
+  void printData() const;
 };
