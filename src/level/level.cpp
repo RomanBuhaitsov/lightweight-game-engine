@@ -3,7 +3,10 @@
 Level::Level(std::string name, GameWindow *game_window, MessageBus *message_bus)
     : BusNode(message_bus), name(name), game_window(game_window) {}
 
-Level::~Level() { this->reset(); }
+Level::~Level() { 
+  saveAsJson();
+  this->reset(); 
+}
 
 GameWindow *Level::getGameWindow() { return this->game_window; }
 
@@ -29,11 +32,20 @@ Level *Level::prev() {
   return this->previous_level;
 }
 
-void Level::saveAsJson() { 
-
+void Level::saveAsJson() {
+  std::string path=std::string("../static/levels/"+name+".json"); 
+  std::map<std::string, Entity*> entities;
+  json data = {
+    {"name", name},
+    {"entities", "a lot of them"},
+  };
+  std::ofstream file(path);
+  file << data;
 }
 
 void Level::createFromJson() { 
-  
+  std::ifstream f("example.json");
+  json data = json::parse(f);
 }
+
 

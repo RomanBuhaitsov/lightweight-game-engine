@@ -57,7 +57,6 @@ Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *textur
                     Message message(MessageEvent::PLAY_MUSIC_TRACK);
                     message.getData()["audio"] = track_title;
                     message_bus->sendMessage(message);
-                    std::cout << "PLAY_MUSIC_TRACK sent\n";
                 }
             },
             [](Entity* self, Entity* other, MessageBus* message_bus) {
@@ -72,12 +71,6 @@ Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *textur
       ->addSprite(new SpriteComponent(message_bus, texture, 24, 28, 24, 28,
                                       numFrames, animation_speed, 4))
       ->addSpritePhysics(new SpritePhysicsHandler(message_bus))
-      ->addAudio(new AudioComponent(message_bus,
-            [track_title](Entity* self, Entity* other, MessageBus* message_bus) {
-                if (other->getType() == EntityType::ET_PLAYER) {
-                    
-                }
-            }))
       ->getEntity();
 }
 
@@ -101,16 +94,8 @@ Entity* EntityFactory::createCoin(int pos_x, int pos_y, SDL_Texture* texture,
             //custom can_collide
             [](Entity* other) {
                 return (other->getType() != EntityType::ET_PLAYER); //player won't briefly get stuck on a coin before the touch function destroys the latter
-            },
-            message_bus))->addAudio(new AudioComponent(message_bus,
-                [](Entity* self, Entity* other, MessageBus* message_bus) {
-                    if (other->getType() == EntityType::ET_PLAYER) {
-                        Message message(MessageEvent::PLAY_MUSIC_TRACK);
-                        message.getData()["audio"] = std::string("coin.wav");
-                        message_bus->sendMessage(message);
-                        std::cout << "message sent!\n";
-                    }
-                }))
-            ->addSprite(new SpriteComponent(message_bus, texture, 16, 16, 32, 32, { 4 }, 100, 8))->addSpritePhysics(new SpritePhysicsHandler(message_bus))
+            }, message_bus))
+            ->addSprite(new SpriteComponent(message_bus, texture, 16, 16, 32, 32, { 4 }, 100, 8))
+            ->addSpritePhysics(new SpritePhysicsHandler(message_bus))
         ->getEntity();
 }

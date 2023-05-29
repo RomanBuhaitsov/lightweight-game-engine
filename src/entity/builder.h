@@ -3,7 +3,6 @@
 #include "../physics/physics_component.h"
 #include "../sprite/sprite_component.h"
 #include "../sprite/sprite_physics.h"
-#include "../audio/audio_component.h"
 
 #include "entity.h"
 
@@ -18,6 +17,5 @@ public:
   EntityBuilder *addPhysics(PhysicsComponent *physicsComponent);
   EntityBuilder *addSprite(SpriteComponent *spriteComponent);
   EntityBuilder *addSpritePhysics(SpritePhysicsHandler *spritePhysics);
-  EntityBuilder *addAudio(AudioComponent *audioComponent);
   Entity *getEntity();
 };

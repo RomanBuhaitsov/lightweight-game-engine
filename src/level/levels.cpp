@@ -1,7 +1,6 @@
 #include "../entity/factory.h"
 
 #include "levels.h"
-#include "../audio/audio_component.h"
 
 Level1::Level1(GameWindow *game_window, MessageBus *message_bus)
     : Level("Level One", game_window, message_bus) {}

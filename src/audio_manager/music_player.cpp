@@ -29,7 +29,10 @@ void MusicPlayer::playMusicTrack(const std::string trackTitle){
         LogError << "Cannot find music track '" << trackTitle << "'.\n";
         return;
     }
-
+    if (music_playing && music_paused){
+        pauseTrack();
+        return;
+    }
     Mix_Music* track = music.find(trackTitle)->second;
     Mix_PlayMusic(track, -1);
     music_playing = true;
