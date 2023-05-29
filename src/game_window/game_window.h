@@ -14,7 +14,8 @@
 #include "../texture_manager/texture_manager.h"
 
 class Entity;
-class GameWindow : public WindowRenderer, public BusNode {
+class GameWindow : public WindowRenderer, public BusNode
+{
 private:
   std::string title;
   int framerate;
@@ -33,10 +34,9 @@ private:
   std::unique_ptr<Camera> camera;
 
 protected:
-  virtual void onNotify(const Message & message);
+  virtual void onNotify(const Message &message);
 
 public:
-  // TODO: these were private before, moved for testing
   std::unique_ptr<b2World> world;
   std::list<Entity *> entities_to_remove;
   TextureManager texture_manager;

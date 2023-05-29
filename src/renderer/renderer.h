@@ -12,7 +12,6 @@ protected:
   static int num_instances;
 
 public:
-  // TODO: this was protected before, moved for testing
   SDL_Window *window;
   SDL_Renderer *renderer;
   bool init;

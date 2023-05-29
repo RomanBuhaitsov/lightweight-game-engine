@@ -7,7 +7,8 @@
 #include "../texture_manager/texture_manager.h"
 #include "../audio_manager/audio_manager.h"
 
-class GameLoop : public BusNode {
+class GameLoop : public BusNode
+{
 private:
   int framerate;
   int max_frameskip;
@@ -16,16 +17,16 @@ private:
   MessageBus *message_bus;
   IOManager *io;
   GameWindow *window;
-  //TextureManager *texture_manager;
+  // TextureManager *texture_manager;
   AudioManager *audio_manager;
 
 protected:
-  bool game_running; // TODO: consider moving this field to a more global scope
-  virtual void onNotify(const Message & message) override;
+  bool game_running;
+  virtual void onNotify(const Message &message) override;
 
 public:
   GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
-           GameWindow *window, /*TextureManager* texture_manager,*/ AudioManager* audio_manager, 
+           GameWindow *window, /*TextureManager* texture_manager,*/ AudioManager *audio_manager,
            int framerate, int max_frameskip);
   ~GameLoop(){};
   virtual void update(){};
