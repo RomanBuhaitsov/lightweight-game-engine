@@ -3,7 +3,7 @@ add_library(Level "")
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 find_package(box2d CONFIG REQUIRED)
-find_package(nlohmann-json CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 target_sources(Level
   PUBLIC
