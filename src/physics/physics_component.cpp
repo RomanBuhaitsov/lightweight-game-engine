@@ -46,10 +46,8 @@ b2Body *PhysicsComponent::CharacterBody(int x, int y, int width, int height, flo
   body = GAME->getWorld()->CreateBody(&bodyDef);
   b2CircleShape circle;
   circle.m_radius = P2M * (width + height) / 4.0f;
-  // b2PolygonShape dynamicBox;
-  // dynamicBox.SetAsBox(P2M * width / 2.0f, P2M * height / 2.0f);
   b2FixtureDef fixtureDef;
-  fixtureDef.shape = &circle; //&dynamicBox;//
+  fixtureDef.shape = &circle;
   fixtureDef.density = 1.0f;
   fixtureDef.friction = friction;
   body->CreateFixture(&fixtureDef);
@@ -89,9 +87,6 @@ b2Body *PhysicsComponent::RightTriangleTileBody(int x, int y, int a, int b, floa
   float slope_height_meters = b * P2M;
 
   b2Vec2 slope_vertices[3];
-  // slope_vertices[0].Set(-slope_width_meters  / 2.f, 0.0f);
-  // slope_vertices[1].Set(slope_width_meters / 2.f, 0.0f);
-  // slope_vertices[2].Set(-slope_width_meters / 2.f, slope_height_meters);
 
   slope_vertices[0].Set(slope_width_meters / 2.f, -slope_height_meters);
   slope_vertices[1].Set(-slope_width_meters / 2.f, 0.0f);
@@ -101,10 +96,9 @@ b2Body *PhysicsComponent::RightTriangleTileBody(int x, int y, int a, int b, floa
   triangleShape.Set(slope_vertices, 3);
 
   b2BodyDef triangleBodyDef;
-  triangleBodyDef.type = b2_staticBody; // b2_dynamicBody;//
+  triangleBodyDef.type = b2_staticBody;
   y += b / 2;
   triangleBodyDef.position.Set(x * P2M, y * P2M);
-  // triangleBodyDef.fixedRotation = true;
   body = GAME->getWorld()->CreateBody(&triangleBodyDef);
 
   b2FixtureDef triangleFixtureDef;
@@ -113,37 +107,11 @@ b2Body *PhysicsComponent::RightTriangleTileBody(int x, int y, int a, int b, floa
   triangleFixtureDef.friction = friction;
 
   body->CreateFixture(&triangleFixtureDef);
-  // body->SetTransform(body->GetPosition(), 180.0 / RAD2DEG);
   return body;
 }
 
-b2Body *PhysicsComponent::TestFixtureBody(int x, int y, float friction)
+b2Body *PhysicsComponent::ComplexFixtureBody(int x, int y, float friction)
 {
-#if 0
-	int width = 32;
-	int height = 32;
-	b2Body* body = nullptr;
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(x * P2M, y * P2M);
-	bodyDef.fixedRotation = true;
-	body = game->getGAME->getWorld()()->CreateBody(&bodyDef);
-	b2CircleShape circle;
-	circle.m_radius = P2M * (width + height) / 4.0f;
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(P2M * width / 8.0f, P2M * height / 8.0f);
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &circle;//&dynamicBox;//
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = friction;
-	b2FixtureDef fixtureDef2;
-	fixtureDef2.shape = &dynamicBox;
-	fixtureDef2.density = 1.0f;
-	fixtureDef2.friction = friction;
-	body->CreateFixture(&fixtureDef);
-	//body->CreateFixture(&fixtureDef2);
-	return body;
-#endif
   // set up a dynamic body
   b2BodyDef myBodyDef;
   myBodyDef.type = b2_dynamicBody;

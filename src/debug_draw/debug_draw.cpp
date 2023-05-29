@@ -51,7 +51,6 @@ void SDLDebugDraw::DrawSolidPolygon(const b2Vec2 *vertices, int32 vertexCount, c
 
 void SDLDebugDraw::DrawCircle(const b2Vec2 &center, float radius, const b2Color &color)
 {
-#if 0
 	SDL_SetRenderDrawColor(m_renderer, static_cast<Uint8>(color.r * 255),
 		static_cast<Uint8>(color.g * 255), static_cast<Uint8>(color.b * 255), 255);
 	int x = static_cast<int>(center.x * 10);
@@ -65,12 +64,10 @@ void SDLDebugDraw::DrawCircle(const b2Vec2 &center, float radius, const b2Color 
 		SDL_RenderDrawPoint(m_renderer, x - i, y + j);
 		SDL_RenderDrawPoint(m_renderer, x - i, y - j);
 	}
-#endif
 }
 
 void SDLDebugDraw::DrawSolidCircle(const b2Vec2 &center, float radius, const b2Vec2 &axis, const b2Color &color)
 {
-#if 0
 	SDL_SetRenderDrawColor(m_renderer, static_cast<Uint8>(color.r * 255),
 		static_cast<Uint8>(color.g * 255), static_cast<Uint8>(color.b * 255), 255);
 	int x = static_cast<int>(center.x * 10);
@@ -84,7 +81,6 @@ void SDLDebugDraw::DrawSolidCircle(const b2Vec2 &center, float radius, const b2V
 		SDL_RenderDrawPoint(m_renderer, x - i, y + j);
 		SDL_RenderDrawPoint(m_renderer, x - i, y - j);
 	}
-#endif
 }
 
 void SDLDebugDraw::DrawSegment(const b2Vec2 &p1, const b2Vec2 &p2, const b2Color &color)

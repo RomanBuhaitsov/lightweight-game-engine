@@ -17,7 +17,6 @@ private:
   MessageBus *message_bus;
   IOManager *io;
   GameWindow *window;
-  // TextureManager *texture_manager;
   AudioManager *audio_manager;
 
 protected:
@@ -26,7 +25,7 @@ protected:
 
 public:
   GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
-           GameWindow *window, /*TextureManager* texture_manager,*/ AudioManager *audio_manager,
+           GameWindow *window, AudioManager *audio_manager,
            int framerate, int max_frameskip);
   ~GameLoop(){};
   virtual void update(){};

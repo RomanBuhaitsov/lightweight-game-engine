@@ -116,18 +116,6 @@ void GameWindow::onNotify(const Message & message) {
     default:
         break;
     }
-   /*switch (message.getEvent()) {
-        case MessageEvent::ENTITY_REMOVE:
-        {
-            Log << "Trying to remove an entity\n";
-            Log << "getData().size(): " << message.getData().size() << '\n';
-            Entity* gent = std::any_cast<Entity*>(message.getData()["entity"]);
-            entities_to_remove.push_back(gent);
-            break;
-        }
-        default:
-            break;
-    }*/
 }
 
 void GameWindow::init() {}

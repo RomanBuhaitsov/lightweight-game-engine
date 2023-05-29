@@ -25,15 +25,13 @@ int main(int argc, char **argv) {
   EntityContactListener *contact_listener =
       new EntityContactListener(message_bus);
   window->getWorld()->SetContactListener(contact_listener);
-  //TextureManager* texture_manager =
-  //    new TextureManager(window, "src/static/textures");
   AudioManager* audio_manager = new AudioManager(message_bus);
   LevelBuilder *level_builder = new LevelBuilder(window, message_bus);
 
   Level *first_level = level_builder->createFromJson("C:/Users/rbuha/university/lge2/lightweight-game-engine/src/static/levels/level1.json");
   LevelManager *levels = new LevelManager(first_level, message_bus);
   GameLoop *loop =
-      new GameLoop(levels, message_bus, io, window, /*texture_manager,*/ audio_manager,
+      new GameLoop(levels, message_bus, io, window, audio_manager,
                    config->getFramerate(), config->getMaxFrameSkip());
   loop->run();
 
@@ -41,7 +39,6 @@ int main(int argc, char **argv) {
   delete io;
   delete window;
   delete contact_listener;
-  //delete texture_manager;
   delete audio_manager;
   delete loop;
   delete message_bus; //MessageBus must be deleted last

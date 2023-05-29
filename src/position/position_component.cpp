@@ -6,7 +6,6 @@
 
 void PositionComponent::update(const Uint64 gameTime)
 {
-  // test
   SpriteComponent *test = (SpriteComponent *)entity->getComponent(ComponentType::CT_SPRITE);
   if (test == NULL)
   {

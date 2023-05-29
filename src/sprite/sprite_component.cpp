@@ -65,24 +65,11 @@ void SpriteComponent::setPosition(int x, int y) {
 
 void SpriteComponent::setRow(const int row) {
   currentRow = std::min(row, nRows - 1);
-  // currentFrame = 0;
   src.y = currentRow * src.h;
 }
 
 void SpriteComponent::update(const Uint64 gameTime) {
   Uint16 numFrames = (*frames)[currentRow];
-#if 0
-	PhysicsComponent* p = (PhysicsComponent*)entity->getComponent(ComponentType::CT_PHYSICS);
-	if (p != nullptr) {
-		b2Vec2 position = p->position(), vel = p->velocity();
-		dst.x = position.x * PhysicsComponent::M2P + shift_x;
-		dst.y = position.y * PhysicsComponent::M2P + shift_y;
-		if (numFrames > 1 && ((vel.x > 0.1f && (flip & SDL_FLIP_HORIZONTAL)) || (vel.x < -0.1f && !(flip & SDL_FLIP_HORIZONTAL)))) {
-			flip ^= SDL_FLIP_HORIZONTAL;
-		}
-		angle = p->getBody()->GetAngle() * PhysicsComponent::RAD2DEG;
-	}
-#endif
   if (numFrames <= 1 || !playing) {
     return;
   }

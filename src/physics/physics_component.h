@@ -16,8 +16,6 @@ public:
   std::function<void(Entity *, Entity*, MessageBus*)> touch;
   std::function<void(Entity *, Entity*, MessageBus*)> detach;
   std::function<bool(Entity*)> can_collide;
-  // LGE_PhysicsComponent(int x, int y, int width, int height, float friction,
-  // b2BodyType bodyType);
   PhysicsComponent(b2Body *body, 
                   std::function<void(Entity *, Entity *, MessageBus*)> touch, 
                   std::function<void(Entity *, Entity*, MessageBus*)> detach, 
@@ -39,6 +37,6 @@ public:
                           float density = 1.0f, bool dynamic = false);
   static b2Body *RightTriangleTileBody(int x, int y, int a, int b,
                                        float friction);
-  static b2Body *TestFixtureBody(int x, int y, float friction);
+  static b2Body *ComplexFixtureBody(int x, int y, float friction);
 
 };

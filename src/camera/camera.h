@@ -36,12 +36,3 @@ public:
   const int getY();
   void setSteps(int x, int y);
 };
-
-/*
-class Level {
-private:
-        Uint32 width;
-        Uint32 height;
-        Camera* camera;
-};
-*/

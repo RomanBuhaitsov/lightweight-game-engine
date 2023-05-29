@@ -31,8 +31,7 @@ std::array<int, 2> Camera::getEntityPosition() {
     }
     }
   }
-  return {dest_x, dest_y}; // fixme: is it better to return destination or throw
-                           // an exception?
+  return {dest_x, dest_y};
 }
 
 Camera::Camera(int level_width, int level_height, int screen_width,

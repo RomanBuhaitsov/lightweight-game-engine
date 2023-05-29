@@ -31,6 +31,5 @@ public:
   virtual void update();
   virtual void draw(){};
   virtual json to_json();
-  // virtual void destroy() {}
   virtual ~Component() {};
 };

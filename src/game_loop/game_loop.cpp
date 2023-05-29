@@ -13,7 +13,7 @@
 
 
 GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
-                   GameWindow *window, /*TextureManager* texture_manager,*/AudioManager* audio_manager,
+                   GameWindow *window, AudioManager* audio_manager,
                    int framerate, int max_frameskip)
     : BusNode(message_bus) {
   this->levels = levels;
@@ -24,7 +24,6 @@ GameLoop::GameLoop(LevelManager *levels, MessageBus *message_bus, IOManager *io,
   this->max_frameskip = max_frameskip;
   this->skip_ticks = 1000 / this->framerate;
   this->game_running = true;
-  //this->texture_manager = texture_manager;
   this->audio_manager = audio_manager;
 }
 
@@ -53,6 +52,9 @@ void GameLoop::run() {
       next_game_tick += this->skip_ticks;
       loops++;
     }
-    /*window->getWorld()->DebugDraw(); // uncomment this to debug draw box2d shapes */
+    
+    
+    
+    window->getWorld()->DebugDraw(); // uncomment this to debug draw box2d shapes */
   }
 }
