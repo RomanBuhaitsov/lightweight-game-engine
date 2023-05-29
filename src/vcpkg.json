@@ -6,6 +6,7 @@
     "sdl2",
     "sdl2-image",
     "sdl2-mixer",
-    "box2d"
+    "box2d",
+    "nlohmann-json"
   ]
 }

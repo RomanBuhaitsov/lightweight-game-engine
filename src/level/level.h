@@ -4,6 +4,7 @@
 #include "../entity/factory.h"
 #include <string>
 
+using json = nlohmann::json;
 
 class Level : public BusNode {
 private:
@@ -24,7 +25,7 @@ public:
   virtual void init(){};
   virtual void reset(){};
   virtual void update(){};
-
+  
 protected:
   virtual void onNotify(const Message & message){};
 };

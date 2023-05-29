@@ -7,6 +7,11 @@
 
 #include "component_type.h"
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <map>
+
+using json = nlohmann::json;
+
 class Entity;
 
 class Component : public BusNode
@@ -25,6 +30,7 @@ public:
   virtual void update(const Uint64 gameTime){};
   virtual void update();
   virtual void draw(){};
+  virtual json to_json();
   // virtual void destroy() {}
   virtual ~Component() {};
 };

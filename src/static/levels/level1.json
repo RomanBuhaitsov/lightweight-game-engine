@@ -1,0 +1,68 @@
+{
+    "name": "First Level",
+    "backgorundImage": "background.png",
+    "player": {
+        "x": 0,
+        "y": 0,
+        "texture": "crudewalk.png"
+    },
+    "animations":[
+        {
+            "x": 640,
+            "y": 416,
+            "width": 128,
+            "length": 128,
+            "texture": "fire.png",
+            "speed": 150,
+            "frames_column": 3,
+            "frames_row": 1,
+            "track": "campfire"
+        }
+    ],
+    "coin": {
+        "texture": "coin.png",
+        "positions": [
+            {
+                "x": 128,
+                "y": 384
+            },
+            {
+                "x": 192,
+                "y": 384
+            },
+            {
+                "x": 256,
+                "y": 384
+            }
+        ],
+        "functions": [
+            {
+                "name": "line", 
+                "interval": 64,
+                "params":
+                {
+                    "start_x": 320,
+                    "start_y": 384,
+                    "end_x": 960,
+                    "end_y": 128
+                }
+            }
+        ]
+    },
+    "tile": {
+        "texture": "grasstile.png",
+        "functions": [
+            {
+                "name": "line", 
+                "interval": 32,
+                "params":
+                {
+                    "start_x": 0,
+                    "start_y": 500,
+                    "end_x": 960,
+                    "end_y": 500
+                }
+            }
+        ]
+    }
+}

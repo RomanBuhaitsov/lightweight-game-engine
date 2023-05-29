@@ -3,7 +3,9 @@
 Level::Level(std::string name, GameWindow *game_window, MessageBus *message_bus)
     : BusNode(message_bus), name(name), game_window(game_window) {}
 
-Level::~Level() { this->reset(); }
+Level::~Level() { 
+  this->reset(); 
+}
 
 GameWindow *Level::getGameWindow() { return this->game_window; }
 

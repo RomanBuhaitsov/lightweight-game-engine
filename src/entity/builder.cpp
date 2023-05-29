@@ -8,16 +8,17 @@
 #include "builder.h"
 #include "entity.h"
 
-EntityBuilder::EntityBuilder(EntityType entityType) {
-  entity = new Entity(entityType);
+EntityBuilder::EntityBuilder(EntityType entityType, std::string name) {
+  entity = new Entity(entityType, name);
 }
 
 EntityBuilder::~EntityBuilder() { delete entity; }
 
 EntityBuilder *EntityBuilder::reset() {
   EntityType type = this->entity->getType();
+  std::string name = this->entity->getName();
   delete this->entity;
-  this->entity = new Entity(type);
+  this->entity = new Entity(type, name);
   return this;
 }
 
@@ -34,11 +35,6 @@ EntityBuilder *EntityBuilder::addSprite(SpriteComponent *spriteComponent) {
 EntityBuilder *
 EntityBuilder::addSpritePhysics(SpritePhysicsHandler *spritePhysics) {
   this->entity->addComponent(spritePhysics);
-  return this;
-}
-
-EntityBuilder *EntityBuilder::addAudio(AudioComponent *audioComponent) {
-  this->entity->addComponent(audioComponent);
   return this;
 }
 
