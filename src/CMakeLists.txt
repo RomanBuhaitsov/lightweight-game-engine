@@ -9,6 +9,8 @@ project(lightweight-game-engine CXX)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 find_package(SDL2_mixer CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 add_subdirectory(component)
 add_subdirectory(camera)
@@ -49,7 +51,6 @@ target_link_libraries(lightweight-game-engine PRIVATE Sprite)
 target_link_libraries(lightweight-game-engine PRIVATE TextureManager)
 target_link_libraries(lightweight-game-engine PRIVATE Level)
 
-find_package(fmt CONFIG REQUIRED)
 target_link_libraries(lightweight-game-engine PRIVATE fmt::fmt)
 
 target_link_libraries(lightweight-game-engine
@@ -64,4 +65,8 @@ target_link_libraries(lightweight-game-engine
 target_link_libraries(lightweight-game-engine 
   PRIVATE 
   $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
+)
+target_link_libraries(lightweight-game-engine
+  PRIVATE 
+  nlohmann_json::nlohmann_json
 )

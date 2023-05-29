@@ -3,7 +3,7 @@
 #include "../game_window/game_window.h"
 #include "../entity/factory.h"
 #include <string>
-
+#include <nlohman/json.hpp>
 
 class Level : public BusNode {
 private:
@@ -21,10 +21,12 @@ public:
   GameWindow *getGameWindow();
   void setNextLevel(Level *next_level);
   void setPreviousLevel(Level *next_level);
+  void saveAsJson(){};
+  void createFromJson(){};
   virtual void init(){};
   virtual void reset(){};
   virtual void update(){};
-
+  
 protected:
   virtual void onNotify(const Message & message){};
 };

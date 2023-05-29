@@ -28,3 +28,12 @@ Level *Level::prev() {
   }
   return this->previous_level;
 }
+
+void Level::saveAsJson() { 
+
+}
+
+void Level::createFromJson() { 
+  
+}
+
