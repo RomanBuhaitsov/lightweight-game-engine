@@ -42,8 +42,11 @@ void Entity::destroy() {
   components.clear();
 }
 
-Entity::Entity(EntityType entityType) : entityType(entityType) {}
+Entity::Entity(EntityType entityType, std::string name) : entityType(entityType), name(name) {}
 
 const EntityType &Entity::getType() const { return entityType; }
 
-Entity::~Entity() { destroy(); }
+const std::string &Entity::getName() const { return name; }
+
+Entity::~Entity() { 
+  destroy(); }

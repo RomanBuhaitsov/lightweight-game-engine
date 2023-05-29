@@ -24,7 +24,7 @@ const std::string & EntityFactory::EnumToString(EntityFactoryType type) {
 
 Entity *EntityFactory::createTile(int pos_x, int pos_y, SDL_Texture *texture,
                                   MessageBus *message_bus) {
-  return (new EntityBuilder(EntityType::ET_GENERIC))
+  return (new EntityBuilder(EntityType::ET_GENERIC, "tile"))
       ->addPhysics(new PhysicsComponent(
           PhysicsComponent::TileBody(pos_x, pos_y, 32, 32, 0.8f), message_bus))
       ->addSprite(new SpriteComponent(message_bus, texture, 32, 32, 64, 64))
@@ -34,7 +34,7 @@ Entity *EntityFactory::createTile(int pos_x, int pos_y, SDL_Texture *texture,
 
 Entity *EntityFactory::createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
                                     MessageBus *message_bus) {
-  return (new EntityBuilder(EntityType::ET_PLAYER))
+  return (new EntityBuilder(EntityType::ET_PLAYER, "player"))
       ->addPhysics(new PhysicsComponent(
           PhysicsComponent::CharacterBody(pos_x, pos_y, 24, 24, 0.1f),
           message_bus))
@@ -48,8 +48,9 @@ Entity *EntityFactory::createPlayer(int pos_x, int pos_y, SDL_Texture *texture,
 Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *texture,
                                     MessageBus *message_bus, int animation_speed, 
                                     const std::initializer_list<Uint16> &numFrames, 
-                                    std::string track_title) {
-  return (new EntityBuilder(EntityType::ET_GENERIC))
+                                    std::string track_title,
+                                    int width, int lenght) {
+  return (new EntityBuilder(EntityType::ET_GENERIC, "animation"))
       ->addPhysics(new PhysicsComponent(
           PhysicsComponent::TileBody(pos_x, pos_y, 96, 96, 0.8f),
            [track_title](Entity* self, Entity* other, MessageBus* message_bus) {
@@ -76,7 +77,7 @@ Entity *EntityFactory::createAnimation(int pos_x, int pos_y, SDL_Texture *textur
 
 Entity* EntityFactory::createCoin(int pos_x, int pos_y, SDL_Texture* texture,
     MessageBus* message_bus) {
-    return (new EntityBuilder(EntityType::ET_COLLECTIBLE))
+    return (new EntityBuilder(EntityType::ET_COLLECTIBLE, "coin"))
         ->addPhysics(new PhysicsComponent(
             PhysicsComponent::TileBody(pos_x, pos_y, 16, 16, 0.1f),
             //custom touch function

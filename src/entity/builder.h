@@ -11,7 +11,7 @@ private:
   Entity *entity;
 
 public:
-  EntityBuilder(EntityType entityType);
+  EntityBuilder(EntityType entityType, std::string name);
   ~EntityBuilder();
   EntityBuilder *reset();
   EntityBuilder *addPhysics(PhysicsComponent *physicsComponent);

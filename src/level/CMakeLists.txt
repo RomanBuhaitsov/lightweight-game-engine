@@ -8,11 +8,11 @@ find_package(nlohmann_json CONFIG REQUIRED)
 target_sources(Level
   PUBLIC
   level.h
-  levels.h
+  level_builder.h
   manager.h
   PRIVATE
   level.cpp
-  levels.cpp
+  level_builder.cpp
   manager.cpp
 )
 

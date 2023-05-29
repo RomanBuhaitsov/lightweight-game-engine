@@ -27,6 +27,7 @@ public:
   void draw() override{};
   void init() override;
   b2Body *getBody();
+  virtual json to_json();
   ~PhysicsComponent();
   const static float RAD2DEG;
   const static float M2P;

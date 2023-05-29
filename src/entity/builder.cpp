@@ -8,16 +8,17 @@
 #include "builder.h"
 #include "entity.h"
 
-EntityBuilder::EntityBuilder(EntityType entityType) {
-  entity = new Entity(entityType);
+EntityBuilder::EntityBuilder(EntityType entityType, std::string name) {
+  entity = new Entity(entityType, name);
 }
 
 EntityBuilder::~EntityBuilder() { delete entity; }
 
 EntityBuilder *EntityBuilder::reset() {
   EntityType type = this->entity->getType();
+  std::string name = this->entity->getName();
   delete this->entity;
-  this->entity = new Entity(type);
+  this->entity = new Entity(type, name);
   return this;
 }
 

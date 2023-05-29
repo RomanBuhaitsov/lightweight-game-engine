@@ -165,3 +165,11 @@ b2Body *PhysicsComponent::TestFixtureBody(int x, int y, float friction)
   }
   return dynamicBody;
 }
+
+// TODO: add options for triangle shape
+ json PhysicsComponent::to_json() {
+    json data;
+    data["x"] =body->GetPosition().x;
+    data["y"] =body->GetPosition().y;
+    return json();
+}

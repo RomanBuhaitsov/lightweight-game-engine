@@ -5,8 +5,8 @@
 #include "entity/entity_contact.h"
 #include "game_loop/game_loop.h"
 #include "game_window/game_window.h"
-#include "level/levels.h"
 #include "level/manager.h"
+#include "level/level_builder.h"
 #include "texture_manager/texture_manager.h"
 #include "audio_manager/audio_manager.h"
 #include "IO/io_manager.h"
@@ -28,7 +28,9 @@ int main(int argc, char **argv) {
   //TextureManager* texture_manager =
   //    new TextureManager(window, "src/static/textures");
   AudioManager* audio_manager = new AudioManager(message_bus);
-  Level *first_level = new Level1(window, message_bus);
+  LevelBuilder *level_builder = new LevelBuilder(window, message_bus);
+
+  Level *first_level = level_builder->createFromJson("C:/Users/rbuha/university/lge2/lightweight-game-engine/src/static/levels/level1.json");
   LevelManager *levels = new LevelManager(first_level, message_bus);
   GameLoop *loop =
       new GameLoop(levels, message_bus, io, window, /*texture_manager,*/ audio_manager,
