@@ -68,9 +68,7 @@ void LevelBuilder::addWithLineFunction(std::string texture, int interval, int st
 
 LevelBuilder::LevelBuilder(GameWindow *game_window, MessageBus *message_bus) : BusNode(message_bus), game_window(game_window){}
 
-LevelBuilder::~LevelBuilder()
-{
-}
+LevelBuilder::~LevelBuilder(){}
 
 Level* LevelBuilder::createFromJson(std::string path)
 {
@@ -88,27 +86,21 @@ Level* LevelBuilder::createFromJson(std::string path)
     for(auto& animation: data["animations"]){
       int x = animation["x"];
       int y = animation["y"];
-      std::cout << "1\n";
       unsigned short width = animation["width"];
       unsigned short length = animation["length"];
-      std::cout << "2\n";
       std::string texture = animation["texture"];
       int speed = animation["speed"];
       int cols = animation["frames_column"];
       int rows = animation["frames_row"];
       std::string track = animation["track"];
-      std::cout << "3\n";
       this->addAnimation(texture, x, y, speed, cols, rows, track, width, length);
     }
-    std::cout << "333333333333333333333333\n";
 
     std::string coinTexture = data["coin"]["texture"];
     for (const auto& position : data["coin"]["positions"])
         addCoin(coinTexture, position["x"], position["y"]);
-    std::cout << "44444444444444444444444\n";
     
     for (const auto& function : data["coin"]["functions"]){
-      std::cout << "4\n";
       addWithLineFunction(coinTexture, 
       function["interval"],
       function["params"]["start_x"],
@@ -117,15 +109,12 @@ Level* LevelBuilder::createFromJson(std::string path)
       function["params"]["end_y"],
       [this](std::string texture, int interval, int start_x){
         addCoin(texture, interval, start_x);
-      std::cout << "5\n";
       });
     }
     
     std::string tileTexture = data["tile"]["texture"];
-    std::cout << "666666666666666666666\n";
     for (const auto& function : data["tile"]["functions"]){
-      std::cout << "7\n";
-      addWithLineFunction(coinTexture, 
+      addWithLineFunction(tileTexture, 
       function["interval"],
       function["params"]["start_x"],
       function["params"]["start_y"],
@@ -133,7 +122,6 @@ Level* LevelBuilder::createFromJson(std::string path)
       function["params"]["end_y"],
       [this](std::string texture, int interval, int start_x){
         addTile(texture, interval, start_x);
-      std::cout << "8\n";
       });
     }
 
@@ -142,7 +130,4 @@ Level* LevelBuilder::createFromJson(std::string path)
         std::cerr << "Error: " << e.what() << std::endl;
         return new Level("ERROR", game_window, messageBus);
   }
-
-
-  
 }

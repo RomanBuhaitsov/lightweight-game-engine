@@ -16,7 +16,7 @@
             "speed": 150,
             "frames_column": 3,
             "frames_row": 1,
-            "track": "capmfire"
+            "track": "campfire"
         }
     ],
     "coin": {
@@ -54,13 +54,13 @@
         "functions": [
             {
                 "name": "line", 
-                "interval": 40,
+                "interval": 32,
                 "params":
                 {
-                    "start_x": 320,
-                    "start_y": 384,
+                    "start_x": 0,
+                    "start_y": 500,
                     "end_x": 960,
-                    "end_y": 128
+                    "end_y": 500
                 }
             }
         ]

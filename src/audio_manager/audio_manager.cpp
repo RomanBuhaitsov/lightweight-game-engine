@@ -13,7 +13,7 @@ AudioManager::AudioManager(MessageBus *message_bus) : BusNode(message_bus){
 }
 
 void AudioManager::loadMusic(const std::filesystem::path &dir, bool ignoreDirs){
-  "src/static/sound/music/";
+    // "src/static/sound/music/";
     // TODO: add option to load music based on config (either to load all 
     // music in /music directory or every track in music config file)
 }
