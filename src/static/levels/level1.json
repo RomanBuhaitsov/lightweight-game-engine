@@ -1,6 +1,6 @@
 {
     "name": "First Level",
-    "backgorundImage": "background.png",
+    "backgroundImage": "background.png",
     "player": {
         "x": 0,
         "y": 0,

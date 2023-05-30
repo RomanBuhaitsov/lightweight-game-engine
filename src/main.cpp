@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
   AudioManager* audio_manager = new AudioManager(message_bus);
   LevelBuilder *level_builder = new LevelBuilder(window, message_bus);
 
-  Level *first_level = level_builder->createFromJson("C:/Users/rbuha/university/lge2/lightweight-game-engine/src/static/levels/level1.json");
+  Level *first_level = level_builder->createFromJson("./src/static/levels/level1.json");
   LevelManager *levels = new LevelManager(first_level, message_bus);
   GameLoop *loop =
       new GameLoop(levels, message_bus, io, window, audio_manager,

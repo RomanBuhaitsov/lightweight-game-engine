@@ -80,7 +80,7 @@ Level* LevelBuilder::createFromJson(std::string path)
     }
     json data = json::parse(f);
     Level* newLevel = new Level(data["name"], game_window, messageBus);
-    this->setBackground(data["backgorundImage"]);
+    this->setBackground(data["backgroundImage"]);
     this->addPlayer(data["player"]["texture"], data["player"]["x"], data["player"]["y"]);
     
     for(auto& animation: data["animations"]){
