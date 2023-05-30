@@ -6,22 +6,28 @@ LevelManager::LevelManager(Level *current_level, MessageBus *message_bus)
 
 LevelManager::~LevelManager() { delete this->current_level; }
 
-void LevelManager::prev() {
+void LevelManager::prev()
+{
   this->current_level = this->current_level->prev();
-  if (this->current_level != nullptr) {
+  if (this->current_level == nullptr)
+  {
     this->send(Message(MessageEvent::QUIT));
   }
 }
 
-void LevelManager::next() {
+void LevelManager::next()
+{
   this->current_level = this->current_level->next();
-  if (this->current_level != nullptr) {
+  if (this->current_level == nullptr)
+  {
     this->send(Message(MessageEvent::QUIT));
   }
 }
 
-void LevelManager::onNotify(const Message & message) {
-  switch (message.getEvent()) {
+void LevelManager::onNotify(const Message &message)
+{
+  switch (message.getEvent())
+  {
   case MessageEvent::NEXT_LEVEL:
     this->next();
     break;
@@ -30,7 +36,8 @@ void LevelManager::onNotify(const Message & message) {
   }
 }
 
-void LevelManager::start() {
+void LevelManager::start()
+{
   if (this->current_level == nullptr)
     return;
   this->current_level->init();
