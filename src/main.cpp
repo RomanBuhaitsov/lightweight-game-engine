@@ -14,7 +14,8 @@
 #include "config.cpp"
 #include "log.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   Config *config = new Config();
   MessageBus *message_bus = new MessageBus();
   IOManager *io = new IOManager(message_bus);
@@ -25,7 +26,7 @@ int main(int argc, char **argv) {
   EntityContactListener *contact_listener =
       new EntityContactListener(message_bus);
   window->getWorld()->SetContactListener(contact_listener);
-  AudioManager* audio_manager = new AudioManager(message_bus);
+  AudioManager *audio_manager = new AudioManager(message_bus);
   LevelBuilder *level_builder = new LevelBuilder(window, message_bus);
 
   Level *first_level = level_builder->createFromJson("./src/static/levels/level1.json");
@@ -41,6 +42,7 @@ int main(int argc, char **argv) {
   delete contact_listener;
   delete audio_manager;
   delete loop;
-  delete message_bus; //MessageBus must be deleted last
+  delete levels;
+  delete message_bus; // MessageBus must be deleted last
   return 0;
 }
