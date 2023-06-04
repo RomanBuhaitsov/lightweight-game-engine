@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 #include <nlohmann/json.hpp>
 #include "level.h"
 

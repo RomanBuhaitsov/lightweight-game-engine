@@ -128,6 +128,6 @@ Level* LevelBuilder::createFromJson(std::string path)
     return newLevel;
   } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
-        return new Level("ERROR", game_window, messageBus);
+        throw  e;
   }
 }
